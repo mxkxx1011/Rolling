@@ -1,0 +1,14 @@
+@import '../Color.css';
+
+.div {
+  select {
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid var(--gray-color-300);
+    background-color: var(--white-color);
+  }
+  select:hover {
+  }
+  select:active {
+  }
+}

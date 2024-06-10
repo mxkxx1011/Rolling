@@ -19,4 +19,8 @@
     input::placeholder {
         font-size: 16px;
     }
+    input:disabled {
+        border: 1px solid var(--gray-color-300);
+        color: var(--surface-color);
+    }
 }
