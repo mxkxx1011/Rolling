@@ -1,16 +1,16 @@
-import 'assets/styles/TextFiled/.scss';
+import "../assets/styles/TextFiled/DropdownField.scss";
 
 function TextDropdownFiled() {
-  return (
-    <div>
-      <select>
-        <option>t1</option>
-        <option>t2</option>
-        <option>t3</option>
-        <option>t4</option>
-      </select>
-    </div>
-  );
+    return (
+        <div>
+            <select>
+                <option>t1</option>
+                <option>t2</option>
+                <option>t3</option>
+                <option>t4</option>
+            </select>
+        </div>
+    );
 }
 
 export default TextDropdownFiled;
