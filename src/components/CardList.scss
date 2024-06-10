@@ -1,0 +1,93 @@
+// 카드 리스트 - 공통적인 css (크기나 radius 등)
+@mixin CardListWrapper {
+    width: 275px;
+    height: 260px;
+    border-radius: 16px;
+    border: 1px solid #0000001A;
+    box-shadow: 0px 2px 12px 0px #00000014;
+    
+    padding: 30px 24px 20px;
+    background-repeat: no-repeat;
+}
+
+// 카드 리스트 - 배경 색상버전
+@mixin CardListColor {
+    background-position: right bottom;
+}
+
+// 카드 리스트 - 배경 이미지 버전
+@mixin CardListImage {
+    background-size: cover;
+    background-position: center; // TODO: 이미지 보고 포지션 바꾸기
+}
+
+// TODO: 공용 scss 파일 만들어서 거기로 이동시키기
+@mixin Flex($col, $justify, $align, $gap) { 
+    display: flex;
+    flex-direction: $col;
+    justify-content: $justify;
+    align-items:$align;
+    gap: $gap;
+}
+
+.card-list {
+    @include CardListWrapper;
+    cursor: pointer;
+
+    .card-list-content {
+        height: 100%;
+        @include Flex(column, space-between, '', '');
+
+    }
+
+    .content-top {
+        @include Flex(column, '', '', 12px)
+    }
+
+    .imojis {
+        padding-top: 17px;
+        border-top: 1px solid #0000001F;
+        @include Flex(row, baseline, center, 8px);
+    }
+
+    .imoji {
+        background-color: #0000008A;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 32px;
+        @include Flex(row, center, center, 2px)
+    }
+
+    &.image {
+        @include CardListImage;
+    }
+
+    &.color {
+        @include CardListColor;
+    }
+
+    &.purple {
+        background-color: #ECD9FF; // TODO: 컬러 변수로 변경하기
+        background-image: url('../assets/pattern_01.svg'); 
+    }
+
+    &.yellow {
+        background-color: #FFE2AD; // TODO: 컬러 변수로 변경하기
+        background-image: url('../assets/pattern_02.svg'); 
+    }
+
+    &.blue {
+        background-color: #B1E4FF; // TODO: 컬러 변수로 변경하기
+        background-image: url('../assets/pattern_03.svg'); 
+    }
+
+    &.green {
+        background-color: #D0F5C3; // TODO: 컬러 변수로 변경하기
+        background-image: url('../assets/pattern_04.svg'); 
+    }
+
+    &.img { // img 말고 각 이미지 이름으로 해서 4개 만들기 .. 
+        // background-image: url(); // TODO: 이미지 맞게 주소 변경하기
+        color: white;
+    }
+}
