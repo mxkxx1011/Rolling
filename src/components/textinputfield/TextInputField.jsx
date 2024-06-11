@@ -1,4 +1,4 @@
-import 'assets/styles/TextFiled/InputField.scss';
+import './InputField.scss';
 
 function TextInputField() {
   return (

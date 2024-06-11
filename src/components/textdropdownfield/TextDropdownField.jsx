@@ -1,5 +1,5 @@
-import "../assets/styles/TextFiled/DropdownField.scss";
-import icon from "../assets/dropdownicon.svg";
+import "./DropdownField.scss";
+import icon from "../../assets/dropdownicon.svg";
 import { useState } from "react";
 
 function TextDropdownFiled({name, options}) {
