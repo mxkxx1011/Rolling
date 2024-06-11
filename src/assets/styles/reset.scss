@@ -1,10 +1,12 @@
-/* reset.css */
+/* reset.scss */
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
 */
-
+* {
+  margin: 0;
+}
 html,
 body,
 div,
@@ -12,7 +14,9 @@ span,
 applet,
 object,
 iframe,
-h1,
+h1 {
+  text-decoration: none;
+}
 h2,
 h3,
 h4,
@@ -21,7 +25,9 @@ h6,
 p,
 blockquote,
 pre,
-a,
+a {
+  text-decoration: none;
+}
 abbr,
 acronym,
 address,
