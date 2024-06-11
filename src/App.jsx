@@ -1,5 +1,15 @@
+import Badge from 'components/badge/Badge';
+import Modal from 'components/modal/Modal';
+import Toast from 'components/toast/Toast';
+
 function App() {
-  return <h2>react app</h2>;
+  return (
+    <>
+      <Modal />
+      <Badge>'가족'</Badge>
+      <Toast />
+    </>
+  );
 }
 
 export default App;
