@@ -1,27 +1,27 @@
-@import "../../styles/Color.css";
+@import "../palette.scss";
 
 div {
     input {
         border-radius: 8px;
         padding: 12px 16px;
-        border: 1px solid var(--gray-color-300);
-        background-color: var(--white-color);
+        border: 1px solid $gray-300;
+        background-color: $color--white;
         outline: none;
     }
     input:hover {
-        border: 1px solid var(--gray-color-500);
+        border: 1px solid $gray-500;
     }
     input:active {
-        border: 2px solid var(--gary-color-700);
+        border: 2px solid $gray-700;
     }
     input:focus {
-        border: 2px solid var(--gray-color-500);
+        border: 2px solid $gray-500;
     }
     input::placeholder {
         font-size: 16px;
     }
     input:disabled {
-        border: 1px solid var(--gray-color-300);
-        color: var(--surface-color);
+        border: 1px solid $gray-300;
+        color: $color--surface;
     }
 }

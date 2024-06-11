@@ -1,4 +1,4 @@
-@import '../Color.css';
+@import '../palette.scss';
 
 .Dropdown {
   position: relative;
@@ -9,37 +9,34 @@
 .DropdownToggle {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid var(--gray-color-300);
+  border: 1px solid $gray-300;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--white-color);
-  color: var(--gray-color-900);
+  background-color: $color--white;
+  color: var(gray-900);
 }
 .DropdownToggle:hover {
-  border: 1px solid var(--gray-color-500);
+  border: 1px solid $gray-500;
 }
 .DropdownToggle:focus {
-  border: 2px solid var(--gray-color-500);
+  border: 2px solid $gray-500;
 }
 .DropdownToggle:active {
-  border: 2px solid var(--gray-color-500);
+  border: 2px solid $gray-500;
 }
 
 .Arrow {
-  border: solid black;
-  border-width: 0 1.5px 1.5px 0;
   display: inline-block;
   padding: 3px;
   transition: transform 0.3s;
-  -webkit-transform: rotate(45deg);
+  -webkit-transform: rotate(0deg);
 }
 
 .Arrow.Open {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(225deg);
+  -webkit-transform: rotate(180deg);
 }
 
 .DropdownMenu {
@@ -47,8 +44,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: var(--white-color);
-  border: 1px solid var(--gray-color-300);
+  background-color: $color--white;
+  border: 1px solid $gray-300;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   list-style-type: none;
@@ -59,10 +56,10 @@
 
 .DropdownMenu li {
   padding: 12px 16px;
-  color: var(--gray-color-900);
+  color: $gray-900;
   cursor: pointer;
 }
 
 .DropdownMenu li:hover {
-  background-color: var(--gray-color-100);
+  background-color: $gray-100;
 }

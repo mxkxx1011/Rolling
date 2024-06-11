@@ -1,4 +1,5 @@
 import "../assets/styles/TextFiled/DropdownField.scss";
+import icon from "../assets/dropdownicon.svg";
 import { useState } from "react";
 
 function TextDropdownFiled({name, options}) {
@@ -19,7 +20,7 @@ function TextDropdownFiled({name, options}) {
         <div className="Dropdown">
             <button className="DropdownToggle" onClick={toggleDropdown}>
                 {selectedOption}
-                <span className={`Arrow ${isOpen ? 'Open' : ''}`}></span>
+                <img src={icon} alt="test" className={`Arrow ${isOpen ? 'Open' : ''}`} />
             </button>
             {isOpen && (
                 <ul className="DropdownMenu">
