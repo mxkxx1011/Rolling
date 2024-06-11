@@ -6,7 +6,9 @@ import React from 'react';
 function App() {
   return (
     <>
-      <Badge>가족</Badge>
+      <Modal />
+      <Badge />
+      <Toast />
     </>
   );
 }

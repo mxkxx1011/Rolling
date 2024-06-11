@@ -4,9 +4,9 @@ import React from 'react';
 function Badge({ children }) {
   return (
     <>
-      <div className={styles.TextBadgeContainer}>
+      <span className={styles.TextBadgeContainer}>
         <p className={styles.TextBadgeText}>{children}</p>
-      </div>
+      </span>
     </>
   );
 }
