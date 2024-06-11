@@ -1,11 +1,12 @@
 @import "../../styles/Color.css";
 
-.div {
+div {
     input {
         border-radius: 8px;
         padding: 12px 16px;
         border: 1px solid var(--gray-color-300);
         background-color: var(--white-color);
+        outline: none;
     }
     input:hover {
         border: 1px solid var(--gray-color-500);

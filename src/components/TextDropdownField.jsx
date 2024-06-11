@@ -1,16 +1,37 @@
 import "../assets/styles/TextFiled/DropdownField.scss";
+import { useState } from "react";
 
-function TextDropdownFiled() {
+function TextDropdownFiled({name, options}) {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(options[0]);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
+        setIsOpen(false);
+    };
+
     return (
-        <div>
-            <select>
-                <option>t1</option>
-                <option>t2</option>
-                <option>t3</option>
-                <option>t4</option>
-            </select>
+        <div className="Dropdown">
+            <button className="DropdownToggle" onClick={toggleDropdown}>
+                {selectedOption}
+                <span className={`Arrow ${isOpen ? 'Open' : ''}`}></span>
+            </button>
+            {isOpen && (
+                <ul className="DropdownMenu">
+                    {options.map((option, index) => (
+                        <li key={index} onClick={() => handleOptionClick(option)}>
+                            {option}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
-}
+};
 
 export default TextDropdownFiled;

@@ -1,5 +1,15 @@
+import TextDropdownFiled from "components/TextDropdownField";
+import TextInputField from "components/TextInputField";
+
 function App() {
-  return <h2>react app</h2>;
+  const options = ["Option 1", "Option 2", "Option 3"];
+  return (
+    <div>
+      <TextDropdownFiled options={options}></TextDropdownFiled>
+      <p></p>
+      <TextInputField></TextInputField>
+    </div>
+  );
 }
 
 export default App;

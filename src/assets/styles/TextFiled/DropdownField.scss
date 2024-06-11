@@ -1,14 +1,68 @@
 @import '../Color.css';
 
-.div {
-  select {
-    border-radius: 8px;
-    padding: 12px 16px;
-    border: 1px solid var(--gray-color-300);
-    background-color: var(--white-color);
-  }
-  select:hover {
-  }
-  select:active {
-  }
+.Dropdown {
+  position: relative;
+  display: inline-block;
+  width: 320px;
+}
+
+.DropdownToggle {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--gray-color-300);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white-color);
+  color: var(--gray-color-900);
+}
+.DropdownToggle:hover {
+  border: 1px solid var(--gray-color-500);
+}
+.DropdownToggle:focus {
+  border: 2px solid var(--gray-color-500);
+}
+.DropdownToggle:active {
+  border: 2px solid var(--gray-color-500);
+}
+
+.Arrow {
+  border: solid black;
+  border-width: 0 1.5px 1.5px 0;
+  display: inline-block;
+  padding: 3px;
+  transition: transform 0.3s;
+  -webkit-transform: rotate(45deg);
+}
+
+.Arrow.Open {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(225deg);
+}
+
+.DropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--white-color);
+  border: 1px solid var(--gray-color-300);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding: 10px 1px;
+  margin: 8px 0 0;
+  z-index: 1000;
+}
+
+.DropdownMenu li {
+  padding: 12px 16px;
+  color: var(--gray-color-900);
+  cursor: pointer;
+}
+
+.DropdownMenu li:hover {
+  background-color: var(--gray-color-100);
 }
