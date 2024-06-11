@@ -1,0 +1,33 @@
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+.ToastContainer {
+  background-color: $color--black;
+  opacity: 80%;
+  width: 524px;
+  height: 64px;
+  border-radius: 8px;
+  @include Flex(row, space-between, '', '');
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.ToastTextWrapper {
+  @include Flex(row, space-between, '', '');
+  align-items: center;
+  gap: 12px;
+  height: 26px;
+}
+.ToastText {
+  color: #ffffff;
+  @include font-style(16, regular);
+}
+.ToastImgSubtract {
+  width: 24px;
+  height: 24px;
+}
+.ToastImgClose {
+  width: 24px;
+  height: 24px;
+}
