@@ -1,6 +1,6 @@
+import './Modal.scss';
 import Badge from 'components/badge/Badge';
 //import Button from 'components/button';
-import './Modal.scss';
 import profileIMG from './profileImg.png';
 
 function Modal() {

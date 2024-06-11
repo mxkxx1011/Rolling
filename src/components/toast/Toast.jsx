@@ -1,23 +1,21 @@
-import styles from './Toast.module.scss';
-//import './Toast.module.scss';
-//import classNames from 'classnames';
+import './Toast.scss';
 import IMGclose from 'assets/images/ic_close.svg';
 import IMGsubtract from 'assets/images/ic_subtract.svg';
 
 function Toast() {
   return (
-    <div className={styles.ToastContainer}>
-      <div className={styles.ToastTextWrapper}>
+    <div className='toast-container'>
+      <div className='toast-text-wrapper'>
         <img
           src={IMGsubtract}
-          className={styles.ToastImgSubtract}
-          alt='토스트 왼쪽 아이콘'
+          className='toast-img-subtract'
+          alt='토스트 체크모양 아이콘'
         />
-        <p className={styles.ToastText}>URL이 복사 되었습니다.</p>
+        <p>URL이 복사 되었습니다.</p>
       </div>
       <img
         src={IMGclose}
-        className={styles.ToastImgClose}
+        className='toast-img-close'
         alt='토스트 창 닫기 아이콘'
       />
     </div>
