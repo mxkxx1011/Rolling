@@ -15,15 +15,14 @@ function Profile({ url }) {
 function ProfileList({ count = 4, messages }) {
   //   const recentMessages = messages.slice(0, 3);
   //   const [first, second, third] = [...recentMessages];
+  //   const COUNT = count - 3;
   //   return (
   //     <>
   //       <div className='profile-list'>
-  //         {first && <Profile url={first.profileImageURL} />}
-  //         {second && <Profile url={second.profileImageURL} />}
-  //         {third && <Profile url={third.profileImageURL} />}
+  //         {recentMessages.map((message) => message && <Profile url={message.profileImageURL} />)}
   //         {count > 3 && (
   //           <div>
-  //             <p>+{count - 3}</p>
+  //             <p>+{COUNT}</p>
   //           </div>
   //         )}
   //       </div>
@@ -91,11 +90,9 @@ function CardList({ type = 'color', color = 'purple', image, recipient }) {
           <div className='reaction-wrapper'>
             <ProfileList />
             {/* <ProfileList count={messageCount} messages={recentMessages} /> */}
-            {/* messageCount와 recentMessages를 보내서 3개 넘으면 profileImage 3개 출력하고 +(messageCount-3) 보이게하기*/}
-            {/* 3개 이하면 개수에 맞게 profileImage 보이게 */}
             <p className='font-16-regular'>
-              {/* 위 span - recipient의 messageCount로 변경*/}
               <span className='font-16-bold'>num</span>
+              {/* 위 span - recipient의 messageCount로 변경*/}
               명이 작성했어요!
             </p>
           </div>
