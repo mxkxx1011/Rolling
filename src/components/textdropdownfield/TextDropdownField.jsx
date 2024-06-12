@@ -2,7 +2,7 @@ import "./DropdownField.scss";
 import icon from "../../assets/dropdownicon.svg";
 import { useState } from "react";
 
-function TextDropdownFiled({name, options}) {
+function TextDropdownFiled({options}) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(options[0]);

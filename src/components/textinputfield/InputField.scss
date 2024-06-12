@@ -1,27 +1,27 @@
+@import '../../assets/styles/common.scss';
+@import '../../assets/styles/fonts.scss';
 @import '../../assets/styles/palette.scss';
 
-div {
-    input {
+    .InputLayer .Input {
         border-radius: 8px;
         padding: 12px 16px;
         border: 1px solid $gray-300;
         background-color: $color--white;
         outline: none;
     }
-    input:hover {
+    .InputLayer .Input:hover {
         border: 1px solid $gray-500;
     }
-    input:active {
+    .InputLayer .Input:active {
         border: 2px solid $gray-700;
     }
-    input:focus {
+    .InputLayer .Input:focus {
         border: 2px solid $gray-500;
     }
-    input::placeholder {
-        font-size: 16px;
+    .InputLayer .Input::placeholder {
+        @include font-style(16, regular);
     }
-    input:disabled {
+    .InputLayer .Input:disabled {
         border: 1px solid $gray-300;
         color: $color--surface;
     }
-}

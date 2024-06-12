@@ -1,3 +1,5 @@
+@import '../../assets/styles/common.scss';
+@import '../../assets/styles/fonts.scss';
 @import '../../assets/styles/palette.scss';
 
 .Dropdown {
@@ -6,40 +8,40 @@
   width: 320px;
 }
 
-.DropdownToggle {
+.Dropdown .DropdownToggle {
+  @include font-style(16, regular);
   width: 100%;
   padding: 12px 16px;
   border: 1px solid $gray-300;
   border-radius: 8px;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include Flex(row, space-between, center, "");
   background-color: $color--white;
   color: var(gray-900);
 }
-.DropdownToggle:hover {
+.Dropdown .DropdownToggle:hover {
   border: 1px solid $gray-500;
 }
-.DropdownToggle:focus {
+.Dropdown .DropdownToggle:focus {
   border: 2px solid $gray-500;
 }
-.DropdownToggle:active {
+.Dropdown .DropdownToggle:active {
   border: 2px solid $gray-500;
 }
 
-.Arrow {
+.Dropdown .DropdownToggle .Arrow {
   display: inline-block;
   padding: 3px;
   transition: transform 0.3s;
   -webkit-transform: rotate(0deg);
 }
 
-.Arrow.Open {
+.Dropdown .DropdownToggle .Arrow.Open {
   -webkit-transform: rotate(180deg);
 }
 
-.DropdownMenu {
+.Dropdown .DropdownMenu {
+  @include font-style(16, regular);
   position: absolute;
   top: 100%;
   left: 0;
@@ -54,12 +56,13 @@
   z-index: 1000;
 }
 
-.DropdownMenu li {
+.Dropdown .DropdownMenu li {
+  @include font-style(16, regular);
   padding: 12px 16px;
   color: $gray-900;
   cursor: pointer;
 }
 
-.DropdownMenu li:hover {
+.Dropdown .DropdownMenu li:hover {
   background-color: $gray-100;
 }
