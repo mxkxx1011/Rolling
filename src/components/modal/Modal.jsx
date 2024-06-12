@@ -1,6 +1,4 @@
-import './Modal.scss';
 import Badge from 'components/badge/Badge';
-//import Button from 'components/button';
 import profileIMG from './profileImg.png';
 import 'assets/styles/CardModal.scss';
 
@@ -9,25 +7,19 @@ import Button from 'components/Button';
 function Modal() {
   return (
     <>
-      <div className='modal-container'>
-        <div className='modal-header'>
-          <div className='modal-header-item-container'>
-            <div className='profile-container modal'>
-              <img
-                className='profile-img'
-                src={profileIMG}
-                alt='프로필 이미지'
-              />
-              <div className='profile-text-wrapper'>
-                <p className='profile-name'>
-                  From. <span>선재</span>
-                </p>
-                <Badge>친구</Badge>
-              </div>
+      <div className='container modal'>
+        <div className='header modal'>
+          <div className='profile-container modal'>
+            <img className='profile-img' src={profileIMG} alt='프로필 이미지' />
+            <div className='profile-text-wrapper'>
+              <p className='profile-name'>
+                From. <span>선재</span>
+              </p>
+              <Badge>친구</Badge>
             </div>
-            <div className='date'>
-              <p>2023.07.07</p>
-            </div>
+          </div>
+          <div className='date'>
+            <p>2023.07.07</p>
           </div>
         </div>
         <div className='modal-body'>
