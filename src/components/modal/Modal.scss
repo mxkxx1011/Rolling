@@ -1,6 +1,7 @@
 @import 'assets/styles/palette.scss';
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
+@import 'assets/styles/CardModal.scss';
 
 .modal-container {
   background-color: $color--white;
@@ -20,49 +21,22 @@
   padding-left: 39px;
   padding-right: 45px;
 }
-.modal-profile-container {
-  width: 181px;
-  height: 56px;
-  @include Flex(row, space-between, center, '');
-}
-.modal-profile-img {
-  width: 56px;
-  height: 56px;
-  border-radius: 70%;
-}
-.modal-profile-text-wrapper {
-  width: 109px;
-  height: 50px;
-}
 .modal-profile-name {
-  @include font-style(20, regular);
-  margin-top: 0px;
-  margin-bottom: 6px;
-}
-.modal-profile-name span {
-  @include font-style(20, bold);
-}
-.modal-date p {
-  @include font-style(14, regular);
-  color: $gray-400;
-  align-items: center;
+  margin: 0 0 6px 0;
 }
 //모달 body style
 .modal-body {
   @include Flex(column, center, center, 24px);
 }
-.modal-letter-container {
+.card-letter-container {
   width: 520px;
   height: 256px;
   border-top: 1px solid $gray-200;
   overflow: auto;
 }
-//버튼 컴포넌트 테스트용 (버튼 컴포넌트 import시, 지울 것)
-.button {
+
+.modal-btn {
   width: 120px;
-  height: 40px;
-  background-color: $purple-400;
-  color: $color--white;
-  @include Flex(row, center, center, '');
-  border-radius: 4px;
+  line-height: 26px;
+  letter-spacing: -0.01em;
 }

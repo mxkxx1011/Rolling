@@ -2,6 +2,9 @@ import './Modal.scss';
 import Badge from 'components/badge/Badge';
 //import Button from 'components/button';
 import profileIMG from './profileImg.png';
+import 'assets/styles/CardModal.scss';
+
+import Button from 'components/Button';
 
 function Modal() {
   return (
@@ -9,27 +12,27 @@ function Modal() {
       <div className='modal-container'>
         <div className='modal-header'>
           <div className='modal-header-item-container'>
-            <div className='modal-profile-container'>
+            <div className='profile-container modal'>
               <img
-                className='modal-profile-img'
+                className='profile-img'
                 src={profileIMG}
                 alt='프로필 이미지'
               />
-              <div className='modal-profile-text-wrapper'>
-                <p className='modal-profile-name'>
+              <div className='profile-text-wrapper'>
+                <p className='profile-name'>
                   From. <span>선재</span>
                 </p>
                 <Badge>친구</Badge>
               </div>
             </div>
-            <div className='modal-date'>
+            <div className='date'>
               <p>2023.07.07</p>
             </div>
           </div>
         </div>
         <div className='modal-body'>
-          <div className='modal-letter-container'>
-            <p className='modal-letter'>
+          <div className='card-letter-container'>
+            <p className='card-letter modal'>
               이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는
               사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에
               당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한
@@ -48,8 +51,9 @@ function Modal() {
               7년의 행운을 빌면서...
             </p>
           </div>
-          <div className='button'>확인</div>
-          {/* Button 컴포넌트 위치 (확인 버튼) */}
+          <Button className='modal-btn' type='primary' size='40'>
+            확인
+          </Button>
         </div>
       </div>
     </>

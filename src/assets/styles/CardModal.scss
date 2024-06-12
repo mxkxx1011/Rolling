@@ -1,0 +1,71 @@
+@import './common.scss';
+@import './palette.scss';
+@import './fonts.scss';
+
+$types: (
+  modal: (
+    gap: 16px,
+    color: #5a5a5a
+  ),
+  card: (
+    gap: 14px,
+    color: #4a4a4a
+  )
+);
+
+@mixin ProfileFlex($type) {
+    $type-styles: map-get($types, $type);
+    @include Flex(row, null, center, map-get($type-styles, gap));
+}
+
+@mixin LetterColor($type) {
+    $type-styles: map-get($types, $type);
+    color: map-get($type-styles, color);
+}
+
+.profile-container {
+    img {
+        width: 56px;
+        height: 56px;
+        border-radius: 100px;
+        border: 1px solid $gray-200;
+    }
+    .profile-text-wrapper {
+        @include Flex(column, null, null, 6px);
+
+        .profile-name {
+            @include font-style(20, regular);
+
+            & > span {
+                @include font-style(20, bold);
+            }
+        }
+    }
+
+    &.modal {
+        @include ProfileFlex(modal);
+    }
+
+    &.card {
+        @include ProfileFlex(card);
+    }
+}
+
+.date {
+    @include font-style(14, regular);
+    color: $gray-400;
+}
+
+.card-letter {
+    @include font-style(18, regular);
+    line-height: 28px;
+    letter-spacing: -0.01em;
+    text-align: left;
+
+    &.modal {
+        @include LetterColor(modal);
+    }
+    &.card {
+        @include LetterColor(card);
+    }
+}
