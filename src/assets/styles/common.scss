@@ -3,10 +3,36 @@
 // flex box 공통적으로 사용할 수 있게끔
 // 사용하지 않을 속성은 ''으로 작성하면 됨, 파라미터 개수 순서는 맞춰야함
 // ex) @include Flex(column, center, '', '')
-@mixin Flex($col, $justifyContent, $alignItems, $gap) { 
-    display: flex;
-    flex-direction: $col;
-    justify-content: $justifyContent;
-    align-items:$alignItems;
-    gap: $gap;
+@mixin Flex($col, $justifyContent, $alignItems, $gap) {
+  display: flex;
+  flex-direction: $col;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+  gap: $gap;
+}
+
+// 반응형 레이아웃 설정
+// 믹스인을 호출해서 스타일을 작성하면 @content에 전달됨
+// ex) @include mobile or tablet or desktop { 해당 디바이스에서 적용할 스타일 }
+$mobile-max: 767px;
+$tablet-min: 768px;
+$tablet-max: 1023px;
+$desktop-min: 1024px;
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-min) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: $tablet-min) and (max-width: $tablet-max) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (max-width: $mobile-max) {
+    @content;
+  }
 }
