@@ -8,28 +8,22 @@
   width: 524px;
   height: 64px;
   border-radius: 8px;
-  @include Flex(row, space-between, '', '');
-  align-items: center;
-  padding-left: 30px;
-  padding-right: 30px;
+  @include Flex(row, space-between, center, '');
+  padding: 0 30px;
 }
 .toast-text-wrapper {
-  @include Flex(row, space-between, '', '');
-  align-items: center;
+  @include Flex(row, space-between, center, '');
   gap: 12px;
-  height: 26px;
 }
 .toast-text-wrapper p {
   color: #ffffff;
   @include font-style(16, regular);
 }
-.toast-img-subtract {
+.toast-container img {
   width: 24px;
   height: 24px;
 }
 .toast-img-close {
-  width: 24px;
-  height: 24px;
   &:hover {
     cursor: pointer;
   }
