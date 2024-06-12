@@ -26,7 +26,7 @@
   color: $blue-500;
 }
 
-.EmojiBadgeContainer {
+.emoji-badge-container {
   background-color: $color--black;
   opacity: 54%;
   border-radius: 32px;
@@ -35,13 +35,13 @@
   padding: 8px 12px;
 }
 
-.TextBadgeContainer {
+.text-badge-container {
   width: 41px;
   height: 20px;
   border-radius: 4px;
   @include Flex(row, center, center, '');
   @include Blue;
 }
-.TextBadgeText {
+.text-badge-container p {
   @include font-style(14, regular);
 }

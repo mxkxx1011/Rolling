@@ -2,7 +2,7 @@
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
 
-.ToastContainer {
+.toast-container {
   background-color: $color--black;
   opacity: 80%;
   width: 524px;
@@ -13,21 +13,24 @@
   padding-left: 30px;
   padding-right: 30px;
 }
-.ToastTextWrapper {
+.toast-text-wrapper {
   @include Flex(row, space-between, '', '');
   align-items: center;
   gap: 12px;
   height: 26px;
 }
-.ToastText {
+.toast-text-wrapper p {
   color: #ffffff;
   @include font-style(16, regular);
 }
-.ToastImgSubtract {
+.toast-img-subtract {
   width: 24px;
   height: 24px;
 }
-.ToastImgClose {
+.toast-img-close {
   width: 24px;
   height: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 }
