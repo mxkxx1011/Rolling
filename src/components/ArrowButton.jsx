@@ -5,7 +5,7 @@ import iconArrowRight from '../assets/images/ic_arrow_right.svg';
 
 function ArrowButton({ direction }) {
   return (
-    <button className={classNames('ArrowButton')}>
+    <button className={classNames('arrow-button')}>
       <img src={direction === 'left' ? iconArrowLeft : iconArrowRight} />
     </button>
   );

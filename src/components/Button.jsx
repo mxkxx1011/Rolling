@@ -7,7 +7,7 @@ function Button({ children, size, type, emoji, disable }) {
   return (
     <button
       disabled={disable}
-      className={classNames('Button', `size-${size}`, type)}
+      className={classNames('button', `size-${size}`, type)}
     >
       {emoji && (size === '28' ? <IconAdd20 /> : <IconAdd24 />)}
       {children}

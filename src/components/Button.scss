@@ -1,7 +1,7 @@
 @import '../assets/styles/common.scss';
 @import '../assets/styles/palette.scss';
 @import '../assets/styles/fonts.scss';
-.Button {
+.button {
   cursor: pointer;
   border: none;
   @include Flex(row, center, center, null);
