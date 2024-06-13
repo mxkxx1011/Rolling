@@ -22,7 +22,7 @@ function Axios(Method, query, body="null") {
 
     useEffect(() => {
         fetchData();
-    }, [Method])
+    }, [])
     return datatest;
 }
 // 내용물을 받을 body, 구별용 id, 어떤 요청을 보낼지 확인할 method 이렇게 3개면되낭?
