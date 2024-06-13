@@ -6,23 +6,25 @@ import { useState, useEffect } from "react";
 const API_KEY = "https://rolling-api.vercel.app/7-4";
 const File_Url = "https://rolling-api.vercel.app/profile-images/";
 
-function Axios(Method, query) {
+function Axios(Method, query, body="null") {
     const response = async() => {
         try {
             await axios({
                 method: Method,
                 url: query,
+                body: body,
             })
         }
         catch(error) {
-            // switch(error) {
-            //     case 
-            // }
             console.log(error);
         }
-
     };
+    return response;
 }
+
+// 내용물을 받을 body, 구별용 id, 어떤 요청을 보낼지 확인할 method 이렇게 3개면되낭?
+// recipints는 내용물 리미트와 같은 다른 내용물도 처리할거 생각해야함
+
 
 // 사용자 프로필 이미지 API
 export function GetProfileImages() {
@@ -30,7 +32,6 @@ export function GetProfileImages() {
         const fetchImage = async () => {
             try {
                 const response = await axios.get(File_Url);
-                // setGetImg(response.data.imageUrls);
             }
             catch(error) {
                 console.log(error);
@@ -41,21 +42,22 @@ export function GetProfileImages() {
     return ;
 }
 
-export async function GetProFileImages() {
-    console.log(API_KEY);
-    const query = `${API_KEY}/messages/`;
-    //https://rolling-api.vercel.app/7-4/background-images/
-    console.log(query);
-    await axios.get(query)
-    .then(resoponse => {
-        console.log(resoponse.data);
-    })
-    .catch(error => {
-        console.log(error);
-    })
+export function MessagesAPI(Method, id, body) {
+    const query = `${API_KEY}/messages${id}/`;
+    switch(Method) {
+        case "get":
+            return Axios(Method, query);
+        case "put":
+            return Axios(Method, query, body);
+        case "patch":
+            return Axios(Method, query, body);
+        case "delete":
+            Axios(Method, query);
+            return "delete_success";
+    }
 }
 
-export function MessagesAPI(name, data ,id) {
+export function RecipientsAPI(Method, id, body) {
 
 }
 
