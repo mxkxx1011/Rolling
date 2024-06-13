@@ -1,8 +1,7 @@
 import Badge from 'components/badge/Badge';
+import Button from 'components/Button';
 import profileIMG from './profileImg.png';
 import 'assets/styles/CardModal.scss';
-
-import Button from 'components/Button';
 
 function Modal() {
   return (
