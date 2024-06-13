@@ -2,36 +2,28 @@
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
 
-//지인 Badge color
-@mixin BeigeBadge() {
-  background-color: $orange-100;
-  color: $orange-500;
-}
-
-//동료 Badge color
-@mixin PurpleBadge() {
-  background-color: $purple-100;
-  color: $purple-500;
-}
-
-//가족 Badge color
-@mixin GreenBadge() {
-  background-color: $green-100;
-  color: $green-500;
-}
-
-//친구 Badge color
-@mixin BlueBadge() {
-  background-color: $blue-100;
-  color: $blue-500;
-}
-
 .text-badge-container {
   width: 41px;
   height: 20px;
   border-radius: 4px;
   @include Flex(row, center, center, null);
-  @include BlueBadge();
+
+  &.BeigeBadge {
+    background-color: $orange-100;
+    color: $orange-500;
+  }
+  &.PurpleBadge {
+    background-color: $purple-100;
+    color: $purple-500;
+  }
+  &.GreenBadge {
+    background-color: $green-100;
+    color: $green-500;
+  }
+  &.BlueBadge {
+    background-color: $blue-100;
+    color: $blue-500;
+  }
 }
 .text-badge-container {
   p {
