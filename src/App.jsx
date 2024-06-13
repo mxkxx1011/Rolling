@@ -1,7 +1,5 @@
-import Toast from 'components/toast/Toast';
-
 function App() {
-  return <Toast />;
+  return <h2>react app</h2>;
 }
 
 export default App;
