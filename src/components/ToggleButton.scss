@@ -1,0 +1,24 @@
+@import '../assets/styles/common.scss';
+@import '../assets/styles/palette.scss';
+@import '../assets/styles/fonts.scss';
+
+.toggle-button {
+  display: flex;
+  border-radius: 6px;
+  background-color: $gray-100;
+  width: 244px;
+
+  .button {
+    flex: 1;
+
+    &.secondary {
+      @include font-style(16, bold);
+      border: 2px solid $purple-600;
+    }
+
+    &.default {
+      background-color: $gray-100;
+      color: $gray-900;
+    }
+  }
+}
