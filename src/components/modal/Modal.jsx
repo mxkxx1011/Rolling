@@ -19,7 +19,7 @@ function Modal() {
             </div>
           </div>
           <div className='date'>
-            <p>2023.07.07</p>
+            <p>2023.07.09</p>
           </div>
         </div>
         <div className='modal-body'>
