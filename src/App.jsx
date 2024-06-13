@@ -2,19 +2,21 @@ import ArrowButton from 'components/ArrowButton';
 import Button from './components/Button';
 import PlusButton from 'components/PlusButton';
 import DeleteButton from 'components/DeleteButton';
+import ToggleButton from 'components/ToggleButton';
 
 function App() {
   return (
     <>
-      <Button disable={false} type='outlined' size='40' emoji={true}>
+      <Button disable={true} type='primary' size='40' emoji={true}>
         한주바보
       </Button>
-      <Button disable={true} type='secondary' size='28' emoji={false}>
+      <Button disable={false} type='secondary' size='40' emoji={true}>
         Disabled
       </Button>
-      <ArrowButton direction='right' />
+      <ArrowButton direction='left' />
       <PlusButton disable={false} />
       <DeleteButton disable={false} />
+      <ToggleButton options={['바보', '멍청이']} />
     </>
   );
 }
