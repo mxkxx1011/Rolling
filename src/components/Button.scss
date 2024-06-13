@@ -1,7 +1,7 @@
 @import '../assets/styles/common.scss';
 @import '../assets/styles/palette.scss';
 @import '../assets/styles/fonts.scss';
-.Button {
+.button {
   cursor: pointer;
   border: none;
   @include Flex(row, center, center, null);
@@ -38,7 +38,8 @@
       color: $purple-800;
     }
   }
-  &.outlined {
+  &.outlined,
+  &.delete {
     background-color: $color--white;
     color: $gray-900;
     border: 1px solid $gray-300;
@@ -86,5 +87,8 @@
     path {
       fill: $color--white;
     }
+  }
+  &.delete {
+    padding: 6px;
   }
 }

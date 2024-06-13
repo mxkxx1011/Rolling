@@ -4,7 +4,7 @@ import iconPlus from '../assets/images/ic_plus.svg';
 
 function PlusButton({ disable }) {
   return (
-    <button disabled={disable} className={classNames('PlusButton')}>
+    <button disabled={disable} className={classNames('plus-button')}>
       <img src={iconPlus} />
     </button>
   );

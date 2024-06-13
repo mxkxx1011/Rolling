@@ -1,12 +1,12 @@
-import classNames from 'classnames';
-import './DeleteButton.scss';
+import './Button.scss';
+import Button from './Button';
 import { ReactComponent as IconDelete } from '../assets/images/ic_deleted.svg';
 
 function DeleteButton({ disable }) {
   return (
-    <button disabled={disable} className={classNames('DeleteButton')}>
+    <Button disable={disable} type='delete' size='36' emoji={false}>
       <IconDelete />
-    </button>
+    </Button>
   );
 }
 
