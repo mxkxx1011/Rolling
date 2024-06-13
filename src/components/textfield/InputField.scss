@@ -2,26 +2,26 @@
 @import '../../assets/styles/fonts.scss';
 @import '../../assets/styles/palette.scss';
 
-    .InputLayer .Input {
+    .inputlayer .input {
         border-radius: 8px;
         padding: 12px 16px;
         border: 1px solid $gray-300;
         background-color: $color--white;
         outline: none;
     }
-    .InputLayer .Input:hover {
+    .inputlayer .input:hover {
         border: 1px solid $gray-500;
     }
-    .InputLayer .Input:active {
+    .inputlayer .input:active {
         border: 2px solid $gray-700;
     }
-    .InputLayer .Input:focus {
+    .inputlayer .input:focus {
         border: 2px solid $gray-500;
     }
-    .InputLayer .Input::placeholder {
+    .inputlayer .input::placeholder {
         @include font-style(16, regular);
     }
-    .InputLayer .Input:disabled {
+    .inputlayer .input:disabled {
         border: 1px solid $gray-300;
         color: $color--surface;
     }

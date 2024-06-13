@@ -17,13 +17,13 @@ function TextDropdownFiled({options}) {
     };
 
     return (
-        <div className="Dropdown">
-            <button className="DropdownToggle" onClick={toggleDropdown}>
+        <div className="dropdown">
+            <button className="dropdowntoggle" onClick={toggleDropdown}>
                 {selectedOption}
-                <img src={icon} alt="test" className={`Arrow ${isOpen ? 'Open' : ''}`} />
+                <img src={icon} alt="test" className={`arrow ${isOpen ? 'open' : ''}`} />
             </button>
             {isOpen && (
-                <ul className="DropdownMenu">
+                <ul className="dropdownmenu">
                     {options.map((option, index) => (
                         <li key={index} onClick={() => handleOptionClick(option)}>
                             {option}
