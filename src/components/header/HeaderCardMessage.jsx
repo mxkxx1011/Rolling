@@ -5,12 +5,19 @@ import './HeaderCardMessage.scss';
 import iconShare24 from 'assets/images/ic_share_24.svg';
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
+import ShareKakao from 'utils/ShareKakao';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
 }
 
-function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
+function HeaderCardMessage({
+  name,
+  messageCount,
+  recentMessages,
+  reactions,
+  handleClick,
+}) {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -38,9 +45,10 @@ function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
                 추가
               </Button>
               <div className='border'></div>
-              <Button type='outlined' size='36'>
+              {/* <Button type='outlined' size='36' handleClick={handleClick}>
                 <img src={iconShare24} alt='공유버튼' />
-              </Button>
+              </Button> */}
+              <ShareKakao />
             </div>
           </div>
         </div>

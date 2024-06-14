@@ -8,6 +8,7 @@ import Card from 'components/card/Card';
 import './CardMessagePage.scss';
 import classNames from 'classnames';
 import Options from 'components/option/Options';
+import ShareKakao from 'utils/ShareKakao';
 
 // post/{id}
 function CardMessagePage() {
@@ -54,6 +55,7 @@ function CardMessagePage() {
           messageCount={messageCount}
           recentMessages={recentMessages}
           reactions={topReactions}
+          handleClick={ShareKakao}
         />
       ) : null}
       <div
