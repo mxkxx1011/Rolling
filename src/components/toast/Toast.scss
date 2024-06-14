@@ -1,0 +1,34 @@
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+.toast-container {
+  background-color: $color--black;
+  opacity: 80%;
+  width: 524px;
+  height: 64px;
+  border-radius: 8px;
+  @include Flex(row, space-between, center, null);
+  padding: 0 30px;
+}
+.toast-text-wrapper {
+  @include Flex(row, space-between, center, null);
+  gap: 12px;
+}
+.toast-text-wrapper {
+  p {
+    color: $color--white;
+    @include font-style(16, regular);
+  }
+}
+.toast-container {
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+.toast-img-close {
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,94 @@
+@import '../assets/styles/common.scss';
+@import '../assets/styles/palette.scss';
+@import '../assets/styles/fonts.scss';
+.button {
+  cursor: pointer;
+  border: none;
+  @include Flex(row, center, center, null);
+  &.primary {
+    background-color: $purple-600;
+    color: $color--white;
+    &:hover {
+      background-color: $purple-700;
+    }
+    &:active {
+      background-color: $purple-800;
+    }
+    &:focus {
+      background-color: $purple-800;
+      outline: 2px solid $purple-900;
+    }
+  }
+  &.secondary {
+    background-color: $color--white;
+    color: $purple-600;
+    border: 1px solid $purple-600;
+    &:hover {
+      background-color: $purple-100;
+      border: 1px solid $purple-700;
+      color: $purple-700;
+    }
+    &:active {
+      background-color: $purple-100;
+      border: 1px solid $purple-800;
+      color: $purple-800;
+    }
+    &:focus {
+      border: 1px solid $purple-800;
+      color: $purple-800;
+    }
+  }
+  &.outlined,
+  &.delete {
+    background-color: $color--white;
+    color: $gray-900;
+    border: 1px solid $gray-300;
+    &:hover {
+      background-color: $gray-100;
+    }
+    &:active {
+      background-color: $gray-100;
+    }
+    &:focus {
+      border: 1px solid $gray-500;
+    }
+  }
+
+  &.size-56 {
+    @include font-style(18, bold);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  &.size-40 {
+    @include font-style(16, regular);
+    border-radius: 6px;
+    gap: 10px;
+    padding: 8px 16px;
+  }
+  &.size-36 {
+    @include font-style(16, regular);
+    border-radius: 6px;
+    gap: 4px;
+    padding: 6px 16px;
+  }
+  &.size-28 {
+    @include font-style(14, regular);
+    border-radius: 6px;
+    gap: 4px;
+    padding: 2px 16px;
+  }
+  &:disabled,
+  &:disabled:hover {
+    background-color: $gray-300;
+    color: $color--white;
+    border: none;
+
+    // svg파일의 path태그 마지막줄에 있는 fill속성을 사용해 색상변경
+    path {
+      fill: $color--white;
+    }
+  }
+  &.delete {
+    padding: 6px;
+  }
+}

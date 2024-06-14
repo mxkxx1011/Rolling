@@ -1,0 +1,65 @@
+$font-sizes: (
+  '28': 28px,
+  '24': 24px,
+  '20': 20px,
+  '18': 18px,
+  '16': 16px,
+  '15': 15px,
+  '14': 14px,
+  '12': 12px,
+);
+
+@mixin font-style($size, $weight) {
+  font-size: map-get($font-sizes, '#{$size}');
+  font-weight: $weight;
+}
+
+.font-28-bold {
+  @include font-style(28, bold);
+}
+
+.font-24-bold {
+  @include font-style(24, bold);
+}
+.font-24-regular {
+  @include font-style(24, regular);
+}
+
+.font-20-bold {
+  @include font-style(20, bold);
+}
+.font-20-regular {
+  @include font-style(20, regular);
+}
+
+.font-18-bold {
+  @include font-style(18, bold);
+}
+.font-18-regular {
+  @include font-style(18, regular);
+}
+
+.font-16-bold {
+  @include font-style(16, bold);
+}
+.font-16-regular {
+  @include font-style(16, regular);
+}
+
+.font-15-bold {
+  @include font-style(15, bold);
+}
+.font-15-regular {
+  @include font-style(15, regular);
+}
+
+.font-14-bold {
+  @include font-style(14, bold);
+}
+.font-14-regular {
+  @include font-style(14, regular);
+}
+
+.font-12-regular {
+  @include font-style(12, regular);
+}
