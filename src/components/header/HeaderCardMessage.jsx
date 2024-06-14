@@ -32,7 +32,7 @@ function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
             <ReactionList reactions={results} />
             <div className='dropdown'>
               <img src={iconArrowDown} alt='down' />
-              {/* 임시 아이콘 (드롭다운 컴포넌트로 바꾸기) */}
+              {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
             </div>
             <div className='button-wrapper'>
               <Button type='outlined' size='36' emoji>
