@@ -1,5 +1,4 @@
 import "./DropdownField.scss";
-// import icon from "../../assets/dropdownicon.svg";
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from "react";
