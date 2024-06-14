@@ -1,0 +1,26 @@
+@import '../assets/styles/common.scss';
+@import '../assets/styles/palette.scss';
+@import '../assets/styles/fonts.scss';
+
+.page-container {
+  &.post {
+    padding: 57px 600px;
+  }
+}
+TextInputField {
+  width: 720px;
+}
+.font-24-bold {
+  @include font-style(24, bold);
+  color: $gray-900;
+}
+.font-16-regular {
+  @include font-style(16, regular);
+  color: $gray-500;
+}
+.text-container {
+  padding: 24px 0;
+  p {
+    margin-bottom: 4px;
+  }
+}
