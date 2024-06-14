@@ -1,5 +1,5 @@
 import "./DropdownField.scss";
-import icon from "../../assets/dropdownicon.svg";
+// import icon from "../../assets/dropdownicon.svg";
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from "react";
@@ -9,7 +9,7 @@ function TextDropdownField({options}) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(options[0]);
 
-    const toggleDropdown = () => {
+    const onToggle = () => {
         setIsOpen(!isOpen);
     };
 
@@ -20,7 +20,7 @@ function TextDropdownField({options}) {
 
     return (
         <div className="dropdown">
-            <button className="dropdowntoggle" onClick={toggleDropdown}>
+            <button className="dropdowntoggle" onClick={onToggle}>
                 {selectedOption}
                 <img src={isOpen ? iconArrowDown : iconArrowTop} alt='test' className="arrow" />
                 {/* <img src={icon} alt="test" className={`arrow ${isOpen ? 'open' : ''}`} /> */}

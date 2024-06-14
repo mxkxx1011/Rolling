@@ -2,6 +2,7 @@ import { RecipientsAPI } from "data/CallAPI";
 import { useState, useEffect } from "react";
 // import CardList from "components/CardList";
 import TextDropdownField from "components/textfield/TextDropdownField";
+import EmojiToggle from "components/EmojiToggle";
 
 function CardListPage() {
   const [cardList, setCardList] = useState([]);
@@ -12,7 +13,8 @@ function CardListPage() {
   return (
     <div className="cardlistlayer">
       <div className="hotcardlist">
-        <TextDropdownField options={test}></TextDropdownField>
+        <EmojiToggle></EmojiToggle>
+        {/* <TextDropdownField options={test}></TextDropdownField> */}
         {/* 반복문 */}
         {/* <CardList /> */}
       </div>

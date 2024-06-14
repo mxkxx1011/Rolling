@@ -3,15 +3,14 @@ import { useState, useEffect } from "react";
 
 const API_KEY = process.env.REACT_APP_API_URL;
 //6-1 
-function Axios(Method, query, body="null") {
-
+function Axios(Method, query, body=null) {
     const [datatest, setDatatest] = useState([]);
     const fetchData = async() => {
         try {
             const response = await axios({
                 method: Method,
                 url: query,
-                data: body !== "null" ? body : undefined,
+                data: body !== null ? body : undefined,
             });
             setDatatest(response.data);
         }
@@ -29,7 +28,7 @@ function Axios(Method, query, body="null") {
 // recipints는 내용물 리미트와 같은 다른 내용물도 처리할거 생각해야함
 
 //작성된 롤링페이퍼 내부의 메시지를 가져오는 API
-export function MessagesAPI(Method, id, body = null) {
+export function MessagesAPI(Method, id, body=null) {
     const query = `${API_KEY}/messages/${id}/`;
     return Axios(Method, query, body);
 }
