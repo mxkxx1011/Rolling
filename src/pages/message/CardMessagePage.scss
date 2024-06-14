@@ -1,0 +1,46 @@
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+$colors: (
+  'purple': #ecd9ff,
+  'beige': #ffe2ad,
+  'blue': #b1e4ff,
+  'green': #d0f5c3,
+);
+@mixin BackgroundColor($color) {
+  background-color: map-get($colors, $color);
+}
+
+.body {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  & > div {
+    width: 1200px;
+    padding: 113px 0;
+    margin: 0 auto;
+
+    .message {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3개의 열을 동일한 너비로 설정 */
+      gap: 24px; /* 각 요소 사이의 간격 */
+
+      & > *:nth-child(n + 4) {
+        margin-top: 4px;
+      }
+    }
+  }
+  &.purple {
+    @include BackgroundColor('purple');
+  }
+  &.beige {
+    @include BackgroundColor('orange');
+  }
+  &.blue {
+    @include BackgroundColor('blue');
+  }
+  &.green {
+    @include BackgroundColor('green');
+  }
+}

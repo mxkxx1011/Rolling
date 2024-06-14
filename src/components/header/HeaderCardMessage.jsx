@@ -11,7 +11,6 @@ function HeaderName({ name }) {
 }
 
 function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
-  const { results } = reactions;
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -29,7 +28,7 @@ function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
           </div>
           <div className='border'></div>
           <div>
-            <ReactionList reactions={results} />
+            <ReactionList reactions={reactions} />
             <div className='dropdown'>
               <img src={iconArrowDown} alt='down' />
               {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
