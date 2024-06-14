@@ -32,4 +32,5 @@ function App() {
 
 // Button - disable, emoji: true or false / type: primary or secondary or outlined / size: 56 or 40 or 36 or 28
 // ArrowButton - direction: left or right
+
 export default App;
