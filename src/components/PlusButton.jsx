@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import './PlusButton.scss';
 import iconPlus from '../assets/images/ic_plus.svg';
 
-function PlusButton({ disable }) {
+function PlusButton({ disabled }) {
   return (
-    <button disabled={disable} className={classNames('plus-button')}>
+    <button disabled={disabled} className={classNames('plus-button')}>
       <img src={iconPlus} />
     </button>
   );
