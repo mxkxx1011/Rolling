@@ -6,63 +6,60 @@
   position: relative;
   display: inline-block;
   width: 320px;
-}
 
-.dropdown .dropdownToggle {
-  @include font-style(16, regular);
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid $gray-300;
-  border-radius: 8px;
-  cursor: pointer;
-  @include Flex(row, space-between, center, "");
-  background-color: $color--white;
-  color: var(gray-900);
-}
-.dropdown .dropdowntoggle:hover {
-  border: 1px solid $gray-500;
-}
-.dropdown .dropdowntoggle:focus {
-  border: 2px solid $gray-500;
-}
-.dropdown .dropdowntoggle:active {
-  border: 2px solid $gray-500;
-}
+  .dropdowntoggle {
+    @include font-style(16, regular);
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid $gray-300;
+    border-radius: 8px;
+    cursor: pointer;
+    @include Flex(row, space-between, center, "");
+    background-color: $color--white;
+    color: var(gray-900);
 
-.dropdown .dropdowntoggle .arrow {
-  display: inline-block;
-  padding: 3px;
-  transition: transform 0.3s;
-  -webkit-transform: rotate(0deg);
-}
-
-.dropdown .dropdowntoggle .arrow.open {
-  -webkit-transform: rotate(180deg);
-}
-
-.dropdown .dropdownmenu {
-  @include font-style(16, regular);
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: $color--white;
-  border: 1px solid $gray-300;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  list-style-type: none;
-  padding: 10px 1px;
-  margin: 8px 0 0;
-  z-index: 1000;
-}
-
-.dropdown .dropdownmenu li {
-  @include font-style(16, regular);
-  padding: 12px 16px;
-  color: $gray-900;
-  cursor: pointer;
-}
-
-.dropdown .dropdownmenu li:hover {
-  background-color: $gray-100;
+    &:hover {
+      border: 1px solid $gray-500;
+    }
+    &:focus {
+      border: 2px solid $gray-500;
+    }
+    &:active {
+      border: 2px solid $gray-500;
+    }
+    & .arrow {
+      display: inline-block;
+      padding: 3px;
+      transition: transform 0.3s;
+      -webkit-transform: rotate(0deg);
+    }
+    &.arrow.open {
+      -webkit-transform: rotate(180deg);
+    }
+    
+    .dropdownmenu {
+      @include font-style(16, regular);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: $color--white;
+      border: 1px solid $gray-300;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      list-style-type: none;
+      padding: 10px 1px;
+      margin: 8px 0 0;
+      z-index: 1000;
+      &li {
+        @include font-style(16, regular);
+        padding: 12px 16px;
+        color: $gray-900;
+        cursor: pointer;
+        &:hover {
+          background-color: $gray-100;
+        }
+      }
+    }
+  }
 }

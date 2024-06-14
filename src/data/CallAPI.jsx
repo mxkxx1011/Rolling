@@ -42,7 +42,6 @@ export function RecipientsAPI(Method, id=null, body=null) {
         query = `${query}/${id}/`;
     }
     return Axios(Method, query, body);
-
 }
 
 //특정 롤링페이퍼의 메시지 조회 및 추가 API
