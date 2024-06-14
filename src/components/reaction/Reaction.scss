@@ -1,0 +1,16 @@
+@import 'assets/styles/reset.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/common.scss';
+.reactions {
+    @include Flex(row, baseline, center, 8px);
+
+    .reaction {
+        @include Flex(row, center, center, 2px);
+        background-color: #0000008A;
+        color: $color--white;
+        padding: 8px 12px;
+        border-radius: 32px;
+        @include font-style(16, regular);
+    }
+}

@@ -26,64 +26,21 @@
     .content-top {
         @include Flex(column, null, null, 12px);
 
+        & > p{
+            line-height: 36px;
+        }
+        
         .reaction-wrapper {
             @include Flex(column, null, null, 12px);
-        }
-    
-        .profile-list {
-            position: relative;
-            height: 28px;
-
-            & > * {
-                position: absolute;
-            }
-            img {
-                border-radius: 50px;
-                border: 1.5px solid $color--white;
-                width: 28px;
-                height: 28px;
-            }
-
-            @for $i from 0 to 2 {
-                img:nth-child($i + 1) {
-                    left: 0 + (16px * $i);
-                    z-index: $i + 1;
-                }
-            }
-
-            div {
-                z-index: 4;
-                left: 48px;
-                background-color: $color--white;
-                border-radius: 30px;
-                padding: 5px 6px;
-                
-                @include font-style(12, regular);
-                color: $gray-500;   
-                p{
-                    @include Flex(row, center, center, null);
-                    width: 18px;
-                    height: 18px;
-                    line-height: 18px;
-                    letter-spacing: -0.005em;
-                }
+            p {
+                line-height: 26px;
             }
         }
     }
 
     .reactions {
-        padding-top: 17px;
         border-top: 1px solid #0000001F;
-        @include Flex(row, baseline, center, 8px);
-    }
-
-    .reaction {
-        @include Flex(row, center, center, 2px);
-        background-color: #0000008A;
-        color: $color--white;
-        padding: 8px 12px;
-        border-radius: 32px;
-        @include font-style(16, regular);
+        padding-top: 17px;
     }
 
     &.image {
@@ -97,22 +54,22 @@
 
     &.purple {
         background-color: $purple-200; 
-        background-image: url('../assets/images/image_pattern_01.svg'); 
+        background-image: url('/assets/images/image_pattern_01.svg'); 
     }
 
     &.orange {
         background-color: $orange-200; 
-        background-image: url('../assets/images/image_pattern_02.svg'); 
+        background-image: url('/assets/images/image_pattern_02.svg'); 
     }
 
     &.blue {
         background-color: $blue-200; 
-        background-image: url('../assets/images/image_pattern_03.svg'); 
+        background-image: url('/assets/images/image_pattern_03.svg'); 
     }
 
     &.green {
         background-color: $green-200; 
-        background-image: url('../assets/images/image_pattern_04.svg'); 
+        background-image: url('/assets/images/image_pattern_04.svg'); 
     }
 
     &.img {
