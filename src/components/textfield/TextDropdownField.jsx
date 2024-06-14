@@ -1,38 +1,45 @@
-import "./DropdownField.scss";
-import icon from "../../assets/dropdownicon.svg";
-import { useState } from "react";
+import './DropdownField.scss';
+import icon from '../../assets/dropdownicon.svg';
+import { useState } from 'react';
 
-function TextDropdownFiled({options}) {
+import './DropdownField.scss';
+import icon from '../../assets/dropdownicon.svg';
+import { useState } from 'react';
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(options[0]);
+function TextDropdownField({ options }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('지인');
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
-    const handleOptionClick = (option) => {
-        setSelectedOption(option);
-        setIsOpen(false);
-    };
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
 
-    return (
-        <div className="dropdown">
-            <button className="dropdowntoggle" onClick={toggleDropdown}>
-                {selectedOption}
-                <img src={icon} alt="test" className={`arrow ${isOpen ? 'open' : ''}`} />
-            </button>
-            {isOpen && (
-                <ul className="dropdownmenu">
-                    {options.map((option, index) => (
-                        <li key={index} onClick={() => handleOptionClick(option)}>
-                            {option}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
-};
+  return (
+    <div className='dropdown'>
+      <button className='dropdowntoggle' onClick={toggleDropdown}>
+        {selectedOption}
+        <img
+          src={icon}
+          alt='test'
+          className={`arrow ${isOpen ? 'open' : ''}`}
+        />
+      </button>
+      {isOpen && (
+        <ul className='dropdownmenu'>
+          {options.map((option, index) => (
+            <li key={index} onClick={() => handleOptionClick(option)}>
+              {option}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
-export default TextDropdownFiled;
+export default TextDropdownField;
