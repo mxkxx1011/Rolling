@@ -2,14 +2,7 @@
 @import 'assets/styles/palette.scss';
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
-
-.visible {
-  display: flex;
-}
-
-.invisible {
-  display: none;
-}
+@import 'components/Button.scss';
 
 .header {
   border-bottom: 1px solid #ededed;
@@ -40,15 +33,5 @@
       font-style: normal;
       color: #4a494f;
     }
-  }
-
-  .button {
-    @include Flex(row, center, center, 0);
-    @include font-style(16, bold);
-    width: 157px;
-    height: 40px;
-    border-radius: 6px;
-    border: 1px solid $gray-300;
-    color: $gray-900;
   }
 }
