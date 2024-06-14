@@ -1,12 +1,32 @@
-.emojilistlayer {
-    button {
-        img {
+@import '../assets/styles/common.scss';
+@import '../assets/styles/fonts.scss';
+@import '../assets/styles/palette.scss';
 
-        }
+.emojilistlayer {
+
+    .emojitoggle {
+        width: 36px;
+        height: 36px;
+        border: 0;
+        background-color: $color--white;
     }
     .allemojilist {
+        z-index: 100;
+        border-radius: 8px;
+        padding: 24px;
+        // @include Flex(row, flex-start, center, 8px);
+        // flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        row-gap: 8px;
+        column-gap: 10px;
         .emoji {
-            
+            border: 1px solid $color--black;
+            padding: 6px 12px;
+            border-radius: 32px;
+            background-color: $gray-700;
+            color: $color--white;
+            // #0000008A
         }
     }
 }

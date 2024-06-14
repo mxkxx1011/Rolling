@@ -32,7 +32,7 @@
        &::placeholder {
           @include font-style(16, regular);
       }
-     &:disabled {
+      &:disabled {
           border: 1px solid $gray-300;
           color: $color--surface;
       }
