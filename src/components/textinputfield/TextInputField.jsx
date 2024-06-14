@@ -1,9 +1,10 @@
+import React from 'react';
 import './InputField.scss';
 
-function TextInputField() {
+function TextInputField({ children }) {
   return (
-    <div className="InputLayer">
-      <input placeholder='예시' className="Input" />
+    <div className='InputLayer'>
+      <input placeholder={children} className='Input' />
     </div>
   );
 }
