@@ -7,6 +7,7 @@ import { RecipientsAPI, RecipientsMessagesAPI } from 'data/CallAPI';
 import Card from 'components/card/Card';
 import './CardMessagePage.scss';
 import classNames from 'classnames';
+import Options from 'components/option/Options';
 
 // post/{id}
 function CardMessagePage() {
@@ -55,13 +56,13 @@ function CardMessagePage() {
           reactions={topReactions}
         />
       ) : null}
-      <body
+      <div
         className={classNames('body', backgroundColor)}
         style={BackGroundImageStyle}
       >
         {recentMessages ? (
           <div>
-            <div class='message'>
+            <div className='message'>
               <Card type='plus' />
               {messages.map((message) => (
                 <Card key={message.id} message={message} type='normal' />
@@ -71,7 +72,9 @@ function CardMessagePage() {
         ) : (
           <h2>메시지가 없어요</h2>
         )}
-      </body>
+
+        <Options />
+      </div>
     </>
   );
 }

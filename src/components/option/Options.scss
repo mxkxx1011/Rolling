@@ -1,0 +1,44 @@
+@import 'assets/styles/reset.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+.options {
+  @include Flex(row, null, center, 16px);
+
+  .option {
+    width: 168px;
+    height: 168px;
+    border-radius: 16px;
+    border: 1px solid #00000014;
+    @include Flex(row, center, center, null);
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &:hover {
+      cursor: pointer;
+    }
+    &.purple {
+      background-color: $purple-200;
+    }
+
+    &.yellow {
+      background-color: $orange-200;
+    }
+    &.blue {
+      background-color: $blue-200;
+    }
+    &.green {
+      background-color: $green-200;
+    }
+
+    .check {
+      @include Flex(row, center, center, null);
+      background-color: $gray-500;
+      border-radius: 100px;
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
