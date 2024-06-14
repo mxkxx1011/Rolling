@@ -2,10 +2,6 @@ import './DropdownField.scss';
 import icon from '../../assets/dropdownicon.svg';
 import { useState } from 'react';
 
-import './DropdownField.scss';
-import icon from '../../assets/dropdownicon.svg';
-import { useState } from 'react';
-
 function TextDropdownField({ options }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('지인');

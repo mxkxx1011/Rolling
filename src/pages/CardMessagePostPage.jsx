@@ -1,26 +1,43 @@
+import React, { useState } from 'react';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import Button from 'components/Button';
 import styles from 'pages/CardMessagePostPage.module.scss';
 import DefaultProfileIcon from 'assets/images/ic_person.svg';
+import ToastEditor from 'components/ToastEditor';
 
-// const API_URL = process.env.REACT_APP_API_URL;
-
-// post/{id}/message
 function CardMessagePostPage() {
-  // const [recipient, setRecipient] = useState();
-  // const [recipientMessage, setRecipientMessage] = useState();
+  const [sender, setSender] = useState('');
+  const [relationship, setRelationship] = useState('');
+  const [font, setFont] = useState('');
+  const [message, setMessage] = useState('');
 
-  // useEffect(() => {}, []);
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const formData = {
+      sender,
+      relationship,
+      font,
+      message,
+    };
+    console.log(formData);
+    // 폼 데이터를 서버로 전송하는 로직을 추가하세요
+  };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleFormSubmit}>
         <div className={styles.wrapper}>
           <label className={styles.label} htmlFor='nameInput'>
             From.
           </label>
-          <TextInputField type='text' id='nameInput' name='sender'>
+          <TextInputField
+            type='text'
+            id='nameInput'
+            name='sender'
+            value={sender}
+            onChange={(e) => setSender(e.target.value)}
+          >
             이름을 입력해 주세요.
           </TextInputField>
         </div>
@@ -34,15 +51,25 @@ function CardMessagePostPage() {
           <label className={styles.label} htmlFor=''>
             상대와의 관계
           </label>
-          <TextDropdownField></TextDropdownField>
+          <TextDropdownField
+            value={relationship}
+            onChange={(e) => setRelationship(e.target.value)}
+          >
+            {/* 옵션을 추가하세요 */}
+          </TextDropdownField>
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>내용을 입력해 주세요</label>
-          <textarea></textarea>
+          <ToastEditor body={message} setBody={setMessage} />
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>폰트 선택</label>
-          <TextDropdownField>지인</TextDropdownField>
+          <TextDropdownField
+            value={font}
+            onChange={(e) => setFont(e.target.value)}
+          >
+            {/* 옵션을 추가하세요 */}
+          </TextDropdownField>
         </div>
         <Button type='primary' size='56'>
           생성하기
