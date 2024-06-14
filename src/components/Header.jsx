@@ -1,5 +1,7 @@
 import logo from 'assets/images/ic_logo.svg';
 import styles from 'components/Header.module.scss';
+import Button from 'components/Button';
+import useNavigator from 'hooks/useNavigator';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -7,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 function Header() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
+  const handleMovePage = useNavigator();
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isPostPage = location.pathname.startsWith('/post');
 
@@ -36,12 +39,18 @@ function Header() {
           </Link>
           {/* 포스트 페이지가 아닐 때 롤링 페이퍼 만들기 버튼이 나타나지 않도록 설정 */}
           {!isPostPage && (
-            <Link to='/post' className={styles.button}>
+            <Button
+              type='outlined'
+              size='40'
+              handleClick={() => handleMovePage('/post')}
+            >
               롤링 페이퍼 만들기
-            </Link>
+            </Button>
           )}
         </div>
       </header>
     )
   );
 }
+
+export default Header;
