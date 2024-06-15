@@ -30,8 +30,11 @@ function CardListPage() {
     <div className='cardlistlayer'>
       <div className='hotcardlist'>
         <EmojiToggle></EmojiToggle>
+        <br/>
         <TextDropdownField options={test}></TextDropdownField>
+        <br/><br/>
         <TextInputField></TextInputField>
+        <br/>
         {/* <TextDropdownField options={test}></TextDropdownField> */}
         {/* 반복문 */}
         {/* <CardList /> */}

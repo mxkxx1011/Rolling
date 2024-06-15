@@ -24,12 +24,11 @@ function EmojiToggle() {
       </button>
       {isOpen && (
         <div className='allemojilist'>
-          {/* 이모지 리스트 중복? 처리에 대한 질문있음 배경색도 없는수치임 */}
           {/* 반복문으로 이모지 데이터 접근 */}
           {testcount.map((a, index) => (
             <div className='emoji'>
-              {testemoji}
-              {a}
+              <p>{testemoji}</p>
+              <p>{a}</p>
             </div>
           ))}
         </div>

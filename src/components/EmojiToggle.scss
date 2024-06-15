@@ -11,22 +11,35 @@
         background-color: $color--white;
     }
     .allemojilist {
+        width: fit-content;
         z-index: 100;
         border-radius: 8px;
         padding: 24px;
-        // @include Flex(row, flex-start, center, 8px);
-        // flex-wrap: wrap;
+        // border: 1px solid #B6B6B6;
+        border: 1px solid $gray-400;
+        box-shadow: 0px 2px 12px 0px #00000014;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-content: center;
         row-gap: 8px;
         column-gap: 10px;
         .emoji {
-            border: 1px solid $color--black;
+            @include Flex(row, center, center, 2px);
             padding: 6px 12px;
             border-radius: 32px;
-            background-color: $gray-700;
-            color: $color--white;
-            // #0000008A
+            background-color: rgb($color--black, 0.54);
+            p {
+                color: $color--white;
+            }
+        }
+        @include desktop {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        @include tablet {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        @include mobile {
+            
         }
     }
 }
