@@ -8,6 +8,11 @@
   border-radius: 4px;
   @include Flex(row, center, center, null);
 
+  //Badge Style 기본값
+  background-color: $orange-100;
+  color: $orange-500;
+
+  //조건별 Badge Style
   &.BeigeBadge {
     background-color: $orange-100;
     color: $orange-500;

@@ -3,24 +3,34 @@
 @import '../assets/styles/fonts.scss';
 
 .page-container {
-  &.post {
-    padding: 57px 600px;
-  }
-}
-TextInputField {
-  width: 720px;
+  padding: 57px 600px;
 }
 .font-24-bold {
   @include font-style(24, bold);
   color: $gray-900;
+  &.title-to {
+    line-height: 42px;
+    margin-bottom: 12px;
+  }
+  &.title-choice {
+    line-height: 36px;
+  }
 }
 .font-16-regular {
   @include font-style(16, regular);
   color: $gray-500;
+  line-height: 26px;
 }
 .text-container {
-  padding: 24px 0;
+  padding: 50px 0 24px 0;
   p {
-    margin-bottom: 4px;
+    margin-top: 4px;
   }
+}
+.option-component-container {
+  padding: 45px 0;
+  height: 168px;
+}
+Button {
+  width: 720px;
 }
