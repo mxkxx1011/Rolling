@@ -9,11 +9,15 @@ import './CardMessagePage.scss';
 import classNames from 'classnames';
 import Options from 'components/option/Options';
 import ShareKakao from 'utils/ShareKakao';
+import Modal from 'components/modal/Modal';
 
 // post/{id}
 function CardMessagePage() {
   const [recipient, setRecipient] = useState({});
   const [recipientMessage, setRecipientMessage] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+
   const { postId } = useParams(); // id랑 겹쳐서 수정 ㅠ
   const {
     name,
@@ -27,6 +31,19 @@ function CardMessagePage() {
   } = recipient;
 
   const messages = recipientMessage ? recipientMessage.slice(0, 5) : []; // 쿼리를 변경해야 하나 ... .. ?
+  const BackGroundImageStyle = {
+    backgroundImage: `url(${backgroundImageURL})`,
+  };
+
+  const handleOpenModal = (message) => {
+    setIsModalOpen(true);
+    setSelectedMessage(message);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMessage(null);
+  };
 
   useEffect(() => {
     const getRecipient = async () => {
@@ -42,10 +59,6 @@ function CardMessagePage() {
 
     getRecipient();
   }, [postId]);
-
-  const BackGroundImageStyle = {
-    backgroundImage: `url(${backgroundImageURL})`,
-  };
 
   return (
     <>
@@ -67,7 +80,12 @@ function CardMessagePage() {
             <div className='message'>
               <Card type='plus' />
               {messages.map((message) => (
-                <Card key={message.id} message={message} type='normal' />
+                <Card
+                  key={message.id}
+                  message={message}
+                  type='normal'
+                  handleClick={() => handleOpenModal(message)}
+                />
               ))}
             </div>
           </div>
@@ -77,6 +95,13 @@ function CardMessagePage() {
 
         <Options />
       </div>
+      {selectedMessage && (
+        <Modal
+          message={selectedMessage}
+          isModalOpen={isModalOpen}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
     </>
   );
 }

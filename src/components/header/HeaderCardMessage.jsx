@@ -6,6 +6,7 @@ import iconShare24 from 'assets/images/ic_share_24.svg';
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
+import { useState } from 'react';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
