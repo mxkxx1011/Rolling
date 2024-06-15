@@ -26,7 +26,7 @@ function EmojiToggle() {
         <div className='allemojilist'>
           {/* 반복문으로 이모지 데이터 접근 */}
           {testcount.map((a, index) => (
-            <div className='emoji'>
+            <div key={index} className='emoji'>
               <p>{testemoji}</p>
               <p>{a}</p>
             </div>

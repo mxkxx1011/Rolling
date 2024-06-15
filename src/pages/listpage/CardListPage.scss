@@ -1,0 +1,26 @@
+@import 'assets/styles/common.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/palette.scss';
+
+.cardlistlayer {
+  padding: 50px 0;
+  @include Flex(column, center, center, '');
+  .cardlistbox {
+    width: 1200px;
+    @include Flex(column, center, center, '');
+    p {
+      margin-bottom: 16px;
+      @include font-style(24, bold);
+      line-height: 36px;
+      font-weight: 700;
+    }
+    .datecardlist {
+      margin-bottom: 40px;
+      @include Flex(row, center, center, 20px);
+    }
+    .hotcardlist {
+      @include Flex(row, center, center, 20px);
+      margin-bottom: 50px;
+    }
+  }
+}

@@ -15,18 +15,27 @@ function ErrorCheck(Method, ApiName) {
             break;
         case "put":
             errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
+            break;
         case "post":
             errorMessage = `${ApiName}에 데이터를 전송에 실패하였습니다.`;
+            break;
         case "patch":
             errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
             // 이부분이 put이랑 동일하게 작동하는 것 같습니다.
+            break;
         case "delete":
             errorMessage = `${ApiName}의 데이터를 받지 못했습니다.`;
+            break;
+        default:
+            errorMessage = "기본";
+            break;
     }
+    return errorMessage;
 }
 
-async function Axios(Method, query, body = 'null') {
+async function Axios(Method, query, body = 'null', apiname) {
   try {
+    console.log(query);
     const response = await axios({
       method: Method,
       url: query,
@@ -34,7 +43,8 @@ async function Axios(Method, query, body = 'null') {
     });
     return response.data;
   } catch (error) {
-    console.log('api 호출 에러', error);
+    ErrorCheck(Method, apiname);
+    console.log(ErrorCheck(Method, apiname));
     throw error;
   }
 }
@@ -45,27 +55,27 @@ async function Axios(Method, query, body = 'null') {
 export function MessagesAPI(Method, id, body = null) {
   const query = `${API_KEY}/messages/${id}/`;
   // 메소드, 쿼리, 바디, api
-  return Axios(Method, query, body);
+  return Axios(Method, query, body, "messages");
 }
 
 //롤링페이퍼 작성 및 조회 API
 //특정 롤링페이퍼 조회 및 삭제하는 API
 export function RecipientsAPI(Method, id = null, body = null) {
-  let query = `${API_KEY}/recipients`;
+  let query = `${API_KEY}/recipients/`;
   if (id) {
-    query = `${query}/${id}/`;
+    query = `${query}${id}/`;
   }
-  return Axios(Method, query, body);
+  return Axios(Method, query, body, "recipient");
 }
 
 //특정 롤링페이퍼의 메시지 조회 및 추가 API
 export function RecipientsMessagesAPI(Method, id, body) {
   const query = `${API_KEY}/recipients/${id}/messages/`;
-  return Axios(Method, query, body);
+  return Axios(Method, query, body, "recipientmessage");
 }
 
 //특정 롤링페이퍼의 이모지 조회 및 추가 API
 export function RecipientsReactionsAPI(Method, id, body) {
   const query = `${API_KEY}/recipients/${id}/reactions/`;
-  return Axios(Method, query, body);
+  return Axios(Method, query, body, "recipientreaction");
 }
