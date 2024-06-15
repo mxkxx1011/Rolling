@@ -18,9 +18,18 @@ function Modal({ message, isModalOpen, handleCloseModal }) {
     createdAt,
   } = message;
 
+  const handleOverlayClick = (e) => {
+    e.stopPropagation();
+    handleCloseModal();
+  };
+
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <>
-      <div className='container modal'>
+    <div className='modal-overlay' onClick={handleOverlayClick}>
+      <div className='container modal' onClick={handleModalClick}>
         <div className='header modal'>
           <div className='profile-container modal'>
             <img
@@ -56,7 +65,7 @@ function Modal({ message, isModalOpen, handleCloseModal }) {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

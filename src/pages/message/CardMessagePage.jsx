@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import Options from 'components/option/Options';
 import ShareKakao from 'utils/ShareKakao';
 import Modal from 'components/modal/Modal';
+import useNavigator from 'hooks/useNavigator';
 
 // post/{id}
 function CardMessagePage() {
@@ -19,6 +20,7 @@ function CardMessagePage() {
   const [selectedMessage, setSelectedMessage] = useState(null);
 
   const { postId } = useParams(); // id랑 겹쳐서 수정 ㅠ
+  const handleMovePage = useNavigator();
   const {
     name,
     backgroundColor,
@@ -78,7 +80,10 @@ function CardMessagePage() {
         {recentMessages ? (
           <div>
             <div className='message'>
-              <Card type='plus' />
+              <Card
+                type='plus'
+                handleClick={() => handleMovePage(`/post/${postId}/message`)}
+              />
               {messages.map((message) => (
                 <Card
                   key={message.id}
