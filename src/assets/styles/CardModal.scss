@@ -14,7 +14,7 @@ $types: (
 @mixin ContainerStyle {
   border-radius: 16px;
   background-color: $color--white;
-  box-shadow: 0px 2px 12px 0px #00000014;
+  box-shadow: 0px 2px 12px 0px rgba($color--black, 0.08);
 }
 
 @mixin ProfileFlex($type) {
@@ -28,10 +28,8 @@ $types: (
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba($color--black, 0.5);
+  @include Flex(row, center, center, null);
   z-index: 1000;
 }
 
