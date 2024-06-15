@@ -3,6 +3,28 @@ import { useState, useEffect } from 'react';
 
 const API_KEY = process.env.REACT_APP_API_URL;
 //6-1
+// 오류함수 메소드랑 무슨api
+
+function ErrorCheck(Method, ApiName) {
+    
+    let errorMessage;
+
+    switch(Method) {
+        case "get":
+            errorMessage = `${ApiName}의 데이터를 받아오는데 실패하였습니다.`;
+            break;
+        case "put":
+            errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
+        case "post":
+            errorMessage = `${ApiName}에 데이터를 전송에 실패하였습니다.`;
+        case "patch":
+            errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
+            // 이부분이 put이랑 동일하게 작동하는 것 같습니다.
+        case "delete":
+            errorMessage = `${ApiName}의 데이터를 받지 못했습니다.`;
+    }
+}
+
 async function Axios(Method, query, body = 'null') {
   try {
     const response = await axios({
@@ -12,7 +34,6 @@ async function Axios(Method, query, body = 'null') {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
     console.log('api 호출 에러', error);
     throw error;
   }
@@ -23,6 +44,7 @@ async function Axios(Method, query, body = 'null') {
 //작성된 롤링페이퍼 내부의 메시지를 가져오는 API
 export function MessagesAPI(Method, id, body = null) {
   const query = `${API_KEY}/messages/${id}/`;
+  // 메소드, 쿼리, 바디, api
   return Axios(Method, query, body);
 }
 
