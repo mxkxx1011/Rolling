@@ -28,6 +28,13 @@
     }
     .button-wrapper {
       @include Flex(row, null, center, 13px);
+      position: relative;
+
+      .emoji-picker {
+        position: absolute;
+        left: -237px;
+        top: 50px;
+      }
     }
   }
 }

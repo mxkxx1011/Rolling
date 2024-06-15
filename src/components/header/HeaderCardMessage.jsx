@@ -8,6 +8,7 @@ import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
 import { useState } from 'react';
 import EmojiToggle from 'components/EmojiToggle';
+import EmojiPicker from 'emoji-picker-react';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
@@ -20,6 +21,16 @@ function HeaderCardMessage({
   reactions,
   handleClick,
 }) {
+  const [isEmoji, setIsEmoji] = useState(false);
+
+  const handleEmojiClick = (e) => {
+    console.log(e.emoji);
+  };
+
+  const handleOpenEmojiPicker = () => {
+    setIsEmoji((prev) => !prev);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -44,9 +55,20 @@ function HeaderCardMessage({
               <EmojiToggle />
             </div>
             <div className='button-wrapper'>
-              <Button type='outlined' size='36' emoji>
+              <Button
+                handleClick={handleOpenEmojiPicker}
+                type='outlined'
+                size='36'
+                emoji
+              >
                 추가
               </Button>
+              {isEmoji && (
+                <EmojiPicker
+                  onEmojiClick={handleEmojiClick}
+                  className='emoji-picker'
+                />
+              )}
               <div className='border'></div>
               {/* <Button type='outlined' size='36' handleClick={handleClick}>
                 <img src={iconShare24} alt='공유버튼' />
