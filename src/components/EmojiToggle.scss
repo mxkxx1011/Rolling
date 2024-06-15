@@ -1,0 +1,45 @@
+@import '../assets/styles/common.scss';
+@import '../assets/styles/fonts.scss';
+@import '../assets/styles/palette.scss';
+
+.emojilistlayer {
+
+    .emojitoggle {
+        width: 36px;
+        height: 36px;
+        border: 0;
+        background-color: $color--white;
+        cursor: pointer;
+    }
+    .allemojilist {
+        width: fit-content;
+        z-index: 100;
+        border-radius: 8px;
+        padding: 24px;
+        border: 1px solid $gray-border;
+        box-shadow: 0px 2px 12px 0px #00000014;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        row-gap: 8px;
+        column-gap: 10px;
+        .emoji {
+            @include Flex(row, center, center, 2px);
+            padding: 6px 12px;
+            border-radius: 32px;
+            background-color: rgb($color--black, 0.54);
+            p {
+                color: $color--white;
+            }
+        }
+        @include desktop {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+        @include tablet {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        @include mobile {
+            padding: 16px;
+        }
+    }
+}

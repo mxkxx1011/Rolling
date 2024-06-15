@@ -50,5 +50,3 @@ function CardList({ type = 'color', recipient }) {
 }
 
 export default CardList;
-
-
