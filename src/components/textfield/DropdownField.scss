@@ -36,10 +36,6 @@
     &.arrow.open {
       -webkit-transform: rotate(180deg);
     }
-    img {
-      // width: 16px;
-      // height: 16px
-    }
   }
   .dropdownmenu {
     @include font-style(16, regular);

@@ -39,7 +39,7 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
         @include mobile {
-            
+            padding: 16px;
         }
     }
 }
