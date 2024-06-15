@@ -7,6 +7,7 @@ import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
 import { useState } from 'react';
+import EmojiToggle from 'components/EmojiToggle';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
@@ -38,8 +39,9 @@ function HeaderCardMessage({
           <div>
             <ReactionList reactions={reactions} />
             <div className='dropdown'>
-              <img src={iconArrowDown} alt='down' />
+              {/* <img src={iconArrowDown} alt='down' /> */}
               {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
+              <EmojiToggle />
             </div>
             <div className='button-wrapper'>
               <Button type='outlined' size='36' emoji>
