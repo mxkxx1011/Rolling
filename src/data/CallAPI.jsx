@@ -61,13 +61,17 @@ export function MessagesAPI(Method, id, body = null) {
 //롤링페이퍼 작성 및 조회 API
 //특정 롤링페이퍼 조회 및 삭제하는 API
 export function RecipientsAPI(Method, id = null, body = null, limit=null, offset=null) {
-  let query = `${API_KEY}/recipients/`;
+  let query = `${API_KEY}/recipients`;
   if (id) {
-    query = `${query}${id}/`;
+    query = `${query}/${id}/`;
   }
-  else if(limit && offset) {
+  else if(limit != null && offset != null) {
     query = `${query}/?limit=${limit}&offset=${offset}`;
   }
+  else {
+    query = `${query}/`;
+  }
+  
   return Axios(Method, query, body, "recipient");
 }
 
