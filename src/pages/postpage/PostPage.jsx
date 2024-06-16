@@ -1,11 +1,12 @@
 import ToggleButton from 'components/ToggleButton';
 import TextInputField from 'components/textfield/TextInputField';
 import Button from 'components/Button';
+import Options from 'components/option/Options';
 import './PostPage.scss';
 
-const toggleOptions = ['컬러', '이미지'];
-
 function PostPage() {
+  const toggleOptions = ['컬러', '이미지'];
+  const selectedType = 'image';
   return (
     <>
       <div className='page-container'>
@@ -25,7 +26,9 @@ function PostPage() {
         {/* 토글버튼자리 */}
         <ToggleButton options={toggleOptions}></ToggleButton>
         {/* 옵션 컴포넌트 자리 */}
-        <div className='option-component-container'></div>
+        <div className='option-container'>
+          <Options type={selectedType} />
+        </div>
         <Button size='56' type='primary'>
           생성하기
         </Button>

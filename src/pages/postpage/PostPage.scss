@@ -1,6 +1,6 @@
-@import '../assets/styles/common.scss';
-@import '../assets/styles/palette.scss';
-@import '../assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
 
 .page-container {
   padding: 57px 600px;
@@ -27,9 +27,8 @@
     margin-top: 4px;
   }
 }
-.option-component-container {
+.option-container {
   padding: 45px 0;
-  height: 168px;
 }
 Button {
   width: 720px;
