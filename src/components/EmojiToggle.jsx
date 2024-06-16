@@ -1,21 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ArrowDown from 'assets/images/ic_arrow_down.svg';
 import ArrowTop from 'assets/images/ic_arrow_top.svg';
 import 'components/EmojiToggle.scss';
+import { Reaction } from './reaction/Reaction';
 
-function EmojiToggle() {
-  // 롤링 페이퍼의 모든 이모지 데이터 받아오는거 추가
-  const [isOpen, setIsOpen] = useState(false);
+/*
+ * reactions(array)
+ */
 
-  const onToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const testemoji = '👌';
-  const testcount = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function EmojiToggle({ reactions, handleClick, isOpen }) {
+  const allReactions = reactions.slice(0, 8) ?? [];
   return (
     <div className='emoji-list-layer'>
-      <button className='emoji-toggle' onClick={onToggle}>
+      <button className='emoji-toggle' onClick={handleClick}>
         <img
           src={isOpen ? ArrowTop : ArrowDown}
           alt='이모지토글'
@@ -24,12 +21,8 @@ function EmojiToggle() {
       </button>
       {isOpen && (
         <div className='all-emoji-list'>
-          {/* 반복문으로 이모지 데이터 접근 */}
-          {testcount.map((a, index) => (
-            <div key={index} className='emoji'>
-              <p>{testemoji}</p>
-              <p>{a}</p>
-            </div>
+          {allReactions.map((reaction) => (
+            <Reaction reaction={reaction} className='small' />
           ))}
         </div>
       )}

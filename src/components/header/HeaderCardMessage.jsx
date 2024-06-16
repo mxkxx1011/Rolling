@@ -6,9 +6,11 @@ import iconShare24 from 'assets/images/ic_share_24.svg';
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EmojiToggle from 'components/EmojiToggle';
 import EmojiPicker from 'emoji-picker-react';
+import { RecipientsReactionsAPI } from 'data/CallAPI';
+import { useParams } from 'react-router-dom';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
@@ -22,6 +24,9 @@ function HeaderCardMessage({
   handleClick,
 }) {
   const [isEmoji, setIsEmoji] = useState(false);
+  const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
+  const [allReactions, setAllReactions] = useState([]);
+  const { postId } = useParams();
 
   const handleEmojiClick = (e) => {
     console.log(e.emoji);
@@ -30,6 +35,28 @@ function HeaderCardMessage({
   const handleOpenEmojiPicker = () => {
     setIsEmoji((prev) => !prev);
   };
+
+  const handleOpenReactionList = () => {
+    SetIsOpenReactionList((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const getAllReactions = async () => {
+      try {
+        const responseReactions = await RecipientsReactionsAPI(
+          'get',
+          postId,
+          null,
+        );
+        setAllReactions(responseReactions.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (isOpenReactionList) {
+      getAllReactions();
+    }
+  }, [isOpenReactionList, postId]);
 
   return (
     <header className={styles.header}>
@@ -49,11 +76,15 @@ function HeaderCardMessage({
           <div className='border'></div>
           <div>
             <ReactionList reactions={reactions} />
-            <div className='dropdown'>
-              {/* <img src={iconArrowDown} alt='down' /> */}
-              {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
-              <EmojiToggle />
-            </div>
+
+            {/* <img src={iconArrowDown} alt='down' /> */}
+            {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
+            <EmojiToggle
+              handleClick={handleOpenReactionList}
+              reactions={allReactions}
+              isOpen={isOpenReactionList}
+            />
+
             <div className='button-wrapper'>
               <Button
                 handleClick={handleOpenEmojiPicker}
