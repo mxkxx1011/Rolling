@@ -1,4 +1,4 @@
-import CardListPage from 'pages/CardListPage';
+import CardListPage from 'pages/listpage/CardListPage';
 import CardMessageDeletePage from 'pages/message/CardMessageDeletePage';
 import CardMessagePage from 'pages/message/CardMessagePage';
 import CardMessagePostPage from 'pages/CardMessagePostPage';

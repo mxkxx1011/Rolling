@@ -14,8 +14,8 @@ function EmojiToggle() {
   const testemoji = '👌';
   const testcount = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
-    <div className='emojilistlayer'>
-      <button className='emojitoggle' onClick={onToggle}>
+    <div className='emoji-list-layer'>
+      <button className='emoji-toggle' onClick={onToggle}>
         <img
           src={isOpen ? ArrowTop : ArrowDown}
           alt='이모지토글'
@@ -23,10 +23,10 @@ function EmojiToggle() {
         />
       </button>
       {isOpen && (
-        <div className='allemojilist'>
+        <div className='all-emoji-list'>
           {/* 반복문으로 이모지 데이터 접근 */}
           {testcount.map((a, index) => (
-            <div className='emoji'>
+            <div key={index} className='emoji'>
               <p>{testemoji}</p>
               <p>{a}</p>
             </div>
