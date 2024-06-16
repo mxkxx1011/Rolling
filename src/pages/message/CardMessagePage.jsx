@@ -113,32 +113,30 @@ function CardMessagePage() {
           handleClick={ShareKakao}
         />
       ) : null}
-      <div
-        className={classNames('body', backgroundColor)}
+      <main
+        className={classNames(backgroundColor)}
         style={BackGroundImageStyle}
       >
         {recentMessages ? (
-          <div>
-            <div className='message'>
+          <div className='message'>
+            <Card
+              type='plus'
+              handleClick={() => handleMovePage(`/post/${postId}/message`)}
+            />
+            {recipientMessage.map((message) => (
               <Card
-                type='plus'
-                handleClick={() => handleMovePage(`/post/${postId}/message`)}
+                key={message.id}
+                message={message}
+                type='normal'
+                handleClick={() => handleOpenModal(message)}
               />
-              {recipientMessage.map((message) => (
-                <Card
-                  key={message.id}
-                  message={message}
-                  type='normal'
-                  handleClick={() => handleOpenModal(message)}
-                />
-              ))}
-              {hasMore && <div ref={ref}></div>}
-            </div>
+            ))}
+            {hasMore && <div ref={ref}></div>}
           </div>
         ) : (
           <h2>메시지가 없어요</h2>
         )}
-      </div>
+      </main>
       {selectedMessage && (
         <Modal
           message={selectedMessage}
