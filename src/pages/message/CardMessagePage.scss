@@ -26,6 +26,9 @@ $colors: (
       grid-template-columns: repeat(3, 1fr); /* 3개의 열을 동일한 너비로 설정 */
       gap: 24px; /* 각 요소 사이의 간격 */
 
+      height: 588px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
       & > *:nth-child(n + 4) {
         margin-top: 4px;
       }

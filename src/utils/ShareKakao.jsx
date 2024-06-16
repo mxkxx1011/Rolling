@@ -11,11 +11,17 @@ function ShareKakao() {
   const resultURL = window.location.href;
 
   useEffect(() => {
-    Kakao.cleanup();
-    Kakao.init(KAKAO_LINK_KEY);
+    if (KAKAO_LINK_KEY && !Kakao.isInitialized()) {
+      Kakao.init(KAKAO_LINK_KEY);
+    }
   }, []);
 
   const handleLinkKakao = () => {
+    if (!Kakao.isInitialized()) {
+      alert('카카오링크 초기화에 실패했습니다. 다시 시도해 주세요.');
+      return;
+    }
+
     Kakao.Share.sendDefault({
       objectType: 'feed', // 카카오 링크 공유 여러 type들 중 feed라는 타입 -> 자세한 건 카카오에서 확인
       content: {
@@ -24,30 +30,16 @@ function ShareKakao() {
         imageUrl:
           'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
         link: {
-          mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
-          webUrl: route,
+          mobileWebUrl: resultURL, // 인자값으로 받은 route(uri 형태)
+          webUrl: resultURL,
         },
       },
       buttons: [
-        // {
-        //   title: 'rolling',
-        //   link: {
-        //     mobileWebUrl: route,
-        //     webUrl: route,
-        //   },
-        // },
         {
           title: '웹으로 이동',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
-          },
-        },
-        {
-          title: '앱으로 이동',
-          link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            webUrl: 'https://developers.kakao.com',
+            mobileWebUrl: route,
+            webUrl: route,
           },
         },
       ],
@@ -55,9 +47,11 @@ function ShareKakao() {
   };
 
   return (
-    <Button type='outlined' size='36' handleClick={handleLinkKakao}>
-      <img src={iconShare24} alt='공유버튼' />
-    </Button>
+    <>
+      <Button type='outlined' size='36' handleClick={handleLinkKakao}>
+        <img src={iconShare24} alt='공유버튼' />
+      </Button>
+    </>
   );
 }
 
