@@ -6,30 +6,29 @@ const API_KEY = process.env.REACT_APP_API_URL;
 // 오류함수 메소드랑 무슨api
 
 function ErrorCheck(Method, ApiName) {
-    
-    let errorMessage;
+  let errorMessage;
 
-    switch(Method) {
-        case "get":
-            errorMessage = `${ApiName}의 데이터를 받아오는데 실패하였습니다.`;
-            break;
-        case "put":
-            errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
-            break;
-        case "post":
-            errorMessage = `${ApiName}에 데이터를 전송에 실패하였습니다.`;
-            break;
-        case "patch":
-            errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
-            // 이부분이 put이랑 동일하게 작동하는 것 같습니다.
-            break;
-        case "delete":
-            errorMessage = `${ApiName}의 데이터를 받지 못했습니다.`;
-            break;
-        default:
-            errorMessage = "api호출에 실패했습니다.";
-            // 스위키기본 구문에 디폴트가 없으면 경고문이 떠서 추가한 내용입니다.
-            break;
+  switch(Method) {
+      case "get":
+          errorMessage = `${ApiName}의 데이터를 받아오는데 실패하였습니다.`;
+          break;
+      case "put":
+          errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
+          break;
+      case "post":
+          errorMessage = `${ApiName}에 데이터를 전송에 실패하였습니다.`;
+          break;
+      case "patch":
+          errorMessage = `${ApiName}의 데이터 수정에 실패하였습니다.`;
+          // 이부분이 put이랑 동일하게 작동하는 것 같습니다.
+          break;
+      case "delete":
+          errorMessage = `${ApiName}의 데이터를 받지 못했습니다.`;
+          break;
+      default:
+          errorMessage = "api호출에 실패했습니다.";
+          // 스위키기본 구문에 디폴트가 없으면 경고문이 떠서 추가한 내용입니다.
+          break;
     }
     return errorMessage;
 }
@@ -73,9 +72,10 @@ export function RecipientsAPI(Method, id = null, body = null, limit=null, offset
 }
 
 //특정 롤링페이퍼의 메시지 조회 및 추가 API
-export function RecipientsMessagesAPI(Method, id, body) {
-  const query = `${API_KEY}/recipients/${id}/messages/`;
-  return Axios(Method, query, body, "recipientmessage");
+export function RecipientsMessagesAPI(Method, id, body, limit = 5, offset = 1) {
+  const query = `${API_KEY}/recipients/${id}/messages/?limit=${limit}&offset=${offset}`;
+  return Axios(Method, query, body);
+
 }
 
 //특정 롤링페이퍼의 이모지 조회 및 추가 API
