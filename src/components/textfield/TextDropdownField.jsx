@@ -19,13 +19,12 @@ function TextDropdownField({options}) {
 
     return (
         <div className="dropdown">
-            <button className="dropdowntoggle" onClick={onToggle}>
+            <button className="dropdown-toggle" onClick={onToggle}>
                 {selectedOption}
                 <img src={isOpen ? iconArrowDown : iconArrowTop} alt='test' className="arrow" />
-                {/* <img src={icon} alt="test" className={`arrow ${isOpen ? 'open' : ''}`} /> */}
             </button>
             {isOpen && (
-                <ul className="dropdownmenu">
+                <ul className="dropdown-menu">
                     {options.map((option, index) => (
                         <li key={index} onClick={() => handleOptionClick(option)}>
                             {option}
