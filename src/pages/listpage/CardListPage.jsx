@@ -20,14 +20,6 @@ function hotSort(recipient) {
   return [...recipient.results].sort((a, b) => b.messageCount - a.messageCount || b.reactionCount - a.reactionCount);
 }
 
-function dateSort(recipient) {
-  if (!recipient || !Array.isArray(recipient.results)) {
-    //레시피언트 없는지와 레시피언트리절트가 배열인지 확인
-    return [];
-  }
-  return [...recipient.results].sort((a,b) => b.createdAt - a.createdAt);
-}
-
 function CardListPage() {
   const test = ['a', 'b', 'c', 'd'];
   const [recipients, setRecipients] = useState({});
@@ -57,7 +49,7 @@ function CardListPage() {
       <div className='card-list-box'>
         <p>최근에 만든 롤링 페이퍼 ⭐</p>
         <div className='card-list date-list'>
-          {dateSort(recipients).map((data, index) => (
+          {recipients.results.map((data, index) => (
             <CardList key={`${data.id}`} recipient={data} />
           ))}
         </div>
