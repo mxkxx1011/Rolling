@@ -15,20 +15,17 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
 
   return (
     <div
-      className={classNames('option', color)}
-      selected
+      className={classNames('option', color, { selected: idx === isSelected })}
       style={BackGroundImageStyle}
-      onClick={handleClick}
+      onClick={() => handleClick(idx)}
     >
       {idx === isSelected ? <Check /> : null}
     </div>
   );
 }
 
-// 토글을 누르면 type이 변해야함
-// 이미지 누르면 type = image / 컬러 누르면 type = color
-function Options({ type = 'image' }) {
-  const [isSelected, setIsSelected] = useState(0);
+function Options({ type = 'image', onOptionClick }) {
+  const [isSelected, setIsSelected] = useState(-1);
   const colors = ['beige', 'purple', 'blue', 'green'];
   const imgs = [
     imageBackground01,
@@ -41,6 +38,8 @@ function Options({ type = 'image' }) {
 
   const handleClick = (idx) => {
     setIsSelected(idx);
+    // 선택된 옵션을 부모 컴포넌트로 전달
+    onOptionClick(OptionArray[idx]);
   };
 
   return (
@@ -50,9 +49,9 @@ function Options({ type = 'image' }) {
           key={idx}
           idx={idx}
           isSelected={isSelected}
-          color={option}
-          handleClick={() => handleClick(idx)}
-          image={option}
+          color={type === 'color' ? option : null}
+          image={type === 'image' ? option : null}
+          handleClick={handleClick}
         />
       ))}
     </div>
