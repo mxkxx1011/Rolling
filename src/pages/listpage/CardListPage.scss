@@ -2,24 +2,25 @@
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/palette.scss';
 
-.cardlistlayer {
+.card-list-layer {
   padding: 50px 0;
   @include Flex(column, center, center, null);
-  .cardlistbox {
-    width: 1200px;
+  .card-list-box {
+    // width: 1200px;
     @include Flex(column, center, center, null);
     p {
       margin-bottom: 16px;
       @include font-style(24, bold);
       line-height: 36px;
     }
-    .datecardlist {
-      margin-bottom: 40px;
+    .card-list {
       @include Flex(row, center, center, 20px);
-    }
-    .hotcardlist {
-      @include Flex(row, center, center, 20px);
-      margin-bottom: 50px;
+      &.hotcard {
+        margin-bottom: 50px;
+      }
+      &.date-list {
+        margin-bottom: 40px;
+      }
     }
   }
 }

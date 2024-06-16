@@ -2,10 +2,10 @@
 @import '../assets/styles/fonts.scss';
 @import '../assets/styles/palette.scss';
 
-.emojilistlayer {
+.emoji-list-layer {
     position: relative;
     @include Flex(column, center, flex-end, "");
-    .emojitoggle {
+    .emoji-toggle {
         width: 36px;
         height: 36px;
         border: 0;
@@ -15,7 +15,7 @@
         position: relative;
         right: 8px;
     }
-    .allemojilist {
+    .allemoji-list {
         position: relative;
         width: fit-content;
         z-index: 100;

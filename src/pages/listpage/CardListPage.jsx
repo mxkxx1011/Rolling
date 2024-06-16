@@ -45,20 +45,20 @@ function CardListPage() {
   }, []);
 
   return (
-    <div className='cardlistlayer'>
-      <div className='cardlistbox'>
+    <div className='card-list-layer'>
+      <div className='card-list-box'>
         <p>인기 롤링 페이퍼 🔥</p>
-        <div className='hotcardlist'>
+        <div className='card-list hot-card'>
           {hotSort(recipients).map((data, index) => (
-            <CardList key={index} recipient={data} />
+            <CardList key={`${data.id}`} recipient={data} />
           ))}
         </div>
       </div>
-      <div className='cardlistbox'>
+      <div className='card-list-box'>
         <p>최근에 만든 롤링 페이퍼 ⭐</p>
-        <div className='datecardlist'>
+        <div className='card-list date-list'>
           {dateSort(recipients).map((data, index) => (
-            <CardList key={index} recipient={data} />
+            <CardList key={`${data.id}`} recipient={data} />
           ))}
         </div>
       </div>

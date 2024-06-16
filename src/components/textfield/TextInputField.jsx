@@ -2,7 +2,7 @@ import './InputField.scss';
 
 function TextInputField({ children }) {
   return (
-    <div className='inputlayer'>
+    <div className='input-layer'>
       <input placeholder={children} className='input' />
     </div>
   );
