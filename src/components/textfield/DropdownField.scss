@@ -14,7 +14,7 @@
     border: 1px solid $gray-300;
     border-radius: 8px;
     cursor: pointer;
-    @include Flex(row, space-between, center, "");
+    @include Flex(row, space-between, center, null);
     background-color: $color--white;
     color: var(gray-900);
 

@@ -27,7 +27,8 @@ function ErrorCheck(Method, ApiName) {
             errorMessage = `${ApiName}의 데이터를 받지 못했습니다.`;
             break;
         default:
-            errorMessage = "기본";
+            errorMessage = "api호출에 실패했습니다.";
+            // 스위키기본 구문에 디폴트가 없으면 경고문이 떠서 추가한 내용입니다.
             break;
     }
     return errorMessage;

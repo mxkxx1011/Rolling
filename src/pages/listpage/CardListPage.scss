@@ -4,15 +4,14 @@
 
 .cardlistlayer {
   padding: 50px 0;
-  @include Flex(column, center, center, '');
+  @include Flex(column, center, center, null);
   .cardlistbox {
     width: 1200px;
-    @include Flex(column, center, center, '');
+    @include Flex(column, center, center, null);
     p {
       margin-bottom: 16px;
       @include font-style(24, bold);
       line-height: 36px;
-      font-weight: 700;
     }
     .datecardlist {
       margin-bottom: 40px;
