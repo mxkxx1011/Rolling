@@ -9,6 +9,7 @@ import ShareKakao from 'utils/ShareKakao';
 import Modal from 'components/modal/Modal';
 import useNavigator from 'hooks/useNavigator';
 import { useInView } from 'react-intersection-observer';
+import CardList from 'components/card/CardList';
 
 // post/{id}
 function CardMessagePage() {
