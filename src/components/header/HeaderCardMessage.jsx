@@ -3,7 +3,6 @@ import styles from 'components/Header.module.scss';
 import ReactionList from '../reaction/Reaction';
 import './HeaderCardMessage.scss';
 import iconShare24 from 'assets/images/ic_share_24.svg';
-import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
 import { useEffect, useState } from 'react';
@@ -26,6 +25,7 @@ function HeaderCardMessage({
   const [isEmoji, setIsEmoji] = useState(false);
   const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
   const [allReactions, setAllReactions] = useState([]);
+
   const { postId } = useParams();
 
   const handleEmojiClick = (e) => {
@@ -76,9 +76,6 @@ function HeaderCardMessage({
           <div className='border'></div>
           <div>
             <ReactionList reactions={reactions} />
-
-            {/* <img src={iconArrowDown} alt='down' /> */}
-            {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
             <EmojiToggle
               handleClick={handleOpenReactionList}
               reactions={allReactions}

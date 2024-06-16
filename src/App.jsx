@@ -7,22 +7,23 @@ import Main from 'pages/Main';
 import NotFoundPage from 'pages/NotFoundPage';
 import PostPage from 'pages/PostPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Post from 'pages/Post';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/post' element={<Post />}>
+          <Route index element={<PostPage />} />
+          <Route path=':postId'>
+            <Route index element={<CardMessagePage />} />
+            <Route path='edit' element={<CardMessageDeletePage />} />
+            <Route path='message' element={<CardMessagePostPage />} />
+          </Route>
+        </Route>
         <Route path='/' element={<Main />}>
           <Route index element={<HomePage />} />
           <Route path='list' element={<CardListPage />} />
-          <Route path='post'>
-            <Route index element={<PostPage />} />
-            <Route path=':postId'>
-              <Route index element={<CardMessagePage />} />
-              <Route path='edit' element={<CardMessageDeletePage />} />
-              <Route path='message' element={<CardMessagePostPage />} />
-            </Route>
-          </Route>
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
