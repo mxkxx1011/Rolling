@@ -22,7 +22,7 @@ function EmojiToggle({ reactions, handleClick, isOpen }) {
       {isOpen && (
         <div className='all-emoji-list'>
           {allReactions.map((reaction) => (
-            <Reaction reaction={reaction} className='small' />
+            <Reaction key={reaction.id} reaction={reaction} className='small' />
           ))}
         </div>
       )}
