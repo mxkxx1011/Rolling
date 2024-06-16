@@ -45,7 +45,7 @@ function CardListPage() {
 
   useEffect(() => {
     if(width < 1024) {
-      setLimit(3);
+      setLimit(null);
     }
     else {
       setLimit(4);
