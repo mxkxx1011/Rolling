@@ -5,12 +5,7 @@ import DeleteButton from 'components/DeleteButton';
 import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-  return formattedDate;
-}
+import FormatDate from 'utils/FormatDate';
 
 function Card({ type = 'normal', message = {}, handleClick }) {
   const [isDelete, setIsDelete] = useState(true);
@@ -56,7 +51,7 @@ function Card({ type = 'normal', message = {}, handleClick }) {
             ></p>
           </div>
           <div>
-            <p className='date'>{formatDate(createdAt)}</p>
+            <p className='date'>{FormatDate(createdAt)}</p>
           </div>
         </>
       ) : (

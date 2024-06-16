@@ -2,28 +2,35 @@
 @import '../assets/styles/fonts.scss';
 @import '../assets/styles/palette.scss';
 
-.emojilistlayer {
-
-    .emojitoggle {
+.emoji-list-layer {
+    position: relative;
+    @include Flex(column, center, flex-end, "");
+    .emoji-toggle {
         width: 36px;
         height: 36px;
         border: 0;
+        margin-bottom: 7px;
         background-color: $color--white;
         cursor: pointer;
+        position: relative;
+        right: 8px;
     }
-    .allemojilist {
+    .all-emoji-list {
+        position: relative;
         width: fit-content;
         z-index: 100;
         border-radius: 8px;
         padding: 24px;
         border: 1px solid $gray-border;
-        box-shadow: 0px 2px 12px 0px #00000014;
+        box-shadow: 0px 2px 2px 0px rgb($color--black, 0.08);
+        background-color: $color--white;
         display: grid;
         align-items: center;
         justify-content: center;
         row-gap: 8px;
         column-gap: 10px;
         .emoji {
+            position: relative;
             @include Flex(row, center, center, 2px);
             padding: 6px 12px;
             border-radius: 32px;
