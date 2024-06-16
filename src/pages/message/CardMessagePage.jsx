@@ -10,6 +10,7 @@ import Modal from 'components/modal/Modal';
 import useNavigator from 'hooks/useNavigator';
 import { useInView } from 'react-intersection-observer';
 import CardList from 'components/card/CardList';
+import SkeletonCardList from 'components/card/SkeletonCardList';
 
 // post/{id}
 function CardMessagePage() {
@@ -118,6 +119,8 @@ function CardMessagePage() {
         className={classNames(backgroundColor)}
         style={BackGroundImageStyle}
       >
+        <CardList recipient={recipient} />
+        <SkeletonCardList />
         {recentMessages ? (
           <div className='message'>
             <Card
