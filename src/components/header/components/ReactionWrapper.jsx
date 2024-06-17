@@ -2,21 +2,19 @@ import EmojiToggle from 'components/EmojiToggle';
 import ReactionList from 'components/reaction/Reaction';
 import { useState } from 'react';
 
-function ReactionWrapper({ reactions, allReactions }) {
-  const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
-
+function ReactionWrapper({ reactions, allReactions, isOpen, setOpen }) {
   const handleOpenReactionList = () => {
-    SetIsOpenReactionList((prev) => !prev);
+    setOpen((prev) => !prev);
   };
   return (
-    <>
+    <div className='reaction-wrapper'>
       <ReactionList reactions={reactions} />
       <EmojiToggle
         handleClick={handleOpenReactionList}
         reactions={allReactions}
-        isOpen={isOpenReactionList}
+        isOpen={isOpen}
       />
-    </>
+    </div>
   );
 }
 

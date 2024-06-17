@@ -8,33 +8,55 @@
     width: 76px;
   }
 
-  & > div:nth-child(1) {
+  .writer-count {
     @include Flex(row, null, center, 11px);
   }
+}
+.border {
+  width: 1px;
+  height: 28px;
+  background-color: $gray-200;
+  border-radius: 10px;
+}
 
-  .border {
-    width: 1px;
-    height: 28px;
-    background-color: $gray-200;
-    border-radius: 10px;
+.emoji-share-wrapper {
+  @include Flex(row, null, center, 8px);
+
+  .reaction-wrapper {
+    @include Flex(row, null, center, null);
+  }
+  .dropdown {
+    width: 36px;
+    height: 36px;
+    @include Flex(row, center, center, null);
+  }
+  .button-wrapper {
+    @include Flex(row, null, center, 13px);
+    position: relative;
+
+    .emoji-picker {
+      position: absolute;
+      left: -237px;
+      top: 50px;
+    }
+  }
+}
+
+.header-mobile {
+  & > div {
+    height: 52px;
+    padding: 0 20px;
+    @include Flex(row, null, center, 2px);
   }
 
-  & > div:nth-child(3) {
-    @include Flex(row, null, center, 8px);
-    .dropdown {
-      width: 36px;
-      height: 36px;
-      @include Flex(row, center, center, null);
+  .emoji-share-wrapper {
+    justify-content: space-between;
+
+    .reaction-wrapper {
+      gap: 2px;
     }
     .button-wrapper {
-      @include Flex(row, null, center, 13px);
-      position: relative;
-
-      .emoji-picker {
-        position: absolute;
-        left: -237px;
-        top: 50px;
-      }
+      gap: 15px;
     }
   }
 }

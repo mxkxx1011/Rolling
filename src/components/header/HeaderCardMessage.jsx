@@ -17,6 +17,7 @@ import EmojiButton from './components/EmojiButton';
 import ReactionWrapper from './components/ReactionWrapper';
 import WriterCount from './components/WriterCount';
 import HeaderName from './components/HeaderName';
+import EmojiShareWrapper from './components/EmojiShareWrapper';
 
 function HeaderCardMessage({
   name,
@@ -26,9 +27,10 @@ function HeaderCardMessage({
   handleClick,
   setShowToast,
 }) {
-  const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
+  const [isOpenReactionList, setIsOpenReactionList] = useState(false);
   const [allReactions, setAllReactions] = useState([]);
   const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const { postId } = useParams();
 
@@ -53,30 +55,48 @@ function HeaderCardMessage({
   }, [isOpenReactionList, postId, isDesktop]);
 
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <HeaderName name={name} />
-        <div className='header-right'>
-          <WriterCount
-            messageCount={messageCount}
-            recentMessages={recentMessages}
-          />
-          <div className='border'></div>
-          <div>
-            <ReactionWrapper
-              reactions={reactions}
-              allReactions={allReactions}
-            />
-
-            <div className='button-wrapper'>
-              <EmojiButton />
-              <div className='border'></div>
-              <ShareButton setShowToast={setShowToast} />
+    <>
+      {!isMobile ? (
+        <header className={styles.header}>
+          <div className={styles.container}>
+            <HeaderName name={name} />
+            <div className='header-right'>
+              {isDesktop ? (
+                <>
+                  <WriterCount
+                    messageCount={messageCount}
+                    recentMessages={recentMessages}
+                  />
+                  <div className='border'></div>
+                </>
+              ) : null}
+              <EmojiShareWrapper
+                reactions={reactions}
+                allReactions={allReactions}
+                isOpenReactionList={isOpenReactionList}
+                setIsOpenReactionList={setIsOpenReactionList}
+                setShowToast={setShowToast}
+              />
             </div>
           </div>
+        </header>
+      ) : (
+        <div className='header-mobile'>
+          <div>
+            <HeaderName name={name} />
+          </div>
+          <div>
+            <EmojiShareWrapper
+              reactions={reactions}
+              allReactions={allReactions}
+              isOpenReactionList={isOpenReactionList}
+              setIsOpenReactionList={setIsOpenReactionList}
+              setShowToast={setShowToast}
+            />
+          </div>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 }
 

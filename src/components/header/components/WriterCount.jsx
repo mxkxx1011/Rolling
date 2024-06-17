@@ -2,7 +2,7 @@ import ProfileList from 'components/profile/ProfileList';
 
 function WriterCount({ messageCount, recentMessages }) {
   return (
-    <div>
+    <div className='writer-count'>
       <ProfileList
         messageCount={messageCount}
         recentMessages={recentMessages}
