@@ -12,6 +12,7 @@ import { useInView } from 'react-intersection-observer';
 import CardList from 'components/card/CardList';
 import SkeletonCardList from 'components/card/SkeletonCardList';
 import SkeletonCard from 'components/card/SkeletonCard';
+import Toast from 'components/toast/Toast';
 
 // post/{id}
 function CardMessagePage() {
@@ -19,6 +20,7 @@ function CardMessagePage() {
   const [recipientMessage, setRecipientMessage] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +54,14 @@ function CardMessagePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedMessage(null);
+  };
+
+  const handleURLCopy = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
+    });
   };
 
   const fetchMoreItems = async () => {
@@ -139,6 +149,7 @@ function CardMessagePage() {
         ) : (
           <h2>메시지가 없어요</h2>
         )}
+        {showToast && <Toast setShowToast={setShowToast} />}
       </main>
       {selectedMessage && (
         <Modal
