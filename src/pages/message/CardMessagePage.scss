@@ -21,6 +21,8 @@ main {
   margin: 0 auto;
   padding: 113px 0;
 
+  @include Flex(column, null, null, 10px);
+
   @media (max-width: 1248px) {
     padding: 113px 24px;
   }
@@ -30,6 +32,12 @@ main {
   }
   @include mobile {
     padding: 32px 20px;
+  }
+
+  .button-wrapper {
+    @include Flex(row, flex-end, null, 5px);
+    width: 1200px;
+    margin: 0 auto;
   }
 
   .message {

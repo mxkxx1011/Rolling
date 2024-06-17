@@ -1,6 +1,6 @@
 import HeaderCardMessage from 'components/header/HeaderCardMessage';
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { RecipientsAPI, RecipientsMessagesAPI } from 'data/CallAPI';
 import Card from 'components/card/Card';
 import './CardMessagePage.scss';
@@ -13,6 +13,7 @@ import CardList from 'components/card/CardList';
 import SkeletonCardList from 'components/card/SkeletonCardList';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
+import Button from 'components/Button';
 
 // post/{id}
 function CardMessagePage() {
@@ -31,12 +32,15 @@ function CardMessagePage() {
 
   const [ref, inView] = useInView();
 
+  const location = useLocation();
+  const isEditPage = location.pathname.includes('/edit');
+
   const {
-    name,
+    name = 'null',
     backgroundColor,
     backgroundImageURL,
     createdAt,
-    messageCount,
+    messageCount = 0,
     recentMessages,
     reactionCount,
     topReactions,
@@ -99,11 +103,12 @@ function CardMessagePage() {
     const getRecipient = async () => {
       try {
         const responseRecipient = await RecipientsAPI('get', postId);
+        const limit = isEditPage ? 6 : 5;
         const responseMessage = await RecipientsMessagesAPI(
           'get',
           postId,
           null,
-          5,
+          limit,
         );
         setRecipient(responseRecipient);
         setRecipientMessage(responseMessage.results);
@@ -113,35 +118,51 @@ function CardMessagePage() {
     };
 
     getRecipient();
-  }, [postId]);
+  }, [postId, isEditPage]);
 
   return (
     <>
-      {recentMessages ? (
-        <HeaderCardMessage
-          name={name}
-          messageCount={messageCount}
-          recentMessages={recentMessages}
-          reactions={topReactions}
-          handleClick={ShareKakao}
-        />
-      ) : null}
+      <HeaderCardMessage
+        name={name}
+        messageCount={messageCount}
+        recentMessages={recentMessages}
+        reactions={topReactions}
+        handleClick={ShareKakao}
+      />
       <main
         className={classNames(backgroundColor)}
         style={BackGroundImageStyle}
       >
+        {isEditPage && (
+          <div className='button-wrapper'>
+            <Button type='secondary' size='40'>
+              페이지 삭제
+            </Button>
+            <Button type='primary' size='40'>
+              선택 삭제
+            </Button>
+            <Button type='primary' size='40'>
+              전체 삭제
+            </Button>
+          </div>
+        )}
         {recentMessages ? (
           <div className='message'>
-            <Card
-              type='plus'
-              handleClick={() => handleMovePage(`/post/${postId}/message`)}
-            />
+            {!isEditPage ? (
+              <Card
+                type='plus'
+                handleClick={() => handleMovePage(`/post/${postId}/message`)}
+              />
+            ) : null}
             {recipientMessage.map((message) => (
               <Card
                 key={message.id}
                 message={message}
                 type='normal'
-                handleClick={() => handleOpenModal(message)}
+                isEditPage={isEditPage}
+                handleClick={
+                  !isEditPage ? () => handleOpenModal(message) : null
+                }
               />
             ))}
             {hasMore && <div ref={ref}></div>}

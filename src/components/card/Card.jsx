@@ -7,7 +7,7 @@ import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
 
-function Card({ type = 'normal', message = {}, handleClick }) {
+function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
   const [isDelete, setIsDelete] = useState(true);
   const isTypeNormal = type === 'normal';
 
@@ -42,7 +42,7 @@ function Card({ type = 'normal', message = {}, handleClick }) {
                 <Badge>{relationship}</Badge>
               </div>
             </div>
-            {isDelete && <DeleteButton />}
+            {isEditPage && <DeleteButton />}
           </div>
           <div>
             <p
