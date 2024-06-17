@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import Button from 'components/Button';
-import styles from 'pages/CardMessagePostPage.module.scss';
-import DefaultProfileIcon from 'assets/images/ic_person.svg';
+import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
 import ToastEditor from 'components/ToastEditor';
+// import DefaultImage from 'assets/images/ic_profile_default.svg';
+import DefaultProfileIcon from 'assets/images/ic_person.svg';
 
 function CardMessagePostPage() {
   const [sender, setSender] = useState('');
-  const [relationship, setRelationship] = useState('');
-  const [font, setFont] = useState('');
+  const [relationship, setRelationship] = useState('지인');
+  const [font, setFont] = useState('Noto Sans');
   const [message, setMessage] = useState('');
+  const [profileImage, setProfileImage] = useState('defaultImage');
   const relationshipOptions = ['친구', '지인', '동료', '가족'];
   const fontOptions = [
     'Noto Sans',
@@ -22,13 +24,20 @@ function CardMessagePostPage() {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const formData = {
-      sender,
-      relationship,
-      message,
-      font,
+      team: "7-4",
+      recipientId: postId,
+      sender: senderValue,
+      relationship: relationship,
+      content: editorContent,
+      font: selectedFont,
+      profileImageURL: selectedProfile,
     };
+
+    try {
+      await 
+    }
     console.log(formData);
-    //api 추가
+  
   };
 
   return (

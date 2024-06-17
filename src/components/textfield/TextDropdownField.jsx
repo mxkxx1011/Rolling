@@ -4,11 +4,7 @@ import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from 'react';
 import DropMenu from 'components/textfield/DropMenu';
 
-function TextDropdownField({
-  options,
-  handleClick = null,
-  onChangeOptions = null,
-}) {
+function TextDropdownField({ options, onChangeOptions }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
