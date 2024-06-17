@@ -1,10 +1,10 @@
 import './Reaction.scss';
 
-function Reaction({ reaction }) {
+export function Reaction({ reaction, className }) {
   const { emoji, count } = reaction;
 
   return (
-    <div className='reaction'>
+    <div className={`reaction ${className}`}>
       {emoji} {count}
     </div>
   );
