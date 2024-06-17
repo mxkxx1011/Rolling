@@ -4,23 +4,28 @@ import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from 'react';
 import DropMenu from 'components/textfield/DropMenu';
 
-function TextDropdownField({ options, onChangeOptions }) {
+function TextDropdownField({ options, onChangeOptions=null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev)
   };
+
+  const handleURLCopy = () => {
+    console.log('됨');
+  }
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    onChangeOptions(option);
+    if(onChangeOptions != null) {
+      onChangeOptions(option);
+    }
   };
-
   return (
     <div className='dropdown'>
-      <button className='dropdown-toggle' onClick={toggleDropdown}>
+      <button className='dropdown-toggle' onClick={toggleDropdown} type='button'>
         {selectedOption}
         <img
           src={isOpen ? iconArrowTop : iconArrowDown}
@@ -28,7 +33,8 @@ function TextDropdownField({ options, onChangeOptions }) {
           className='arrow'
         />
       </button>
-      {isOpen && <DropMenu options={options} handleClick={handleOptionClick} />}
+      {/* {isOpen && <DropMenu options={['카카오톡공유', 'URL 공유']} handleClick={[handleURLCopy, handleURLCopy]} />} */}
+      {isOpen && <DropMenu options={options} handleClick={handleOptionClick}/>}
     </div>
   );
 }

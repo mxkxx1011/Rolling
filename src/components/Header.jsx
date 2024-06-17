@@ -42,7 +42,7 @@ function Header() {
             <Button
               order='outlined'
               size='40'
-              onClick={() => handleMovePage('/post')}
+              handleClick={() => handleMovePage('/post')}
             >
               롤링 페이퍼 만들기
             </Button>

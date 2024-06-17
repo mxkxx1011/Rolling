@@ -1,14 +1,25 @@
-@import 'assets/styles/common.scss';
-@import 'assets/styles/fonts.scss';
-@import 'assets/styles/palette.scss';
+@import '../../assets/styles/common.scss';
+@import '../../assets/styles/fonts.scss';
+@import '../../assets/styles/palette.scss';
 
 .card-list-layer {
   padding: 50px 0;
   @include Flex(column, center, center, null);
+
+  @include desktop {
+    // width: 720px;
+  }
+  @include tablet {
+    width: 720px;
+  }
+  @include mobile {
+    width: 320px;
+  }
+
   .card-list-box {
-    @include Flex(column, center, center, null);
+    @include Flex(column, center, flex-start, null);
     margin-bottom: 50px;
-    p {
+    .card-list-title {
       margin-bottom: 16px;
       @include font-style(24, bold);
       line-height: 36px;
@@ -18,7 +29,8 @@
       @include Flex(row, center, center, null);
       position: relative;
       .arrow {
-        position: relative;
+        position: absolute;
+        cursor: pointer;
         @include Flex(row, center, center, null);
         border: 1px solid $gray-arrow-border;
         border-radius: 100%;
@@ -27,18 +39,24 @@
         height: 40px;
         z-index: 2;
         &.right {
-          right: 20px;
+          right: -20px;
         }
         &.left {
-          left: 20px;
+          left: -20px;
         }
         &.disabled {
           visibility: hidden
         }
       }
     }
-    .list {
+    .card-list-wrapper {
       @include Flex(row, center, center, 20px);
     }
+  }
+  .post-link-button {
+    margin-top: 16px;
+    width: 280px;
+    color: $color--white;
+    background-color: $purple-600;
   }
 }

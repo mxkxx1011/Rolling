@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import CardList from 'components/card/CardList';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import TextInputField from 'components/textfield/TextInputField';
-import EmojiToggle from 'components/EmojiToggle';
-import ArrowRight from 'assets/images/ic_arrow_right.svg';
-import ArrowLeft from 'assets/images/ic_arrow_left.svg';
 import 'pages/listpage/CardListPage.scss';
+import ArrowButton from 'components/ArrowButton'
+import Button from 'components/Button';
+import useNavigator from 'hooks/useNavigator';
 
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
@@ -41,10 +41,17 @@ function CardListPage() {
   const [recipients, setRecipients] = useState([]);
   const [limit, setLimit] = useState(4);
   const [offset, setOffSet] = useState(0);
+  const [hotOffset, setHotOffSet] = useState(0);
   const width = useWindowWidth();
+  const [hotRecipients, setHotRecipients] = useState([]);
+  const handleMovePage = useNavigator();
 
   function listShift(count) {
     setOffSet(offset+count);
+  }
+
+  function hotListShift(count) {
+    setHotOffSet(hotOffset+count);
   }
 
   useEffect(() => {
@@ -55,56 +62,56 @@ function CardListPage() {
       setLimit(4);
     }
   }, [width]);
-
+  
   useEffect(() => {
     const getRecipient = async () => {
       try {
-        const response = await RecipientsAPI('get', null, null, limit, offset);
+        const response = await RecipientsAPI('get', null, null, 9999, offset);
         setRecipients(response.results || []);
+        setHotRecipients(hotSort(response.results) || []);
       } catch (error) {
         console.error(error);
       }
     };
     getRecipient();
-    console.log(recipients);
-  }, [offset, limit]);
+  }, []);
 
   return (
     <div className='card-list-layer'>
       <div className='card-list-box'>
-        <p>인기 롤링 페이퍼 🔥</p>
+        <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
         <div className='card-list-data'>
-          <div className={`arrow left ${offset > 0 ? '' :  'disabled'}`} onClick={()=>listShift(-2)}>
-            <img src={ArrowLeft} alt='왼쪽넘김' />
+          <div className={`arrow left ${hotOffset > 0 ? '' :  'disabled'}`} onClick={()=>hotListShift(-2)}>
+            <ArrowButton direction={'left'} />
           </div>
-          <div className='list hot-card'>
-            {hotSort(recipients).map((data) => (
+          <div className='card-list-wrapper hot-card'>
+            {hotRecipients.slice(hotOffset, hotOffset+limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
           </div>
-          <div className={`arrow right ${recipients.length === 4 ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
-            <img src={ArrowRight} alt='오른쪽넘김'  />
+          <div className={`arrow right ${hotOffset+limit < hotRecipients.length ? '' : 'disabled'}`} onClick={()=>hotListShift(2)}>
+            <ArrowButton direction={'right'} />
           </div>
         </div>
       </div>
       <div className='card-list-box'>
-        <p>최근에 만든 롤링 페이퍼 ⭐</p>
+        <p className='card-list-title'>최근에 만든 롤링 페이퍼 ⭐</p>
         <div className='card-list-data'>
           <div className={`arrow left ${offset > 0 ? '' :  'disabled'}`} onClick={()=>listShift(-2)}>
-            <img src={ArrowLeft} alt='왼쪽넘김' />
+            <ArrowButton direction={'left'} />
           </div>
-          <div className='list date-card'>
-            {recipients.map((data) => (
+          <div className='card-list-wrapper date-card'>
+            {recipients.slice(offset, offset+limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
           </div>
-          <div className={`arrow right ${recipients.length === 4 ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
-            <img src={ArrowRight} alt='오른쪽넘김'  />
+          <div className={`arrow right ${offset+limit < recipients.length ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
+            <ArrowButton direction={'right'} />
           </div>
         </div>
       </div>
+      <Button children="나도 만들어보기" size={'56'} className={'post-link-button'} handleClick={() => handleMovePage('/post')} />
       <div className='testlayer'>
-        <EmojiToggle></EmojiToggle>
         <br />
         <TextDropdownField options={test}></TextDropdownField>
         <br />
