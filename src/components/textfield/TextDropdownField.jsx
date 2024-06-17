@@ -2,6 +2,7 @@ import "./DropdownField.scss";
 import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from "react";
+import DropMenu from "components/textfield/DropMenu"
 
 function TextDropdownField({options}) {
 
@@ -21,16 +22,10 @@ function TextDropdownField({options}) {
         <div className="dropdown">
             <button className="dropdown-toggle" onClick={onToggle}>
                 {selectedOption}
-                <img src={isOpen ? iconArrowDown : iconArrowTop} alt='test' className="arrow" />
+                <img src={isOpen ? iconArrowTop : iconArrowDown} alt='test' className="arrow" />
             </button>
             {isOpen && (
-                <ul className="dropdown-menu">
-                    {options.map((option, index) => (
-                        <li key={index} onClick={() => handleOptionClick(option)}>
-                            {option}
-                        </li>
-                    ))}
-                </ul>
+                <DropMenu options={options} clickEvnet={handleOptionClick}/>
             )}
         </div>
     );
