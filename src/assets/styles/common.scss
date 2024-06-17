@@ -15,8 +15,8 @@
 // 믹스인을 호출해서 스타일을 작성하면 @content에 전달됨
 // ex) @include mobile or tablet or desktop { 해당 디바이스에서 적용할 스타일 }
 $mobile-max: 767px;
-$tablet-max: 1023px;
-$desktop-min: 1024px;
+$tablet-max: 1024px;
+$desktop-min: 1025px;
 
 @mixin desktop {
   @media screen and (min-width: $desktop-min) {
