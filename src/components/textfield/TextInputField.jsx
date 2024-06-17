@@ -1,9 +1,15 @@
 import './InputField.scss';
 
-function TextInputField({ children }) {
+function TextInputField({ children, type, id, name }) {
   return (
     <div className='input-layer'>
-      <input placeholder={children} className='input' />
+      <input
+        placeholder={children}
+        className='input'
+        type={type}
+        id={id}
+        name={name}
+      />
     </div>
   );
 }
