@@ -4,20 +4,22 @@ import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from 'react';
 import DropMenu from 'components/textfield/DropMenu';
 
-function TextDropdownField({ options }) {
-  const toggleDropdown = () => {
+function TextDropdownField({ options, onChangeOptions }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+
+  const onToggle = () => {
     setIsOpen(!isOpen);
   };
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    onChangeOptions(option);
   };
 
   return (
     <div className='dropdown'>
-      <button className='dropdown-toggle' onClick={toggleDropdown}>
+      <button className='dropdown-toggle' onClick={onToggle}>
         {selectedOption}
         <img
           src={isOpen ? iconArrowTop : iconArrowDown}
