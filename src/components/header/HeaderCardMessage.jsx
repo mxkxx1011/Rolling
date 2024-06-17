@@ -3,12 +3,14 @@ import styles from 'components/Header.module.scss';
 import ReactionList from '../reaction/Reaction';
 import './HeaderCardMessage.scss';
 import iconShare24 from 'assets/images/ic_share_24.svg';
-import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 import ProfileList from 'components/profile/ProfileList';
 import ShareKakao from 'utils/ShareKakao';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EmojiToggle from 'components/EmojiToggle';
 import EmojiPicker from 'emoji-picker-react';
+import { RecipientsReactionsAPI } from 'data/CallAPI';
+import { useParams } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
@@ -22,6 +24,11 @@ function HeaderCardMessage({
   handleClick,
 }) {
   const [isEmoji, setIsEmoji] = useState(false);
+  const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
+  const [allReactions, setAllReactions] = useState([]);
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
+  const { postId } = useParams();
 
   const handleEmojiClick = (e) => {
     console.log(e.emoji);
@@ -30,6 +37,30 @@ function HeaderCardMessage({
   const handleOpenEmojiPicker = () => {
     setIsEmoji((prev) => !prev);
   };
+
+  const handleOpenReactionList = () => {
+    SetIsOpenReactionList((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const getAllReactions = async () => {
+      const limit = isDesktop ? 8 : 6;
+      try {
+        const responseReactions = await RecipientsReactionsAPI(
+          'get',
+          postId,
+          null,
+          limit,
+        );
+        setAllReactions(responseReactions.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (isOpenReactionList) {
+      getAllReactions();
+    }
+  }, [isOpenReactionList, postId, isDesktop]);
 
   return (
     <header className={styles.header}>
@@ -49,15 +80,16 @@ function HeaderCardMessage({
           <div className='border'></div>
           <div>
             <ReactionList reactions={reactions} />
-            <div className='dropdown'>
-              {/* <img src={iconArrowDown} alt='down' /> */}
-              {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
-              <EmojiToggle />
-            </div>
+            <EmojiToggle
+              handleClick={handleOpenReactionList}
+              reactions={allReactions}
+              isOpen={isOpenReactionList}
+            />
+
             <div className='button-wrapper'>
               <Button
                 handleClick={handleOpenEmojiPicker}
-                type='outlined'
+                order='outlined'
                 size='36'
                 emoji
               >
@@ -70,9 +102,7 @@ function HeaderCardMessage({
                 />
               )}
               <div className='border'></div>
-              {/* <Button type='outlined' size='36' handleClick={handleClick}>
-                <img src={iconShare24} alt='공유버튼' />
-              </Button> */}
+
               <ShareKakao />
             </div>
           </div>

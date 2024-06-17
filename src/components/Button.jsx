@@ -7,6 +7,7 @@ function Button({
   children,
   size,
   type,
+  order,
   emoji,
   disabled,
   className,
@@ -14,8 +15,9 @@ function Button({
 }) {
   return (
     <button
+      type={type}
       disabled={disabled}
-      className={classNames('button', `size-${size}`, type, className)}
+      className={classNames('button', `size-${size}`, order, className)}
       onClick={handleClick}
     >
       {emoji && (size === '28' ? <IconAdd20 /> : <IconAdd24 />)}

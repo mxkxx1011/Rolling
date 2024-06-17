@@ -40,7 +40,7 @@ function Header() {
           {/* 포스트 페이지가 아닐 때 롤링 페이퍼 만들기 버튼이 나타나지 않도록 설정 */}
           {!isPostPage && (
             <Button
-              type='outlined'
+              order='outlined'
               size='40'
               handleClick={() => handleMovePage('/post')}
             >

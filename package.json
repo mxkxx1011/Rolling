@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@toast-ui/react-editor": "^3.2.3",
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
     "emoji-picker-react": "^4.10.0",
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "3.3.1"
   }

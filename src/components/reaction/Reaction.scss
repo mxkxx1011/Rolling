@@ -3,14 +3,22 @@
 @import 'assets/styles/palette.scss';
 @import 'assets/styles/common.scss';
 .reactions {
-    @include Flex(row, baseline, center, 8px);
+  @include Flex(row, baseline, center, 8px);
+}
 
-    .reaction {
-        @include Flex(row, center, center, 2px);
-        background-color: #0000008A;
-        color: $color--white;
-        padding: 8px 12px;
-        border-radius: 32px;
-        @include font-style(16, regular);
-    }
+.reaction {
+  @include Flex(row, center, center, 2px);
+  background-color: rgba($color--black, 0.54);
+  color: $color--white;
+  padding: 8px 12px;
+  border-radius: 32px;
+  @include font-style(16, regular);
+  white-space: nowrap;
+
+  &.small {
+    padding: 6px 12px;
+
+    line-height: 26px;
+    letter-spacing: -0.01em;
+  }
 }
