@@ -1,17 +1,17 @@
 import './Reaction.scss';
 
-function Reaction({ reaction }) {
+export function Reaction({ reaction, className }) {
   const { emoji, count } = reaction;
 
   return (
-    <div className='reaction'>
+    <div className={`reaction ${className}`}>
       {emoji} {count}
     </div>
   );
 }
 
-function ReactionList({ reactions }) {
-  const topReactions = reactions.slice(0, 3);
+function ReactionList({ reactions = [] }) {
+  const topReactions = reactions ? reactions.slice(0, 3) : [];
   return (
     <div className='reactions'>
       {topReactions.map((reaction) => (

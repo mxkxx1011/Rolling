@@ -6,6 +6,7 @@
 
 .header {
   border-bottom: 1px solid #ededed;
+  background-color: $color--white;
 
   .container {
     @include Flex(row, space-between, center, 0);

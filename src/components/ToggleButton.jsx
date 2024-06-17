@@ -2,16 +2,23 @@ import { useState } from 'react';
 import Button from './Button';
 import './ToggleButton.scss';
 
-function ToggleButton({ options }) {
+function ToggleButton({ options, onOptionSelect }) {
   const [selectedOption, setSelectedOption] = useState(options[0]);
+
+  //선택된 옵션 state 적용, 부모 컴포넌트로 전달
+  const handleClick = (option) => {
+    setSelectedOption(option);
+    onOptionSelect(option);
+  };
 
   return (
     <div className='toggle-button'>
       {options.map((option) => (
         <Button
+          //key={option}
           type={selectedOption === option ? 'secondary' : 'default'}
           size='40'
-          onClick={() => setSelectedOption(option)}
+          handleClick={() => handleClick(option)}
         >
           {option}
         </Button>

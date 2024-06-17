@@ -1,0 +1,35 @@
+@import 'assets/styles/common.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+
+.page-container {
+  padding: 57px 600px;
+}
+.font-24-bold {
+  @include font-style(24, bold);
+  color: $gray-900;
+  &.title-to {
+    line-height: 42px;
+    margin-bottom: 12px;
+  }
+  &.title-choice {
+    line-height: 36px;
+  }
+}
+.font-16-regular {
+  @include font-style(16, regular);
+  color: $gray-500;
+  line-height: 26px;
+}
+.text-container {
+  padding: 50px 0 24px 0;
+  p {
+    margin-top: 4px;
+  }
+}
+.option-container {
+  padding: 45px 0;
+}
+Button {
+  width: 720px;
+}

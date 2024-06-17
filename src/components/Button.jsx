@@ -5,8 +5,8 @@ import { ReactComponent as IconAdd20 } from '../assets/images/ic_add_20.svg';
 
 function Button({
   children,
-  type,
   size,
+  type,
   order,
   emoji,
   disabled,

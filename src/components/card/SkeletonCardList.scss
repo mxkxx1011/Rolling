@@ -1,0 +1,44 @@
+@import './CardList.scss';
+@import 'assets/styles/common.scss';
+@import 'assets/styles/palette.scss';
+@import './Skeleton.scss';
+
+.skeleton {
+  @include Skeleton;
+
+  &.card-list {
+    @include CardListWrapper;
+    background-color: $gray-200;
+  }
+
+  .content-top {
+    .reaction-wrapper {
+      @include Flex(row, null, center, 5px);
+    }
+  }
+
+  .skeleton-header {
+    width: 125px;
+    height: 36px;
+  }
+  .skeleton-number {
+    width: 160px;
+    height: 30px;
+  }
+
+  .skeleton-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+  }
+
+  .skeleton-reactions {
+    @include Flex(row, null, center, 5px);
+    div {
+      width: 63px;
+      height: 36px;
+      padding: 8px 12px;
+      border-radius: 32px;
+    }
+  }
+}
