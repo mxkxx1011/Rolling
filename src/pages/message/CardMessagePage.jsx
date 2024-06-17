@@ -60,14 +60,6 @@ function CardMessagePage() {
     setSelectedMessage(null);
   };
 
-  const handleURLCopy = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3500);
-    });
-  };
-
   const fetchMoreItems = async () => {
     const limit = page === 1 ? 5 : 6; // 첫 페이지는 5개, 이후 페이지는 6개
     const offset = (page - 1) * 6; // 첫 페이지는 0, 이후 페이지는 6의 배수
@@ -128,6 +120,7 @@ function CardMessagePage() {
         recentMessages={recentMessages}
         reactions={topReactions}
         handleClick={ShareKakao}
+        setShowToast={setShowToast}
       />
       <main
         className={classNames(backgroundColor)}
