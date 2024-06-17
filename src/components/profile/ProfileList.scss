@@ -3,47 +3,46 @@
 @import 'assets/styles/palette.scss';
 
 @mixin ProfileListStyle {
-    position: relative;
+  position: relative;
+  height: 28px;
+
+  & > * {
+    position: absolute;
+  }
+  img {
+    border-radius: 50px;
+    border: 1.5px solid $color--white;
+    width: 28px;
     height: 28px;
+  }
 
-    & > * {
-        position: absolute;
+  @for $i from 0 to 3 {
+    img:nth-child(#{$i + 1}) {
+      left: 0 + (16px * $i);
+      z-index: $i + 1;
     }
-    img {
-        border-radius: 50px;
-        border: 1.5px solid $color--white;
-        width: 28px;
-        height: 28px;
-    }
+  }
 
-    @for $i from 0 to 3 {
-        img:nth-child(#{$i + 1}) {
-            left: 0 + (16px * $i);
-            z-index: $i + 1;
-        }
-    }
+  div {
+    z-index: 4;
+    left: 48px;
+    background-color: $color--white;
+    border-radius: 30px;
+    padding: 5px 6px;
 
-    div {
-        z-index: 4;
-        left: 48px;
-        background-color: $color--white;
-        border-radius: 30px;
-        padding: 5px 6px;
-        
-        @include font-style(12, regular);
-        color: $gray-500;   
-        p{
-            @include Flex(row, center, center, null);
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            letter-spacing: -0.005em;
-        }
+    @include font-style(12, regular);
+    color: $gray-500;
+    p {
+      @include Flex(row, center, center, null);
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      letter-spacing: -0.005em;
+      white-space: nowrap;
     }
+  }
 }
 
 .profile-list {
-    @include ProfileListStyle;    
+  @include ProfileListStyle;
 }
-
-
