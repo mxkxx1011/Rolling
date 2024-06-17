@@ -10,9 +10,14 @@
   .container {
     @include Flex(row, space-between, center, 0);
     height: 64px;
-    max-width: 1200px;
+    width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
+
+    @include size-1248 {
+      width: 100%;
+      padding: 0 24px;
+      margin: 0;
+    }
 
     @include mobile {
       padding: 0 16px;

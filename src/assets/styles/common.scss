@@ -24,6 +24,12 @@ $desktop-min: 1025px;
   }
 }
 
+@mixin size-1248 {
+  @media screen and (max-width: 1248px) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media screen and (max-width: $tablet-max) {
     @content;
