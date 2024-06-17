@@ -43,6 +43,10 @@ function CardListPage() {
   const [offset, setOffSet] = useState(0);
   const width = useWindowWidth();
 
+  function listShift(count) {
+    setOffSet(offset+count);
+  }
+
   useEffect(() => {
     if(width < 1024) {
       setLimit(null);
@@ -69,20 +73,34 @@ function CardListPage() {
     <div className='card-list-layer'>
       <div className='card-list-box'>
         <p>인기 롤링 페이퍼 🔥</p>
-        <img src={ArrowLeft} alt='왼쪽넘김' />
-        <div className='card-list hot-card'>
-          {hotSort(recipients).map((data, index) => (
-            <CardList key={`${data.id}`} recipient={data} />
-          ))}
+        <div className='card-list-data'>
+          <div className={`arrow left ${offset > 0 ? '' :  'disabled'}`} onClick={()=>listShift(-2)}>
+            <img src={ArrowLeft} alt='왼쪽넘김' />
+          </div>
+          <div className='list hot-card'>
+            {hotSort(recipients).map((data) => (
+              <CardList key={`${data.id}`} recipient={data} />
+            ))}
+          </div>
+          <div className={`arrow right ${recipients.length === 4 ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
+            <img src={ArrowRight} alt='오른쪽넘김'  />
+          </div>
         </div>
-        <img src={ArrowRight} alt='오른쪽넘김' />
       </div>
       <div className='card-list-box'>
         <p>최근에 만든 롤링 페이퍼 ⭐</p>
-        <div className='card-list date-list'>
-          {recipients.map((data, index) => (
-            <CardList key={`${data.id}`} recipient={data} />
-          ))}
+        <div className='card-list-data'>
+          <div className={`arrow left ${offset > 0 ? '' :  'disabled'}`} onClick={()=>listShift(-2)}>
+            <img src={ArrowLeft} alt='왼쪽넘김' />
+          </div>
+          <div className='list date-card'>
+            {recipients.map((data) => (
+              <CardList key={`${data.id}`} recipient={data} />
+            ))}
+          </div>
+          <div className={`arrow right ${recipients.length === 4 ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
+            <img src={ArrowRight} alt='오른쪽넘김'  />
+          </div>
         </div>
       </div>
       <div className='testlayer'>

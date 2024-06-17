@@ -24,10 +24,10 @@
       border: 1px solid $gray-500;
     }
     &:active {
-      border: 2px solid $gray-700;
+      outline: 2px solid $gray-700;
     }
     &:focus {
-      border: 2px solid $gray-500;
+      outline: 2px solid $gray-500;
     }
     &::placeholder {
       @include font-style(16, regular);
