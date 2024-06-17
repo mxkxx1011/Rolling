@@ -2,33 +2,67 @@
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
 
-.toast-container {
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
   background-color: $color--black;
   opacity: 80%;
-  width: 524px;
-  height: 64px;
   border-radius: 8px;
-  @include Flex(row, space-between, center, null);
-  padding: 0 30px;
-}
-.toast-text-wrapper {
-  @include Flex(row, space-between, center, null);
-  gap: 12px;
-}
-.toast-text-wrapper {
-  p {
-    color: $color--white;
-    @include font-style(16, regular);
+  width: 524px;
+
+  .toast-container {
+    @include Flex(column, null, null, 9px);
+    position: relative;
+    margin-bottom: 15px;
+    & > div {
+      @include Flex(row, space-between, center, null);
+    }
+    .toast-text-wrapper {
+      @include Flex(row, space-between, center, null);
+      gap: 12px;
+    }
+    img {
+      width: 24px;
+      height: 24px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
-}
-.toast-container {
-  img {
-    width: 24px;
-    height: 24px;
+  .progress-bar {
+    border-radius: 15px;
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    width: 100%;
+    height: 4px;
+
+    &.basic {
+      background-color: $gray-200;
+    }
+
+    &.active {
+      background: linear-gradient(90deg, $purple-200, $purple-300);
+      animation: progress 3.5s linear forwards;
+    }
   }
-}
-.toast-img-close {
-  &:hover {
-    cursor: pointer;
+  .toast-text-wrapper {
+    p {
+      color: $color--white;
+      @include font-style(16, regular);
+    }
   }
 }

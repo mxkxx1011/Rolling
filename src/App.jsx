@@ -1,5 +1,4 @@
 import CardListPage from 'pages/listpage/CardListPage';
-import CardMessageDeletePage from 'pages/message/CardMessageDeletePage';
 import CardMessagePage from 'pages/message/CardMessagePage';
 import CardMessagePostPage from 'pages/CardMessagePostPage';
 import HomePage from 'pages/home/HomePage';
@@ -15,11 +14,11 @@ function App() {
         <Route path='/' element={<Main />}>
           <Route index element={<HomePage />} />
           <Route path='list' element={<CardListPage />} />
-          <Route path='post'>
+          <Route path='/post'>
             <Route index element={<PostPage />} />
             <Route path=':postId'>
               <Route index element={<CardMessagePage />} />
-              <Route path='edit' element={<CardMessageDeletePage />} />
+              <Route path='edit' element={<CardMessagePage />} />
               <Route path='message' element={<CardMessagePostPage />} />
             </Route>
           </Route>

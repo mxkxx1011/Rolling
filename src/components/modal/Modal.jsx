@@ -4,9 +4,18 @@ import 'assets/styles/CardModal.scss';
 
 import Button from 'components/Button';
 import FormatDate from 'utils/FormatDate';
+import { useEffect } from 'react';
+import { preventScroll, allowScroll } from 'utils/Scroll.jsx';
 
 function Modal({ message, isModalOpen, handleCloseModal }) {
-  if (!isModalOpen) return null;
+  useEffect(() => {
+    if (isModalOpen) {
+      const prevScrollY = preventScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [isModalOpen]);
 
   const {
     recipientId,

@@ -1,6 +1,6 @@
 import HeaderCardMessage from 'components/header/HeaderCardMessage';
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { RecipientsAPI, RecipientsMessagesAPI } from 'data/CallAPI';
 import Card from 'components/card/Card';
 import './CardMessagePage.scss';
@@ -9,6 +9,11 @@ import ShareKakao from 'utils/ShareKakao';
 import Modal from 'components/modal/Modal';
 import useNavigator from 'hooks/useNavigator';
 import { useInView } from 'react-intersection-observer';
+import CardList from 'components/card/CardList';
+import SkeletonCardList from 'components/card/SkeletonCardList';
+import SkeletonCard from 'components/card/SkeletonCard';
+import Toast from 'components/toast/Toast';
+import Button from 'components/Button';
 
 // post/{id}
 function CardMessagePage() {
@@ -16,6 +21,7 @@ function CardMessagePage() {
   const [recipientMessage, setRecipientMessage] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [showToast, setShowToast] = useState(false);
 
   const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,12 +32,15 @@ function CardMessagePage() {
 
   const [ref, inView] = useInView();
 
+  const location = useLocation();
+  const isEditPage = location.pathname.includes('/edit');
+
   const {
-    name,
+    name = 'null',
     backgroundColor,
     backgroundImageURL,
     createdAt,
-    messageCount,
+    messageCount = 0,
     recentMessages,
     reactionCount,
     topReactions,
@@ -49,6 +58,14 @@ function CardMessagePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedMessage(null);
+  };
+
+  const handleURLCopy = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
+    });
   };
 
   const fetchMoreItems = async () => {
@@ -86,11 +103,12 @@ function CardMessagePage() {
     const getRecipient = async () => {
       try {
         const responseRecipient = await RecipientsAPI('get', postId);
+        const limit = isEditPage ? 6 : 5;
         const responseMessage = await RecipientsMessagesAPI(
           'get',
           postId,
           null,
-          5,
+          limit,
         );
         setRecipient(responseRecipient);
         setRecipientMessage(responseMessage.results);
@@ -100,45 +118,60 @@ function CardMessagePage() {
     };
 
     getRecipient();
-  }, [postId]);
+  }, [postId, isEditPage]);
 
   return (
     <>
-      {recentMessages ? (
-        <HeaderCardMessage
-          name={name}
-          messageCount={messageCount}
-          recentMessages={recentMessages}
-          reactions={topReactions}
-          handleClick={ShareKakao}
-        />
-      ) : null}
-      <div
-        className={classNames('body', backgroundColor)}
+      <HeaderCardMessage
+        name={name}
+        messageCount={messageCount}
+        recentMessages={recentMessages}
+        reactions={topReactions}
+        handleClick={ShareKakao}
+      />
+      <main
+        className={classNames(backgroundColor)}
         style={BackGroundImageStyle}
       >
+        {isEditPage && (
+          <div className='button-wrapper'>
+            <Button type='secondary' size='40'>
+              페이지 삭제
+            </Button>
+            <Button type='primary' size='40'>
+              선택 삭제
+            </Button>
+            <Button type='primary' size='40'>
+              전체 삭제
+            </Button>
+          </div>
+        )}
         {recentMessages ? (
-          <div>
-            <div className='message'>
+          <div className='message'>
+            {!isEditPage ? (
               <Card
                 type='plus'
                 handleClick={() => handleMovePage(`/post/${postId}/message`)}
               />
-              {recipientMessage.map((message) => (
-                <Card
-                  key={message.id}
-                  message={message}
-                  type='normal'
-                  handleClick={() => handleOpenModal(message)}
-                />
-              ))}
-              {hasMore && <div ref={ref}></div>}
-            </div>
+            ) : null}
+            {recipientMessage.map((message) => (
+              <Card
+                key={message.id}
+                message={message}
+                type='normal'
+                isEditPage={isEditPage}
+                handleClick={
+                  !isEditPage ? () => handleOpenModal(message) : null
+                }
+              />
+            ))}
+            {hasMore && <div ref={ref}></div>}
           </div>
         ) : (
           <h2>메시지가 없어요</h2>
         )}
-      </div>
+        {showToast && <Toast setShowToast={setShowToast} />}
+      </main>
       {selectedMessage && (
         <Modal
           message={selectedMessage}

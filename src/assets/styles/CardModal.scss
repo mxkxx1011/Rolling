@@ -126,6 +126,9 @@ $types: (
     padding: 28px 24px 24px;
     @include Flex(column, null, null, 16px);
 
+    @media (max-width: 1248px) {
+      width: 100%;
+    }
     &:hover {
       cursor: pointer;
     }
