@@ -24,10 +24,10 @@
     }
 
     &:focus {
-      border: 2px solid $gray-500;
+      outline: 2px solid $gray-500;
     }
     &:active {
-      border: 2px solid $gray-500;
+      outline: 2px solid $gray-500;
     }
     & .arrow {
       display: inline-block;

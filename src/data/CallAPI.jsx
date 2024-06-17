@@ -27,7 +27,7 @@ function ErrorCheck(Method, ApiName) {
       break;
     default:
       errorMessage = 'api호출에 실패했습니다.';
-      // 스위키기본 구문에 디폴트가 없으면 경고문이 떠서 추가한 내용입니다.
+      // 스위치기본 구문에 디폴트가 없으면 경고문이 떠서 추가한 내용입니다.
       break;
   }
   return errorMessage;
