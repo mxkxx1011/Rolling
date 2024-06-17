@@ -89,7 +89,7 @@ function HeaderCardMessage({
             <div className='button-wrapper'>
               <Button
                 handleClick={handleOpenEmojiPicker}
-                type='outlined'
+                order='outlined'
                 size='36'
                 emoji
               >
@@ -102,9 +102,7 @@ function HeaderCardMessage({
                 />
               )}
               <div className='border'></div>
-              {/* <Button type='outlined' size='36' handleClick={handleClick}>
-                <img src={iconShare24} alt='공유버튼' />
-              </Button> */}
+
               <ShareKakao />
             </div>
           </div>

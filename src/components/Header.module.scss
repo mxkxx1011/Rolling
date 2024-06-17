@@ -10,19 +10,19 @@
 
   .container {
     @include Flex(row, space-between, center, 0);
+    height: 64px;
+    width: 1200px;
+    margin: 0 auto;
 
-    @include desktop {
-      padding: 0 360px;
-    }
-
-    @include tablet {
+    @include size-1248 {
+      width: 100%;
       padding: 0 24px;
+      margin: 0;
     }
 
     @include mobile {
       padding: 0 16px;
     }
-    height: 64px;
   }
 
   .wrapper {
