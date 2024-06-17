@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import Button from 'components/Button';
-import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
 import ToastEditor from 'components/ToastEditor';
-// import DefaultImage from 'assets/images/ic_profile_default.svg';
-import DefaultProfileIcon from 'assets/images/ic_person.svg';
+import { RecipientsMessagesAPI } from 'data/CallAPI';
+import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
+import DefaultProfileImage from 'assets/images/ic_profile_default.svg';
+import { PROFILE_ICONS } from 'pages/postmessage/ProfileIcons';
 
 function CardMessagePostPage() {
   const [sender, setSender] = useState('');
@@ -13,7 +16,7 @@ function CardMessagePostPage() {
   const [font, setFont] = useState('Noto Sans');
   const [message, setMessage] = useState('');
   const [profileImage, setProfileImage] = useState('defaultImage');
-  const relationshipOptions = ['친구', '지인', '동료', '가족'];
+  const relationshipOptions = ['지인', '친구', '동료', '가족'];
   const fontOptions = [
     'Noto Sans',
     'Pretendard',
@@ -21,23 +24,30 @@ function CardMessagePostPage() {
     '나눔손글씨 손편지체',
   ];
 
+  const { postId } = useParams();
+  const handleMovePage = useNavigator();
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
+
     const formData = {
-      team: "7-4",
+      team: '7-4',
       recipientId: postId,
-      sender: senderValue,
+      sender: sender,
+      profileImageURL:
+        profileImage === 'defaultImage' ? DefaultProfileImage : profileImage,
       relationship: relationship,
-      content: editorContent,
-      font: selectedFont,
-      profileImageURL: selectedProfile,
+      content: message,
+      font: font,
     };
 
     try {
-      await 
+      RecipientsMessagesAPI('post', postId, formData);
+      console.log(formData);
+      handleMovePage(`/post/${postId}`);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(formData);
-  
   };
 
   return (
@@ -61,12 +71,28 @@ function CardMessagePostPage() {
           <label className={styles.label} htmlFor='profileSelect'>
             프로필 이미지
           </label>
-          <img
-            src={DefaultProfileIcon}
-            alt='프로필 이미지'
-            width='20px'
-            height='20px'
-          />
+          <div className={styles.profile}>
+            <img
+              src={DefaultProfileImage}
+              alt='프로필 이미지'
+              width='56px'
+              height='56px'
+            />
+            <>
+              <p>프로필 이미지를 선택해주세요!</p>
+              <div className={styles.profileIcons}>
+                {PROFILE_ICONS.map((icon, i) => (
+                  <img
+                    key={i}
+                    value={icon}
+                    width='56px'
+                    height='56px'
+                    onClick={setProfileImage(icon)}
+                  />
+                ))}
+              </div>
+            </>
+          </div>
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label} htmlFor=''>
