@@ -47,6 +47,7 @@
     height: 52px;
     padding: 0 20px;
     @include Flex(row, null, center, 2px);
+    border-bottom: 1px solid #ededed;
   }
 
   .emoji-share-wrapper {
