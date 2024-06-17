@@ -10,6 +10,7 @@ import EmojiToggle from 'components/EmojiToggle';
 import EmojiPicker from 'emoji-picker-react';
 import { RecipientsReactionsAPI } from 'data/CallAPI';
 import { useParams } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 function HeaderName({ name }) {
   return <div className='font-28-bold'>To. {name}</div>;
@@ -25,6 +26,7 @@ function HeaderCardMessage({
   const [isEmoji, setIsEmoji] = useState(false);
   const [isOpenReactionList, SetIsOpenReactionList] = useState(false);
   const [allReactions, setAllReactions] = useState([]);
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const { postId } = useParams();
 
@@ -42,11 +44,13 @@ function HeaderCardMessage({
 
   useEffect(() => {
     const getAllReactions = async () => {
+      const limit = isDesktop ? 8 : 6;
       try {
         const responseReactions = await RecipientsReactionsAPI(
           'get',
           postId,
           null,
+          limit,
         );
         setAllReactions(responseReactions.results);
       } catch (error) {
@@ -56,7 +60,7 @@ function HeaderCardMessage({
     if (isOpenReactionList) {
       getAllReactions();
     }
-  }, [isOpenReactionList, postId]);
+  }, [isOpenReactionList, postId, isDesktop]);
 
   return (
     <header className={styles.header}>

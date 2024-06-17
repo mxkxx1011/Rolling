@@ -81,7 +81,7 @@ export function RecipientsMessagesAPI(Method, id, body, limit = 5, offset = 1) {
 }
 
 //특정 롤링페이퍼의 이모지 조회 및 추가 API
-export function RecipientsReactionsAPI(Method, id, body) {
-  const query = `${API_KEY}/recipients/${id}/reactions/`;
+export function RecipientsReactionsAPI(Method, id, body, limit = 8) {
+  const query = `${API_KEY}/recipients/${id}/reactions/?limit=${limit}`;
   return Axios(Method, query, body, 'recipientreaction');
 }

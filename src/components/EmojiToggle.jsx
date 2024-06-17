@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ArrowDown from 'assets/images/ic_arrow_down.svg';
 import ArrowTop from 'assets/images/ic_arrow_top.svg';
 import 'components/EmojiToggle.scss';
-import { Reaction } from './reaction/Reaction';
+import { Reaction } from 'components/reaction/Reaction';
 
 /*
  * reactions(array)
  */
 
 function EmojiToggle({ reactions, handleClick, isOpen }) {
-  const allReactions = reactions.slice(0, 8) ?? [];
   return (
     <div className='emoji-list-layer'>
       <button className='emoji-toggle' onClick={handleClick}>
@@ -21,7 +20,7 @@ function EmojiToggle({ reactions, handleClick, isOpen }) {
       </button>
       {isOpen && (
         <div className='all-emoji-list'>
-          {allReactions.map((reaction) => (
+          {reactions.map((reaction) => (
             <Reaction key={reaction.id} reaction={reaction} className='small' />
           ))}
         </div>
