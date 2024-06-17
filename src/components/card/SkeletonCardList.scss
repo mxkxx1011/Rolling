@@ -1,48 +1,14 @@
 @import './CardList.scss';
 @import 'assets/styles/common.scss';
 @import 'assets/styles/palette.scss';
-
-@keyframes loading {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
+@import './Skeleton.scss';
 
 .skeleton {
-  background-color: $gray-300;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba($color--black, 0.05);
-  box-shadow: 0px 2px 12px 0px rgba($color--black, 0.08);
-  border-radius: 16px;
+  @include Skeleton;
 
   &.card-list {
     @include CardListWrapper;
     background-color: $gray-200;
-  }
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    animation: loading 1.25s infinite;
-  }
-
-  .border {
-    height: 1px;
   }
 
   .content-top {
