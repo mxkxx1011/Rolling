@@ -1,6 +1,5 @@
 import EmojiToggle from 'components/EmojiToggle';
 import ReactionList from 'components/reaction/Reaction';
-import { useState } from 'react';
 
 function ReactionWrapper({ reactions, allReactions, isOpen, setOpen }) {
   const handleOpenReactionList = () => {

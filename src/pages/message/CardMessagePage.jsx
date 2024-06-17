@@ -126,16 +126,26 @@ function CardMessagePage() {
         className={classNames(backgroundColor)}
         style={BackGroundImageStyle}
       >
-        {isEditPage && (
-          <div className='button-wrapper'>
-            <Button type='secondary' size='40'>
+        {isEditPage ? (
+          <div className='button-wrapper button-right'>
+            <Button order='secondary' size='40'>
               페이지 삭제
             </Button>
-            <Button type='primary' size='40'>
+            <Button order='primary' size='40'>
               선택 삭제
             </Button>
-            <Button type='primary' size='40'>
+            <Button order='primary' size='40'>
               전체 삭제
+            </Button>
+          </div>
+        ) : (
+          <div className='button-wrapper button-left'>
+            <Button
+              order='secondary'
+              size='40'
+              handleClick={() => handleMovePage('/list')}
+            >
+              뒤로 가기
             </Button>
           </div>
         )}
