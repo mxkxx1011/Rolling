@@ -35,11 +35,11 @@ function HeaderCardMessage({ name, messageCount, recentMessages, reactions }) {
               {/* 임시 아이콘 (드롭다운 컴포넌트바꾸기) */}
             </div>
             <div className='button-wrapper'>
-              <Button type='outlined' size='36' emoji>
+              <Button order='outlined' size='36' emoji>
                 추가
               </Button>
               <div className='border'></div>
-              <Button type='outlined' size='36'>
+              <Button order='outlined' size='36'>
                 <img src={iconShare24} alt='공유버튼' />
               </Button>
             </div>

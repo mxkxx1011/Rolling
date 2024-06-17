@@ -11,17 +11,24 @@ function CardMessagePostPage() {
   const [relationship, setRelationship] = useState('');
   const [font, setFont] = useState('');
   const [message, setMessage] = useState('');
+  const relationshipOptions = ['친구', '지인', '동료', '가족'];
+  const fontOptions = [
+    'Noto Sans',
+    'Pretendard',
+    '나눔명조',
+    '나눔손글씨 손편지체',
+  ];
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const formData = {
       sender,
       relationship,
-      font,
       message,
+      font,
     };
     console.log(formData);
-    // 폼 데이터를 서버로 전송하는 로직을 추가하세요
+    //api 추가
   };
 
   return (
@@ -45,18 +52,21 @@ function CardMessagePostPage() {
           <label className={styles.label} htmlFor='profileSelect'>
             프로필 이미지
           </label>
-          <img src={DefaultProfileIcon} alt='profile' width={'20px'} />
+          <img
+            src={DefaultProfileIcon}
+            alt='프로필 이미지'
+            width='20px'
+            height='20px'
+          />
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label} htmlFor=''>
             상대와의 관계
           </label>
           <TextDropdownField
-            value={relationship}
-            onChange={(e) => setRelationship(e.target.value)}
-          >
-            {/* 옵션을 추가하세요 */}
-          </TextDropdownField>
+            options={relationshipOptions}
+            onChangeOptions={setRelationship}
+          />
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>내용을 입력해 주세요</label>
@@ -64,14 +74,9 @@ function CardMessagePostPage() {
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>폰트 선택</label>
-          <TextDropdownField
-            value={font}
-            onChange={(e) => setFont(e.target.value)}
-          >
-            {/* 옵션을 추가하세요 */}
-          </TextDropdownField>
+          <TextDropdownField options={fontOptions} onChangeOptions={setFont} />
         </div>
-        <Button type='primary' size='56'>
+        <Button type='submit' order='primary' size='56'>
           생성하기
         </Button>
       </form>

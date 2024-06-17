@@ -3,11 +3,21 @@ import classNames from 'classnames';
 import { ReactComponent as IconAdd24 } from '../assets/images/ic_add_24.svg';
 import { ReactComponent as IconAdd20 } from '../assets/images/ic_add_20.svg';
 
-function Button({ children, size, type, emoji, disabled, className, onClick }) {
+function Button({
+  children,
+  type,
+  size,
+  order,
+  emoji,
+  disabled,
+  className,
+  onClick,
+}) {
   return (
     <button
+      type={type}
       disabled={disabled}
-      className={classNames('button', `size-${size}`, type, className)}
+      className={classNames('button', `size-${size}`, order, className)}
       onClick={onClick}
     >
       {emoji && (size === '28' ? <IconAdd20 /> : <IconAdd24 />)}

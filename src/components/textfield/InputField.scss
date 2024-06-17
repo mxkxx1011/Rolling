@@ -2,40 +2,40 @@
 @import '../../assets/styles/fonts.scss';
 @import '../../assets/styles/palette.scss';
 
-    .inputlayer {
-      .input {
-        border-radius: 8px;
-        padding: 12px 16px;
-        border: 1px solid $gray-300;
-        background-color: $color--white;
-        outline: none;
+.inputlayer {
+  .input {
+    height: 50px;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid $gray-300;
+    background-color: $color--white;
+    outline: none;
 
-        @include desktop {
-          width: 720px;
-        }
-        @include tablet {
-          width: 720px;
-        }
-        @include mobile {
-          width: 320px;
-        }
-
-        &:hover {
-          border: 1px solid $gray-500;
-      }
-       &:active {
-          border: 2px solid $gray-700;
-      }
-       &:focus {
-          border: 2px solid $gray-500;
-      }
-       &::placeholder {
-          @include font-style(16, regular);
-      }
-     &:disabled {
-          border: 1px solid $gray-300;
-          color: $color--surface;
-      }
+    @include desktop {
+      width: 720px;
     }
+    @include tablet {
+      width: 720px;
+    }
+    @include mobile {
+      width: 320px;
+    }
+
+    &:hover {
+      border: 1px solid $gray-500;
+    }
+    &:active {
+      border: 1px solid $gray-700;
+    }
+    &:focus {
+      border: 1px solid $gray-500;
+    }
+    &::placeholder {
+      @include font-style(16, regular);
+    }
+    &:disabled {
+      border: 1px solid $gray-300;
+      color: $color--surface;
+    }
+  }
 }
-    
