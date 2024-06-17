@@ -1,0 +1,82 @@
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+$colors: (
+  'purple': #ecd9ff,
+  'beige': #ffe2ad,
+  'blue': #b1e4ff,
+  'green': #d0f5c3,
+);
+@mixin BackgroundColor($color) {
+  background-color: map-get($colors, $color);
+}
+
+main {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 113px 0;
+
+  @include Flex(column, null, null, 10px);
+
+  @media (max-width: 1248px) {
+    padding: 113px 24px;
+  }
+
+  @include tablet {
+    padding: 93px 24px;
+  }
+  @include mobile {
+    padding: 32px 20px;
+  }
+
+  .button-wrapper {
+    @include Flex(row, flex-end, null, 5px);
+    width: 1200px;
+    margin: 0 auto;
+  }
+
+  .message {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열을 동일한 너비로 설정 */
+    gap: 24px; /* 각 요소 사이의 간격 */
+
+    width: 1200px;
+    margin: 0 auto; /* 좌우 여백 자동 조절 */
+
+    @media (max-width: 1248px) {
+      width: 100%;
+    }
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr); /* 3개의 열을 동일한 너비로 설정 */
+      gap: 16px;
+    }
+    @include mobile {
+      grid-template-columns: repeat(1, 1fr); /* 3개의 열을 동일한 너비로 설정 */
+    }
+
+    height: 588px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    & > *:nth-child(n + 4) {
+      margin-top: 4px;
+    }
+  }
+  &.purple {
+    @include BackgroundColor('purple');
+  }
+  &.beige {
+    @include BackgroundColor('beige');
+  }
+  &.blue {
+    @include BackgroundColor('blue');
+  }
+  &.green {
+    @include BackgroundColor('green');
+  }
+}

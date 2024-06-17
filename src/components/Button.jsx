@@ -8,13 +8,13 @@ function Button({
   size,
   type,
   emoji,
-  disable,
+  disabled,
   className,
   handleClick,
 }) {
   return (
     <button
-      disabled={disable}
+      disabled={disabled}
       className={classNames('button', `size-${size}`, type, className)}
       onClick={handleClick}
     >

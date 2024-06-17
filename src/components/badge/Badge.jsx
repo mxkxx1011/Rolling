@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import './Badge.scss';
 
 const BadgeColor = {
@@ -12,7 +13,11 @@ function Badge({ children }) {
   const badgeClassName = `text-badge-container ${BadgeColor[children] || '친구'}`;
   return (
     <>
-      <div className={badgeClassName}>
+      <div
+        className={classNames(
+          `text-badge-container ${BadgeColor[children] || '친구'}`,
+        )}
+      >
         <p>{children}</p>
       </div>
     </>

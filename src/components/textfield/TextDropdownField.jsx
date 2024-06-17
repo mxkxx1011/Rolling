@@ -1,13 +1,15 @@
 import "./DropdownField.scss";
-import icon from "../../assets/dropdownicon.svg";
+import iconArrowDown from 'assets/images/ic_arrow_down.svg';
+import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from "react";
+import DropMenu from "components/textfield/DropMenu"
 
-function TextDropdownFiled({options}) {
+function TextDropdownField({options}) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(options[0]);
 
-    const toggleDropdown = () => {
+    const onToggle = () => {
         setIsOpen(!isOpen);
     };
 
@@ -18,21 +20,15 @@ function TextDropdownFiled({options}) {
 
     return (
         <div className="dropdown">
-            <button className="dropdowntoggle" onClick={toggleDropdown}>
+            <button className="dropdown-toggle" onClick={onToggle}>
                 {selectedOption}
-                <img src={icon} alt="test" className={`arrow ${isOpen ? 'open' : ''}`} />
+                <img src={isOpen ? iconArrowTop : iconArrowDown} alt='test' className="arrow" />
             </button>
             {isOpen && (
-                <ul className="dropdownmenu">
-                    {options.map((option, index) => (
-                        <li key={index} onClick={() => handleOptionClick(option)}>
-                            {option}
-                        </li>
-                    ))}
-                </ul>
+                <DropMenu options={options} clickEvnet={handleOptionClick}/>
             )}
         </div>
     );
 };
 
-export default TextDropdownFiled;
+export default TextDropdownField;
