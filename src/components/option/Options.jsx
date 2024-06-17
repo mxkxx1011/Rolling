@@ -29,7 +29,7 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
 // 이미지 누르면 type = image / 컬러 누르면 type = color
 function Options({ type = 'image' }) {
   const [isSelected, setIsSelected] = useState(0);
-  const colors = ['yellow', 'purple', 'blue', 'green'];
+  const colors = ['beige', 'purple', 'blue', 'green'];
   const imgs = [
     imageBackground01,
     imageBackground02,

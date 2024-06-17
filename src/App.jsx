@@ -4,7 +4,7 @@ import CardMessagePostPage from 'pages/CardMessagePostPage';
 import HomePage from 'pages/home/HomePage';
 import Main from 'pages/Main';
 import NotFoundPage from 'pages/NotFoundPage';
-import PostPage from 'pages/PostPage';
+import PostPage from 'pages/postpage/PostPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
