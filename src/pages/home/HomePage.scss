@@ -1,0 +1,53 @@
+@import '../../assets/styles/palette.scss';
+@import '../../assets/styles/common.scss';
+@import '../../assets/styles/fonts.scss';
+
+.container {
+  @include Flex(column, '', center, 30px);
+  margin-top: 60px;
+}
+
+.banner {
+  @include Flex(row, '', center, '');
+  background-color: $color--surface;
+  height: 324px;
+  width: 1200px;
+  border-radius: 16px;
+  &.odd {
+    flex-direction: row;
+    padding-left: 60px;
+  }
+  &.even {
+    flex-direction: row-reverse;
+    padding-right: 60px;
+  }
+}
+
+.banner-content {
+  .content-point {
+    display: inline-block;
+    @include font-style(14, bold);
+    background-color: $purple-600;
+    line-height: 20px;
+    border-radius: 50px;
+    padding: 6px 12px;
+    color: $color--white;
+    margin-bottom: 8px;
+  }
+  .content-title {
+    margin: 8px 0px;
+    @include font-style(24, bold);
+  }
+  .content-ex {
+    @include font-style(18, regular);
+    color: $gray-500;
+  }
+}
+
+.banner-image {
+  width: 720px;
+}
+
+.take-a-look {
+  width: 280px;
+}
