@@ -6,6 +6,7 @@ import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
+import dompurify from 'dompurify';
 
 function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
   const [isDelete, setIsDelete] = useState(true);
@@ -21,6 +22,9 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
     createdAt,
   } = message;
 
+  const sanitizer = dompurify.sanitize;
+  const cleanContent = sanitizer(content);
+
   function getFonts(inputFont) {
     const fonts = {
       'Noto Sans': 'Noto Sans KR',
@@ -31,10 +35,6 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
 
     return fonts[inputFont] || fonts['Noto Sans'];
   }
-
-  const FontStyle = {
-    fontFamily: getFonts(font),
-  };
 
   return (
     <div
@@ -62,8 +62,8 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
           <div>
             <p
               className='card-letter card'
-              dangerouslySetInnerHTML={{ __html: content }}
-              style={FontStyle}
+              dangerouslySetInnerHTML={{ __html: cleanContent }}
+              style={{ fontFamily: getFonts(font) }}
             ></p>
           </div>
           <div>
