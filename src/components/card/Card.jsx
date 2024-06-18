@@ -1,5 +1,4 @@
 import 'assets/styles/CardModal.scss';
-import profileIMG from 'assets/images/profileImg.png';
 import { useState } from 'react';
 import DeleteButton from 'components/DeleteButton';
 import Badge from 'components/badge/Badge';
@@ -7,12 +6,31 @@ import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
 import dompurify from 'dompurify';
+import { MessagesAPI } from 'data/CallAPI';
+import { useLocation } from 'react-router-dom';
+import iconCheck from 'assets/images/ic_check.svg';
 
-function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
+function Card({
+  type = 'normal',
+  message = {},
+  handleClick,
+  getRecipientMessage,
+}) {
   const [isDelete, setIsDelete] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
+  const location = useLocation();
+
+  const isEditPage = location.pathname.includes('/edit');
+  const isEditSelectPage = location.pathname.includes('/edit/select');
+
+  const handleToggleCheck = () => {
+    setIsChecked((prev) => !prev);
+  };
+
   const isTypeNormal = type === 'normal';
 
   const {
+    id,
     recipientId,
     sender,
     profileImageURL,
@@ -36,6 +54,16 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
     return fonts[inputFont] || fonts['Noto Sans'];
   }
 
+  const handleSelectDelete = async () => {
+    try {
+      const response = await MessagesAPI('delete', id, null);
+      await getRecipientMessage();
+      console.log(response.data);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
   return (
     <div
       onClick={handleClick}
@@ -57,7 +85,16 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
                 <Badge>{relationship}</Badge>
               </div>
             </div>
-            {isEditPage && <DeleteButton />}
+            <div className='card-button-wrapper'>
+              {isEditPage && !isEditSelectPage && (
+                <DeleteButton handleClick={handleSelectDelete} />
+              )}
+              {isEditSelectPage && (
+                <div className='checkbox' onClick={handleToggleCheck}>
+                  {isChecked && <img src={iconCheck} alt='check' />}
+                </div>
+              )}
+            </div>
           </div>
           <div>
             <p

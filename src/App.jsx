@@ -19,6 +19,7 @@ function App() {
             <Route path=':postId'>
               <Route index element={<CardMessagePage />} />
               <Route path='edit' element={<CardMessagePage />} />
+              <Route path='edit/select' element={<CardMessagePage />} />
               <Route path='message' element={<CardMessagePostPage />} />
             </Route>
           </Route>

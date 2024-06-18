@@ -9,8 +9,6 @@ import ShareKakao from 'utils/ShareKakao';
 import Modal from 'components/modal/Modal';
 import useNavigator from 'hooks/useNavigator';
 import { useInView } from 'react-intersection-observer';
-import CardList from 'components/card/CardList';
-import SkeletonCardList from 'components/card/SkeletonCardList';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
@@ -34,6 +32,7 @@ function CardMessagePage() {
 
   const location = useLocation();
   const isEditPage = location.pathname.includes('/edit');
+  const isEditSelectPage = location.pathname.includes('/edit/select');
 
   const {
     name = 'null',
@@ -91,25 +90,28 @@ function CardMessagePage() {
     }
   }, [inView, hasMore]);
 
-  useEffect(() => {
-    const getRecipient = async () => {
-      try {
-        const responseRecipient = await RecipientsAPI('get', postId);
-        const limit = isEditPage ? 6 : 5;
-        const responseMessage = await RecipientsMessagesAPI(
-          'get',
-          postId,
-          null,
-          limit,
-        );
-        setRecipient(responseRecipient);
-        setRecipientMessage(responseMessage.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const getRecipient = async () => {
+    try {
+      const response = await RecipientsAPI('get', postId);
+      setRecipient(response);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
 
+  const getRecipientMessage = async () => {
+    try {
+      const limit = isEditPage ? 6 : 5;
+      const response = await RecipientsMessagesAPI('get', postId, null, limit);
+      setRecipientMessage(response.results);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  useEffect(() => {
     getRecipient();
+    getRecipientMessage();
   }, [postId, isEditPage]);
 
   return (
@@ -127,30 +129,48 @@ function CardMessagePage() {
         style={BackGroundImageStyle}
       >
         {isEditPage ? (
-          <div className='nav-button-wrapper'>
+          <div className='content-button-wrapper'>
             <div className='button-left'>
               <Button
                 order='secondary'
                 size='40'
-                handleClick={() => handleMovePage(`/post/${postId}`)}
+                handleClick={() =>
+                  handleMovePage(
+                    isEditSelectPage
+                      ? `/post/${postId}/edit`
+                      : `/post/${postId}`,
+                  )
+                }
               >
                 뒤로 가기
               </Button>
             </div>
             <div className='button-right'>
-              <Button order='secondary' size='40'>
-                페이지 삭제
-              </Button>
-              <Button order='primary' size='40'>
-                선택 삭제
-              </Button>
-              <Button order='primary' size='40'>
-                전체 삭제
-              </Button>
+              {isEditSelectPage ? (
+                <Button order='primary' size='40'>
+                  선택한 항목 삭제하기
+                </Button>
+              ) : (
+                <>
+                  <Button order='secondary' size='40'>
+                    페이지 삭제
+                  </Button>
+                  <Button
+                    order='primary'
+                    size='40'
+                    handleClick={() => handleMovePage(`select`)}
+                  >
+                    선택 삭제
+                  </Button>
+                  <Button order='primary' size='40'>
+                    전체 삭제
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         ) : (
-          <div className='nav-button-wrapper'>
+          <div className='content-button-wrapper'>
             <div className='button-left'>
               <Button
                 order='secondary'
@@ -188,6 +208,7 @@ function CardMessagePage() {
                 handleClick={
                   !isEditPage ? () => handleOpenModal(message) : null
                 }
+                getRecipientMessage={getRecipientMessage}
               />
             ))}
             {hasMore && <div ref={ref}></div>}
