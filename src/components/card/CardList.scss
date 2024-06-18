@@ -5,6 +5,7 @@
 // 카드 리스트 - 공통적인 css (크기나 radius 등)
 @mixin CardListWrapper {
   width: 275px;
+  max-width: 275px;
   height: 260px;
   border-radius: 16px;
   border: 1px solid rgba($color--black, 0.1);
@@ -12,6 +13,12 @@
 
   padding: 30px 24px 20px;
   background-repeat: no-repeat;
+
+  @include mobile {
+    width: 208px;
+    height: 232px;
+  }
+
 }
 
 .card-list {
