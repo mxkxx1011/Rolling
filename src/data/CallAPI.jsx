@@ -58,7 +58,13 @@ export function MessagesAPI(Method, id, body = null) {
 
 //롤링페이퍼 작성 및 조회 API
 //특정 롤링페이퍼 조회 및 삭제하는 API
-export function RecipientsAPI(Method, id = null, body = null, limit=null, offset=null) {
+export function RecipientsAPI(
+  Method,
+  id = null,
+  body = null,
+  limit = null,
+  offset = null,
+) {
   let query = `${API_KEY}/recipients`;
   if (id) {
     query = `${query}/${id}/`;
@@ -67,8 +73,8 @@ export function RecipientsAPI(Method, id = null, body = null, limit=null, offset
   } else {
     query = `${query}/`;
   }
-  
-  return Axios(Method, query, body, "recipient");
+
+  return Axios(Method, query, body, 'recipient');
 }
 
 //특정 롤링페이퍼의 메시지 조회 및 추가 API
@@ -78,7 +84,10 @@ export function RecipientsMessagesAPI(Method, id, body, limit = 5, offset = 1) {
 }
 
 //특정 롤링페이퍼의 이모지 조회 및 추가 API
-export function RecipientsReactionsAPI(Method, id, body, limit = 8) {
-  const query = `${API_KEY}/recipients/${id}/reactions/?limit=${limit}`;
+export function RecipientsReactionsAPI(Method, id, body, limit = 0) {
+  let query = `${API_KEY}/recipients/${id}/reactions/`;
+  if (limit > 0) {
+    query = `${query}?limit=${limit}`;
+  }
   return Axios(Method, query, body, 'recipientreaction');
 }
