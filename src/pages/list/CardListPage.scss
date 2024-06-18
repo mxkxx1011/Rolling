@@ -4,16 +4,30 @@
 
 .card-list-layer {
   padding: 50px 0;
+  overflow: hidden;
   @include Flex(column, center, center, null);
 
   @include desktop {
-    // width: 720px;
+
   }
   @include tablet {
-    width: 720px;
+    padding: 50px 24px;
+    .card-list-box {
+      width: 100%;
+      padding: 0 24px;
+      .card-list-data {
+        .arrow {
+          display: none;
+        }
+        .card-list-wrapper {
+          overflow-x: auto;
+          scroll-behavior:smooth;
+        }
+      }
+    }
   }
   @include mobile {
-    width: 30px;
+
   }
 
   .card-list-box {
@@ -50,7 +64,7 @@
       }
     }
     .card-list-wrapper {
-      @include Flex(row, center, center, 20px);
+      @include Flex(row, center, flex-start, 20px);
     }
   }
   .post-link-button {

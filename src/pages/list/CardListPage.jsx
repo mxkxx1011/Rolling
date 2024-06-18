@@ -1,10 +1,10 @@
 import { RecipientsAPI } from 'data/CallAPI';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CardList from 'components/card/CardList';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import TextInputField from 'components/textfield/TextInputField';
-import 'pages/listpage/CardListPage.scss';
-import ArrowButton from 'components/ArrowButton'
+import 'pages/list/CardListPage.scss';
+import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
 
@@ -45,24 +45,35 @@ function CardListPage() {
   const width = useWindowWidth();
   const [hotRecipients, setHotRecipients] = useState([]);
   const handleMovePage = useNavigator();
+  const hotListRef = useRef(null);
+  const dateListRef = useRef(null);
 
   function listShift(count) {
-    setOffSet(offset+count);
+    setOffSet(offset + count);
   }
 
   function hotListShift(count) {
-    setHotOffSet(hotOffset+count);
+    setHotOffSet(hotOffset + count);
   }
 
   useEffect(() => {
-    if(width < 1024) {
-      setLimit(null);
-    }
-    else {
+    if (width < 1024) {
+      setLimit(9999);
+      console.log('태블릿모드');
+      console.log(hotListRef, dateListRef);
+      dateListRef.current.scrollBy({
+        left: 2 * 300,
+        behavior: 'smooth',
+      });
+      hotListRef.current.scrollBy({
+        left: 2 * 300,
+        behavior: 'smooth',
+      });
+    } else {
       setLimit(4);
     }
   }, [width]);
-  
+
   useEffect(() => {
     const getRecipient = async () => {
       try {
@@ -74,22 +85,28 @@ function CardListPage() {
       }
     };
     getRecipient();
-  }, []);
+  }, [limit]);
 
   return (
     <div className='card-list-layer'>
       <div className='card-list-box'>
         <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
         <div className='card-list-data'>
-          <div className={`arrow left ${hotOffset > 0 ? '' :  'disabled'}`} onClick={()=>hotListShift(-2)}>
+          <div
+            className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
+            onClick={() => hotListShift(-2)}
+          >
             <ArrowButton direction={'left'} />
           </div>
-          <div className='card-list-wrapper hot-card'>
-            {hotRecipients.slice(hotOffset, hotOffset+limit).map((data) => (
+          <div className='card-list-wrapper hot-card' ref={hotListRef}>
+            {hotRecipients.slice(hotOffset, hotOffset + limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
           </div>
-          <div className={`arrow right ${hotOffset+limit < hotRecipients.length ? '' : 'disabled'}`} onClick={()=>hotListShift(2)}>
+          <div
+            className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
+            onClick={() => hotListShift(2)}
+          >
             <ArrowButton direction={'right'} />
           </div>
         </div>
@@ -97,20 +114,31 @@ function CardListPage() {
       <div className='card-list-box'>
         <p className='card-list-title'>최근에 만든 롤링 페이퍼 ⭐</p>
         <div className='card-list-data'>
-          <div className={`arrow left ${offset > 0 ? '' :  'disabled'}`} onClick={()=>listShift(-2)}>
+          <div
+            className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
+            onClick={() => listShift(-2)}
+          >
             <ArrowButton direction={'left'} />
           </div>
-          <div className='card-list-wrapper date-card'>
-            {recipients.slice(offset, offset+limit).map((data) => (
+          <div className='card-list-wrapper date-card' ref={dateListRef}>
+            {recipients.slice(offset, offset + limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
           </div>
-          <div className={`arrow right ${offset+limit < recipients.length ? '' : 'disabled'}`} onClick={()=>listShift(2)}>
+          <div
+            className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
+            onClick={() => listShift(2)}
+          >
             <ArrowButton direction={'right'} />
           </div>
         </div>
       </div>
-      <Button children="나도 만들어보기" size={'56'} className={'post-link-button'} handleClick={() => handleMovePage('/post')} />
+      <Button
+        children='나도 만들어보기'
+        size={56}
+        className={'post-link-button'}
+        handleClick={() => handleMovePage('/post')}
+      />
       <div className='testlayer'>
         <br />
         <TextDropdownField options={test}></TextDropdownField>
