@@ -7,7 +7,7 @@ function Button({
   children,
   size,
   type,
-  order,
+  order, 
   emoji,
   disabled,
   className,
