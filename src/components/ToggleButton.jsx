@@ -16,7 +16,7 @@ function ToggleButton({ options, onOptionSelect }) {
       {options.map((option) => (
         <Button
           //key={option}
-          type={selectedOption === option ? 'secondary' : 'default'}
+          order={selectedOption === option ? 'secondary' : 'default'}
           size='40'
           handleClick={() => handleClick(option)}
         >
