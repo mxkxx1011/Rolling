@@ -3,26 +3,24 @@ import { useParams } from 'react-router-dom';
 import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
+import ProfileImages from 'components/profileimage/ProfileImages';
 import Button from 'components/Button';
 import ToastEditor from 'components/ToastEditor';
-import { RecipientsMessagesAPI } from 'data/CallAPI';
 import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
-import DefaultProfileImage from 'assets/images/ic_profile_default.svg';
-import { PROFILE_ICONS } from 'pages/postmessage/ProfileIcons';
+import { RecipientsMessagesAPI } from 'data/CallAPI';
+import {
+  DEFAULT_IMAGE,
+  RELATIONSHIP_OPTIONS,
+  FONT_OPTIONS,
+} from 'constants/PostMessagePage';
 
 function CardMessagePostPage() {
   const [sender, setSender] = useState('');
+  const [senderError, setSenderError] = useState(false);
   const [relationship, setRelationship] = useState('지인');
   const [font, setFont] = useState('Noto Sans');
   const [message, setMessage] = useState('');
-  const [profileImage, setProfileImage] = useState('defaultImage');
-  const relationshipOptions = ['지인', '친구', '동료', '가족'];
-  const fontOptions = [
-    'Noto Sans',
-    'Pretendard',
-    '나눔명조',
-    '나눔손글씨 손편지체',
-  ];
+  const [profileImage, setProfileImage] = useState(DEFAULT_IMAGE);
 
   const { postId } = useParams();
   const handleMovePage = useNavigator();
@@ -34,8 +32,7 @@ function CardMessagePostPage() {
       team: '7-4',
       recipientId: postId,
       sender: sender,
-      profileImageURL:
-        profileImage === 'defaultImage' ? DefaultProfileImage : profileImage,
+      profileImageURL: profileImage,
       relationship: relationship,
       content: message,
       font: font,
@@ -47,6 +44,14 @@ function CardMessagePostPage() {
       handleMovePage(`/post/${postId}`);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleNameChange = (value) => {
+    const name = value.trim();
+    setSender(name);
+    if (name.length > 0) {
+      setSenderError(false);
     }
   };
 
@@ -62,7 +67,7 @@ function CardMessagePostPage() {
             id='nameInput'
             name='sender'
             value={sender}
-            onChange={(e) => setSender(e.target.value)}
+            onChange={handleNameChange}
           >
             이름을 입력해 주세요.
           </TextInputField>
@@ -71,35 +76,17 @@ function CardMessagePostPage() {
           <label className={styles.label} htmlFor='profileSelect'>
             프로필 이미지
           </label>
-          <div className={styles.profile}>
-            <img
-              src={DefaultProfileImage}
-              alt='프로필 이미지'
-              width='56px'
-              height='56px'
-            />
-            <>
-              <p>프로필 이미지를 선택해주세요!</p>
-              <div className={styles.profileIcons}>
-                {PROFILE_ICONS.map((icon, i) => (
-                  <img
-                    key={i}
-                    value={icon}
-                    width='56px'
-                    height='56px'
-                    onClick={setProfileImage(icon)}
-                  />
-                ))}
-              </div>
-            </>
-          </div>
+          <ProfileImages
+            profileImage={profileImage}
+            setProfileImage={setProfileImage}
+          />
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label} htmlFor=''>
+          <label className={styles.label} htmlFor='relationship'>
             상대와의 관계
           </label>
           <TextDropdownField
-            options={relationshipOptions}
+            options={RELATIONSHIP_OPTIONS}
             onChangeOptions={setRelationship}
           />
         </div>
@@ -109,7 +96,7 @@ function CardMessagePostPage() {
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>폰트 선택</label>
-          <TextDropdownField options={fontOptions} onChangeOptions={setFont} />
+          <TextDropdownField options={FONT_OPTIONS} onChangeOptions={setFont} />
         </div>
         <Button type='submit' order='primary' size='56'>
           생성하기
