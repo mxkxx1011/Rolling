@@ -21,8 +21,6 @@ function TextDropdownField({ options, onChangeOptions }) {
     setIsOpen(false);
     if (onChangeOptions != null) {
       onChangeOptions(option);
-    } else if (handleClick != null) {
-      return handleClick;
     }
   };
   return (
