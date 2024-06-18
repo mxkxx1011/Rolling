@@ -1,7 +1,11 @@
 import HeaderCardMessage from 'components/header/HeaderCardMessage';
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { RecipientsAPI, RecipientsMessagesAPI } from 'data/CallAPI';
+import {
+  MessagesAPI,
+  RecipientsAPI,
+  RecipientsMessagesAPI,
+} from 'data/CallAPI';
 import Card from 'components/card/Card';
 import './CardMessagePage.scss';
 import classNames from 'classnames';
@@ -12,6 +16,7 @@ import { useInView } from 'react-intersection-observer';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
+import { check } from 'prettier';
 
 // post/{id}
 function CardMessagePage() {
@@ -20,6 +25,7 @@ function CardMessagePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +63,27 @@ function CardMessagePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedMessage(null);
+  };
+
+  const deleteMessage = async (id) => {
+    try {
+      const response = await MessagesAPI('delete', id, null);
+      console.log(response);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  const handleSelectDelete = () => {
+    if (checkedItems.length == 0) {
+      alert('삭제할 항목을 선택해주세요');
+      return;
+    }
+
+    checkedItems.map((item) => {
+      deleteMessage(item);
+      getRecipientMessage();
+    });
   };
 
   const fetchMoreItems = async () => {
@@ -147,7 +174,11 @@ function CardMessagePage() {
             </div>
             <div className='button-right'>
               {isEditSelectPage ? (
-                <Button order='primary' size='40'>
+                <Button
+                  order='primary'
+                  size='40'
+                  handleClick={handleSelectDelete}
+                >
                   선택한 항목 삭제하기
                 </Button>
               ) : (
@@ -209,6 +240,8 @@ function CardMessagePage() {
                   !isEditPage ? () => handleOpenModal(message) : null
                 }
                 getRecipientMessage={getRecipientMessage}
+                checkedItems={checkedItems}
+                setCheckedItems={setCheckedItems}
               />
             ))}
             {hasMore && <div ref={ref}></div>}

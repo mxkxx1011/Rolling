@@ -1,5 +1,5 @@
 import 'assets/styles/CardModal.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteButton from 'components/DeleteButton';
 import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
@@ -15,6 +15,8 @@ function Card({
   message = {},
   handleClick,
   getRecipientMessage,
+  checkedItems,
+  setCheckedItems,
 }) {
   const [isDelete, setIsDelete] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
@@ -23,7 +25,12 @@ function Card({
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
 
-  const handleToggleCheck = () => {
+  const handleToggleCheck = (value) => {
+    if (isChecked) {
+      setCheckedItems(checkedItems.filter((item) => item !== value));
+    } else {
+      setCheckedItems([...checkedItems, value]);
+    }
     setIsChecked((prev) => !prev);
   };
 
@@ -64,6 +71,10 @@ function Card({
     }
   };
 
+  useEffect(() => {
+    console.log(checkedItems);
+  }, [checkedItems]);
+
   return (
     <div
       onClick={handleClick}
@@ -90,7 +101,7 @@ function Card({
                 <DeleteButton handleClick={handleSelectDelete} />
               )}
               {isEditSelectPage && (
-                <div className='checkbox' onClick={handleToggleCheck}>
+                <div className='checkbox' onClick={() => handleToggleCheck(id)}>
                   {isChecked && <img src={iconCheck} alt='check' />}
                 </div>
               )}
