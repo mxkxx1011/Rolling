@@ -38,6 +38,10 @@ main {
     @include Flex(row, flex-end, null, 5px);
     width: 1200px;
     margin: 0 auto;
+
+    &.button-left {
+      justify-content: flex-start;
+    }
   }
 
   .message {

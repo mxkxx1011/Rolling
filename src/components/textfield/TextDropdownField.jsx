@@ -43,7 +43,6 @@ function TextDropdownField({
           className='arrow'
         />
       </button>
-      {/* {isOpen && <DropMenu options={['카카오톡공유', 'URL 공유']} handleClick={[handleURLCopy, handleURLCopy]} />} */}
       {isOpen && <DropMenu options={options} handleClick={handleOptionClick} />}
     </div>
   );

@@ -67,7 +67,7 @@ function Modal({ message, isModalOpen, handleCloseModal }) {
           <Button
             handleClick={handleCloseModal}
             className='modal-btn'
-            type='primary'
+            order='primary'
             size='40'
           >
             확인
