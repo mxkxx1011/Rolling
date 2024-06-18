@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import classNames from 'classnames';
+
 import Button from './Button';
 import './ToggleButton.scss';
 
@@ -14,9 +16,12 @@ function ToggleButton({ options, onOptionSelect }) {
   return (
     <div className='toggle-button'>
       {options.map((option) => (
+        //TODO: classNames이 올바른 사용인지 check
         <Button
-          //key={option}
-          type={selectedOption === option ? 'secondary' : 'default'}
+          key={option}
+          className={classNames(
+            selectedOption === option ? 'secondary' : 'default',
+          )}
           size='40'
           handleClick={() => handleClick(option)}
         >
