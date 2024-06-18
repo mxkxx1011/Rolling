@@ -21,6 +21,21 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
     createdAt,
   } = message;
 
+  function getFonts(inputFont) {
+    const fonts = {
+      'Noto Sans': 'Noto Sans KR',
+      Pretendard: 'Pretendard',
+      나눔명조: 'NanumGothic',
+      '나눔손글씨 손편지체': 'Handletter',
+    };
+
+    return fonts[inputFont] || fonts['Noto Sans'];
+  }
+
+  const FontStyle = {
+    fontFamily: getFonts(font),
+  };
+
   return (
     <div
       onClick={handleClick}
@@ -48,6 +63,7 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
             <p
               className='card-letter card'
               dangerouslySetInnerHTML={{ __html: content }}
+              style={FontStyle}
             ></p>
           </div>
           <div>
