@@ -132,6 +132,12 @@ $types: (
     &:hover {
       cursor: pointer;
     }
+
+    .plus-wrapper {
+      width: 336px;
+      height: 228px;
+      @include Flex(row, center, center, null);
+    }
   }
 
   &.modal {

@@ -55,7 +55,9 @@ function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
           </div>
         </>
       ) : (
-        <PlusButton />
+        <div className='plus-wrapper'>
+          <PlusButton />
+        </div>
       )}
     </div>
   );
