@@ -1,12 +1,7 @@
-import { useState } from 'react';
 import ArrowDown from 'assets/images/ic_arrow_down.svg';
 import ArrowTop from 'assets/images/ic_arrow_top.svg';
 import 'components/EmojiToggle.scss';
 import { Reaction } from 'components/reaction/Reaction';
-
-/*
- * reactions(array)
- */
 
 function EmojiToggle({ reactions, handleClick, isOpen }) {
   return (

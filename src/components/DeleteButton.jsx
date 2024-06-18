@@ -4,7 +4,7 @@ import { ReactComponent as IconDelete } from '../assets/images/ic_deleted.svg';
 
 function DeleteButton({ disabled }) {
   return (
-    <Button disabled={disabled} type='delete' size='36' emoji={false}>
+    <Button disabled={disabled} order='delete' size='36' emoji={false}>
       <IconDelete />
     </Button>
   );
