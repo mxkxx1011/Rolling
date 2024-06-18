@@ -18,6 +18,7 @@ function ToggleButton({ options, onOptionSelect }) {
           key={option}
           order={selectedOption === option ? 'secondary' : 'default'}
           size='40'
+          type='button' //ToggleButton 클릭하면 submit되는 현상 방지
           handleClick={() => handleClick(option)}
         >
           {option}

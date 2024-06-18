@@ -5,30 +5,45 @@ import TextInputField from 'components/textfield/TextInputField';
 import Button from 'components/Button';
 import Options from 'components/option/Options';
 import './PostPage.scss';
+import { RecipientsAPI } from 'data/CallAPI';
 
 function PostPage() {
-  //Option컴포넌트의 type을 관리하는 state와 객체
+  // 배경
+  const backImg01 =
+    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
+
+  /* ---- 옵션과 토글 관리 부분 ---- */
+
+  // Option 컴포넌트의 type을 관리하는 state와 객체
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
-  //선택된 토글 값에 따라 Option type 지정하는 핸들러
+  // 선택된 옵션 컴포넌트 값 관리하는 state
+  const [selectedOption, setSelectedOption] = useState('beige');
+
+  // 선택된 토글 값에 따라 Option type 지정하는 핸들러
+  // 컬러/이미지 토글 버튼 클릭 -> 컬러/이미지 옵션 컴포넌트 표시
   const handleOptionSelect = (selectedOption) => {
     setOptionType(selectedOption === '컬러' ? 'color' : 'image');
+    setSelectedOption(selectedOption === '컬러' ? 'beige' : null);
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Option 컴포넌트에서 선택된 값 -> setState 지정
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
 
-  //post요청 초기값 설정
-  const INITIAL_VALUESE = {
+  /* ---- POST API 부분 ---- */
+  // post 요청 초기값 설정
+  const INITIAL_VALUES = {
     team: '7-4',
     name: '',
     backgroundColor: 'beige',
-    backgroundImageURL:
-      'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg',
+    backgroundImageURL: backImg01,
   };
-  //post 전달 값 관리하는 state
-  const [values, setValues] = useState(INITIAL_VALUESE);
+  // post 전달 값 관리하는 state
+  const [values, setValues] = useState(INITIAL_VALUES);
 
-  //이전 값과 동기화 시켜주는 함수
+  // 이전 값과 동기화 시켜주는 함수
   const handleChange = (name, value) => {
     setValues((prevValues) => ({
       ...prevValues,
@@ -36,27 +51,28 @@ function PostPage() {
     }));
   };
 
-  //input 값 관리하는 함수
+  // input 값 관리하는 함수
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
-  //Form Submit 함수
+  // Form Submit 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     const formData = new FormData();
     formData.append('name', values.name);
     formData.append('team', values.team);
-    formData.append('backgroundColor', values.backgroundColor);
-    formData.append('backgroundImageURL', values.backgroundImageURL);
 
-    const currentValue = {
-      ...values,
-      name: values.name,
-    };
-    console.log('Updated Form Values:', currentValue); // 디버깅용 콘솔 출력
+    // optionType에 따라서 배경 색상 또는 이미지 URL을 formData에 추가
+    if (optionType === 'color') {
+      formData.append('backgroundColor', selectedOption || 'beige');
+    } else if (optionType === 'image') {
+      formData.append('backgroundImageURL', selectedOption || backImg01);
+      // backgroundImageURL이 아닌 경우에는 기본 배경색을 추가
+      formData.append('backgroundColor', 'beige');
+    }
+
     try {
       // axios를 사용하여 POST 요청 보내기
       const response = await axios.post(
@@ -77,7 +93,6 @@ function PostPage() {
         console.error('Error details:', error.response.data);
       }
     } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -107,8 +122,10 @@ function PostPage() {
           <ToggleButton options={options} onOptionSelect={handleOptionSelect} />
           {/* 옵션 컴포넌트 */}
           <div className='option-container'>
-            <Options type={optionType} />
+            <Options type={optionType} onClick={handleOptionClick} />
           </div>
+          {/* [TEST] 선택된 옵션 표시하는 부분 */}
+          <p>선택된 옵션: {selectedOption}</p>
           <Button type='submit' size='56' order='primary'>
             생성하기
           </Button>
