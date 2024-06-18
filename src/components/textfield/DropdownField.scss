@@ -24,10 +24,10 @@
     }
 
     &:focus {
-      border: 2px solid $gray-500;
+      outline: 2px solid $gray-500;
     }
     &:active {
-      border: 2px solid $gray-500;
+      outline: 2px solid $gray-500;
     }
     & .arrow {
       display: inline-block;
@@ -37,6 +37,10 @@
     }
     &.arrow.open {
       -webkit-transform: rotate(180deg);
+    }
+    &:disabled {
+      border: 1px solid $gray-300;
+      color: $color--surface;
     }
   }
 }
