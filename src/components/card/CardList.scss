@@ -4,75 +4,75 @@
 
 // 카드 리스트 - 공통적인 css (크기나 radius 등)
 @mixin CardListWrapper {
-    width: 275px;
-    height: 260px;
-    border-radius: 16px;
-    border: 1px solid #0000001A;
-    box-shadow: 0px 2px 12px 0px #00000014;
-    
-    padding: 30px 24px 20px;
-    background-repeat: no-repeat;
+  width: 275px;
+  height: 260px;
+  border-radius: 16px;
+  border: 1px solid rgba($color--black, 0.1);
+  box-shadow: 0px 2px 12px 0px rgba($color--black, 0.08);
+
+  padding: 30px 24px 20px;
+  background-repeat: no-repeat;
 }
 
 .card-list {
-    @include CardListWrapper;
-    cursor: pointer;
+  @include CardListWrapper;
+  cursor: pointer;
 
-    .card-list-content {
-        height: 100%;
-        @include Flex(column, space-between, null, null);
+  .card-list-content {
+    height: 100%;
+    @include Flex(column, space-between, null, null);
+  }
+
+  .content-top {
+    @include Flex(column, null, null, 12px);
+
+    & > p {
+      line-height: 36px;
     }
 
-    .content-top {
-        @include Flex(column, null, null, 12px);
+    .reaction-wrapper {
+      @include Flex(column, null, null, 12px);
+      p {
+        line-height: 26px;
+      }
+    }
+  }
 
-        & > p{
-            line-height: 36px;
-        }
-        
-        .reaction-wrapper {
-            @include Flex(column, null, null, 12px);
-            p {
-                line-height: 26px;
-            }
-        }
-    }
+  .reactions {
+    border-top: 1px solid #0000001f;
+    padding-top: 17px;
+  }
 
-    .reactions {
-        border-top: 1px solid #0000001F;
-        padding-top: 17px;
-    }
+  &.image {
+    background-size: cover;
+    background-position: center;
+  }
 
-    &.image {
-        background-size: cover;
-        background-position: center; // TODO: 이미지 보고 포지션 바꾸기
-    }
-    
-    &.color {
-        background-position: right bottom;
-    }
+  &.color {
+    background-position: right bottom;
+  }
 
-    &.purple {
-        background-color: $purple-200; 
-        background-image: url('/assets/images/image_pattern_01.svg'); 
-    }
+  &.purple {
+    background-color: $purple-200;
+    background-image: url('/assets/images/image_pattern_01.svg');
+  }
 
-    &.orange {
-        background-color: $orange-200; 
-        background-image: url('/assets/images/image_pattern_02.svg'); 
-    }
+  &.beige {
+    background-color: $beige-200;
+    background-image: url('/assets/images/image_pattern_02.svg');
+  }
 
-    &.blue {
-        background-color: $blue-200; 
-        background-image: url('/assets/images/image_pattern_03.svg'); 
-    }
+  &.blue {
+    background-color: $blue-200;
+    background-image: url('/assets/images/image_pattern_03.svg');
+  }
 
-    &.green {
-        background-color: $green-200; 
-        background-image: url('/assets/images/image_pattern_04.svg'); 
-    }
+  &.green {
+    background-color: $green-200;
+    background-image: url('/assets/images/image_pattern_04.svg');
+  }
 
-    &.img {
-        color: $color--white;
-    }
+  &.img {
+    color: $color--white;
+  }
 }

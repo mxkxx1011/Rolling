@@ -5,39 +5,53 @@ import DeleteButton from 'components/DeleteButton';
 import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
+import FormatDate from 'utils/FormatDate';
 
-function Card({ type = 'normal' }) {
+function Card({ type = 'normal', message = {}, handleClick, isEditPage }) {
   const [isDelete, setIsDelete] = useState(true);
   const isTypeNormal = type === 'normal';
 
+  const {
+    recipientId,
+    sender,
+    profileImageURL,
+    relationship,
+    font,
+    content,
+    createdAt,
+  } = message;
+
   return (
-    <div className={classNames('container', 'card', type)}>
+    <div
+      onClick={handleClick}
+      className={classNames('container', 'card', type)}
+    >
       {isTypeNormal ? (
         <>
           <div className='header card'>
             <div className='profile-container card'>
               <img
                 className='profile-img'
-                src={profileIMG}
+                src={profileImageURL}
                 alt='프로필 이미지'
               />
               <div className='profile-text-wrapper'>
                 <p className='profile-name'>
-                  From. <span>용빈</span>
+                  From. <span>{sender}</span>
                 </p>
-                <Badge>친구</Badge>
+                <Badge>{relationship}</Badge>
               </div>
             </div>
-            {isDelete && <DeleteButton />}
+            {isEditPage && <DeleteButton />}
           </div>
           <div>
-            <p className='card-letter card'>
-              코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 또
-              하세요!
-            </p>
+            <p
+              className='card-letter card'
+              dangerouslySetInnerHTML={{ __html: content }}
+            ></p>
           </div>
           <div>
-            <p className='date'>2023.07.08</p>
+            <p className='date'>{FormatDate(createdAt)}</p>
           </div>
         </>
       ) : (
