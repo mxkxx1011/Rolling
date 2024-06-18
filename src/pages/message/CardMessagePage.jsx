@@ -127,12 +127,12 @@ function CardMessagePage() {
         style={BackGroundImageStyle}
       >
         {isEditPage ? (
-          <div className='button-wrapper'>
+          <div className='nav-button-wrapper'>
             <div className='button-left'>
               <Button
                 order='secondary'
                 size='40'
-                handleClick={() => handleMovePage('/post')}
+                handleClick={() => handleMovePage(`/post/${postId}`)}
               >
                 뒤로 가기
               </Button>
@@ -150,7 +150,7 @@ function CardMessagePage() {
             </div>
           </div>
         ) : (
-          <div className='button-wrapper button-left'>
+          <div className='nav-button-wrapper'>
             <div className='button-left'>
               <Button
                 order='secondary'
