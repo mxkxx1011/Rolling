@@ -25,12 +25,11 @@ function Options({ type = 'image', onClick }) {
   const imageBackground01 =
     'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
   const imageBackground02 =
-    'https://images.pexels.com/photos/533923/pexels-photo-533923.jpeg';
+    'https://c.pxhere.com/photos/e1/2e/meadow_field_grass_yellow_hill-99221.jpg!d';
   const imageBackground03 =
-    'https://images.pexels.com/photos/7130560/pexels-photo-7130560.jpeg';
+    'https://images.pexels.com/photos/796605/pexels-photo-796605.jpeg?auto=compress&cs=tinysrgb&w=600';
   const imageBackground04 =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVb_kUdzTwDVliYf9LRvNjDTrSVMYKGyjfIg&s';
-
+    'https://images.pexels.com/photos/261403/pexels-photo-261403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
   const [isSelected, setIsSelected] = useState(0);
   const colors = ['beige', 'purple', 'blue', 'green'];
   const imgs = [

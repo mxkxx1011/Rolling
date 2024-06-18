@@ -124,8 +124,6 @@ function PostPage() {
           <div className='option-container'>
             <Options type={optionType} onClick={handleOptionClick} />
           </div>
-          {/* [TEST] 선택된 옵션 표시하는 부분 */}
-          <p>선택된 옵션: {selectedOption}</p>
           <Button type='submit' size='56' order='primary'>
             생성하기
           </Button>
