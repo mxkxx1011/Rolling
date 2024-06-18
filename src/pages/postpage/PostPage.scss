@@ -4,6 +4,10 @@
 
 .page-container {
   padding: 57px 600px;
+
+  Button {
+    width: 720px;
+  }
 }
 .font-24-bold {
   @include font-style(24, bold);
@@ -29,7 +33,4 @@
 }
 .option-container {
   padding: 45px 0;
-}
-Button {
-  width: 720px;
 }

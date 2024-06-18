@@ -48,7 +48,7 @@ function ShareKakao() {
 
   return (
     <>
-      <Button type='outlined' size='36' handleClick={handleLinkKakao}>
+      <Button order='outlined' size='36' handleClick={handleLinkKakao}>
         <img src={iconShare24} alt='공유버튼' />
       </Button>
     </>
