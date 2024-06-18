@@ -1,6 +1,6 @@
 import './InputField.scss';
 
-function TextInputField({ children, type, id, name }) {
+function TextInputField({ children, type, id, name, value, onChange }) {
   return (
     <div className='input-layer'>
       <input
@@ -9,9 +9,10 @@ function TextInputField({ children, type, id, name }) {
         type={type}
         id={id}
         name={name}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
 }
-
 export default TextInputField;

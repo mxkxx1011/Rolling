@@ -12,7 +12,6 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
     backgroundImage: `url(${image})`,
   };
 
-  //추가
   const handleOptionClick = () => {
     handleClick(image); // 이미지를 클릭한 경우, 이미지 URL을 handleClick 함수를 통해 전달
   };
