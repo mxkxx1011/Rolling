@@ -127,26 +127,48 @@ function CardMessagePage() {
         style={BackGroundImageStyle}
       >
         {isEditPage ? (
-          <div className='button-wrapper button-right'>
-            <Button order='secondary' size='40'>
-              페이지 삭제
-            </Button>
-            <Button order='primary' size='40'>
-              선택 삭제
-            </Button>
-            <Button order='primary' size='40'>
-              전체 삭제
-            </Button>
+          <div className='button-wrapper'>
+            <div className='button-left'>
+              <Button
+                order='secondary'
+                size='40'
+                handleClick={() => handleMovePage('/post')}
+              >
+                뒤로 가기
+              </Button>
+            </div>
+            <div className='button-right'>
+              <Button order='secondary' size='40'>
+                페이지 삭제
+              </Button>
+              <Button order='primary' size='40'>
+                선택 삭제
+              </Button>
+              <Button order='primary' size='40'>
+                전체 삭제
+              </Button>
+            </div>
           </div>
         ) : (
           <div className='button-wrapper button-left'>
-            <Button
-              order='secondary'
-              size='40'
-              handleClick={() => handleMovePage('/list')}
-            >
-              뒤로 가기
-            </Button>
+            <div className='button-left'>
+              <Button
+                order='secondary'
+                size='40'
+                handleClick={() => handleMovePage('/list')}
+              >
+                뒤로 가기
+              </Button>
+            </div>
+            <div className='button-right'>
+              <Button
+                order='primary'
+                size='40'
+                handleClick={() => handleMovePage(`/post/${postId}/edit`)}
+              >
+                삭제
+              </Button>
+            </div>
           </div>
         )}
         {recentMessages ? (
