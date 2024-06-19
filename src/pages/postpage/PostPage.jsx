@@ -6,6 +6,7 @@ import Button from 'components/Button';
 import Options from 'components/option/Options';
 import './PostPage.scss';
 import { RecipientsAPI } from 'data/CallAPI';
+import useNavigator from 'hooks/useNavigator';
 
 function PostPage() {
   // 컬러 기본값 상수로 지정
@@ -32,73 +33,42 @@ function PostPage() {
   };
 
   /* ---- POST API 부분 ---- */
-
-  // post 요청 초기값 설정
-  const INITIAL_VALUES = {
-    team: '7-4',
-    name: '',
-    backgroundColor: DEFAULT_COLOR,
-    backgroundImageURL: null,
-  };
-  // post 전달 값 관리하는 state
-  const [values, setValues] = useState(INITIAL_VALUES);
-
-  // 이전 값과 동기화 시켜주는 함수
-  const handleChange = (name, value) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
+  const [name, setName] = useState('');
+  const [backColor, setBackColor] = useState(DEFAULT_COLOR);
+  const [backImageURL, setBackImageURL] = useState(null);
+  const handleMovePage = useNavigator();
 
   // input 값 관리하는 함수
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    handleChange(name, value);
+    setName(e.target.value);
   };
 
   // Form Submit 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('name', values.name);
-    formData.append('team', values.team);
+
+    const formData = {
+      team: '7-4',
+      name: name,
+      backgroundColor: backColor,
+      backgroundImageURL: backImageURL,
+    };
 
     // optionType에 따라서 배경 색상 또는 이미지 URL을 formData에 추가
     if (optionType === 'color') {
-      formData.append('backgroundColor', selectedOption || DEFAULT_COLOR);
+      formData.backgroundColor = selectedOption || DEFAULT_COLOR;
     } else if (optionType === 'image') {
-      formData.append('backgroundImageURL', selectedOption || null);
+      formData.backgroundImageURL = selectedOption || null;
       // backgroundImageURL이 아닌 경우에는 기본 배경색을 추가
-      formData.append('backgroundColor', DEFAULT_COLOR);
+      formData.backgroundColor = DEFAULT_COLOR;
     }
 
-    // try {
-    //   RecipientsAPI('post', null, formData);
-    // } catch (error) {
-    //   console.error('Error posting data:', error);
-    // }
-
     try {
-      // axios를 사용하여 POST 요청 보내기
-      const response = await axios.post(
-        'https://rolling-api.vercel.app/7-4/recipients/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log('Response:', response.data);
-      // 성공적으로 post한 경우에 대한 처리
+      RecipientsAPI('post', null, formData);
+      console.log(formData);
+      handleMovePage(`/list`);
     } catch (error) {
-      console.error('Error posting data:', error);
-      console.error('Error response:', error.response);
-      if (error.response && error.response.data) {
-        console.error('Error details:', error.response.data);
-      }
-    } finally {
+      console.log(error);
     }
   };
 
@@ -106,12 +76,13 @@ function PostPage() {
     <div className='page-container'>
       <form className='form-container' onSubmit={handleSubmit}>
         <div className='input-container'>
-          <label>
+          <label htmlFor='inputName'>
             <p className='font-24-bold title-to'>To.</p>
           </label>
           <TextInputField
             name='name'
-            value={values.name}
+            value={name}
+            id='inputName'
             onChange={handleInputChange}
           >
             받는 사람 이름을 선택해 주세요
