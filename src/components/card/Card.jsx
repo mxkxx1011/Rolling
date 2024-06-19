@@ -7,13 +7,15 @@ import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
 import dompurify from 'dompurify';
 import { MessagesAPI } from 'data/CallAPI';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import iconCheck from 'assets/images/ic_check.svg';
+import useNavigator from 'hooks/useNavigator';
 
 function Card({
   type = 'normal',
   message = {},
   handleClick,
+  getRecipient,
   getRecipientMessage,
   checkedItems,
   setCheckedItems,
@@ -24,6 +26,8 @@ function Card({
 
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
+  const handleMovePage = useNavigator();
+  const { postId } = useParams();
 
   const handleToggleCheck = (value) => {
     if (isChecked) {
@@ -64,16 +68,12 @@ function Card({
   const handleSelectDelete = async () => {
     try {
       const response = await MessagesAPI('delete', id, null);
-      await getRecipientMessage();
-      console.log(response.data);
+      getRecipientMessage();
+      getRecipient();
     } catch (error) {
       console.warn(error);
     }
   };
-
-  useEffect(() => {
-    console.log(checkedItems);
-  }, [checkedItems]);
 
   return (
     <div

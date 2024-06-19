@@ -19,8 +19,6 @@ function EmojiButton({ getReactions, getAllReactions }) {
       const response = await RecipientsReactionsAPI('post', postId, emojiBody);
       await getReactions();
       await getAllReactions();
-
-      console.log(response);
     } catch (error) {
       console.error('Error while updating emoji reaction:', error);
     }

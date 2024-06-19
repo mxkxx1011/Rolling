@@ -68,7 +68,6 @@ function CardMessagePage() {
   const deleteMessage = async (id) => {
     try {
       const response = await MessagesAPI('delete', id, null);
-      console.log(response);
     } catch (error) {
       console.warn(error);
     }
@@ -83,7 +82,16 @@ function CardMessagePage() {
     checkedItems.map((item) => {
       deleteMessage(item);
       getRecipientMessage();
+      getRecipient();
     });
+  };
+
+  const handleDeleteButton = () => {
+    if (messageCount == 0) {
+      alert('삭제할 메시지가 없어요');
+      return;
+    }
+    handleMovePage(`/post/${postId}/edit`);
   };
 
   const fetchMoreItems = async () => {
@@ -215,7 +223,7 @@ function CardMessagePage() {
               <Button
                 order='primary'
                 size='40'
-                handleClick={() => handleMovePage(`/post/${postId}/edit`)}
+                handleClick={handleDeleteButton}
               >
                 삭제
               </Button>
@@ -239,6 +247,7 @@ function CardMessagePage() {
                 handleClick={
                   !isEditPage ? () => handleOpenModal(message) : null
                 }
+                getRecipient={getRecipient}
                 getRecipientMessage={getRecipientMessage}
                 checkedItems={checkedItems}
                 setCheckedItems={setCheckedItems}

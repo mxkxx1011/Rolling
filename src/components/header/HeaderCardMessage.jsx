@@ -34,7 +34,7 @@ function HeaderCardMessage({
       {!isMobile ? (
         <header className={styles.header}>
           <div className={styles.container}>
-            <HeaderName name={name} />
+            <HeaderName name={name} messageCount={messageCount} />
             <div className='header-right'>
               {isDesktop ? (
                 <>
@@ -52,7 +52,7 @@ function HeaderCardMessage({
       ) : (
         <div className='header-mobile'>
           <div>
-            <HeaderName name={name} />
+            <HeaderName name={name} messageCount={messageCount} />
           </div>
           <div>
             <EmojiShareWrapper setShowToast={setShowToast} />
