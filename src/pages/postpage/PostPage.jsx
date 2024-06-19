@@ -7,6 +7,8 @@ import Options from 'components/option/Options';
 import './PostPage.scss';
 import { RecipientsAPI } from 'data/CallAPI';
 
+const API_KEY = process.env.REACT_APP_API_URL;
+
 function PostPage() {
   // 컬러 기본값 상수로 지정
   const DEFAULT_COLOR = 'beige';
@@ -74,22 +76,18 @@ function PostPage() {
     }
 
     // try {
-    //   RecipientsAPI('post', formData);
+    //   RecipientsAPI('post', null, formData, null, null);
     // } catch (error) {
     //   console.error('Error posting data:', error);
     // }
 
     try {
       // axios를 사용하여 POST 요청 보내기
-      const response = await axios.post(
-        'https://rolling-api.vercel.app/7-4/recipients/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const response = await axios.post(`${API_KEY}/recipients/`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
       console.log('Response:', response.data);
       // 성공적으로 post한 경우에 대한 처리
     } catch (error) {
@@ -98,7 +96,6 @@ function PostPage() {
       if (error.response && error.response.data) {
         console.error('Error details:', error.response.data);
       }
-    } finally {
     }
   };
 
