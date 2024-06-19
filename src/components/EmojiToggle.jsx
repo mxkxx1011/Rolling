@@ -2,8 +2,16 @@ import ArrowDown from 'assets/images/ic_arrow_down.svg';
 import ArrowTop from 'assets/images/ic_arrow_top.svg';
 import 'components/EmojiToggle.scss';
 import { Reaction } from 'components/reaction/Reaction';
+import Button from './Button';
+import iconPlus4 from 'assets/images/ic_plus_4.svg';
+import { useState } from 'react';
 
-function EmojiToggle({ reactions, handleClick, isOpen }) {
+function EmojiToggle({ reactions, handleClick, isOpen, getAllReactions }) {
+  const [showAllReactions, setShowAllReactions] = useState(false);
+  const handlePlusClick = () => {
+    setShowAllReactions((prev) => !prev);
+    getAllReactions(showAllReactions);
+  };
   return (
     <div className='emoji-list-layer'>
       <button className='emoji-toggle' onClick={handleClick}>
@@ -18,6 +26,9 @@ function EmojiToggle({ reactions, handleClick, isOpen }) {
           {reactions.map((reaction) => (
             <Reaction key={reaction.id} reaction={reaction} className='small' />
           ))}
+          <Button order='outlined' size='28' handleClick={handlePlusClick}>
+            <img src={iconPlus4} alt='plus' className='icon-plus' />
+          </Button>
         </div>
       )}
     </div>

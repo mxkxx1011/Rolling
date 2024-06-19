@@ -14,6 +14,7 @@ function EmojiShareWrapper({ setShowToast }) {
 
   const [reactions, setReactions] = useState([]);
   const [allReactions, setAllReactions] = useState([]);
+  const [reactionCount, setReactionCount] = useState(0);
 
   const getReactions = async () => {
     const limit = 3;
@@ -30,11 +31,13 @@ function EmojiShareWrapper({ setShowToast }) {
     getAllReactions();
   }, []);
 
-  const getAllReactions = async () => {
-    const limit = isDesktop ? 8 : 6;
+  const getAllReactions = async (all = false) => {
+    let limit = isDesktop ? 8 : 6;
+    limit = all ? reactionCount : null;
     try {
       const response = await RecipientsReactionsAPI('get', postId, null, limit);
       setAllReactions(response.results);
+      setReactionCount(response.count);
     } catch (error) {
       console.error(error);
     }
@@ -52,6 +55,7 @@ function EmojiShareWrapper({ setShowToast }) {
         allReactions={allReactions}
         isOpen={isOpenReactionList}
         setOpen={setIsOpenReactionList}
+        getAllReactions={getAllReactions}
       />
 
       <div className='button-wrapper'>
