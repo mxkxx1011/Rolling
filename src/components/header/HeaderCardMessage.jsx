@@ -25,6 +25,7 @@ function HeaderCardMessage({
   recentMessages,
   handleClick,
   setShowToast,
+  isLoading,
 }) {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -34,18 +35,26 @@ function HeaderCardMessage({
       {!isMobile ? (
         <header className={styles.header}>
           <div className={styles.container}>
-            <HeaderName name={name} messageCount={messageCount} />
+            <HeaderName
+              name={name}
+              messageCount={messageCount}
+              isLoading={isLoading}
+            />
             <div className='header-right'>
               {isDesktop ? (
                 <>
                   <WriterCount
                     messageCount={messageCount}
                     recentMessages={recentMessages}
+                    isLoading={isLoading}
                   />
                   <div className='border'></div>
                 </>
               ) : null}
-              <EmojiShareWrapper setShowToast={setShowToast} />
+              <EmojiShareWrapper
+                setShowToast={setShowToast}
+                isLoading={isLoading}
+              />
             </div>
           </div>
         </header>

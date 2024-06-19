@@ -6,7 +6,7 @@ import EmojiButton from './EmojiButton';
 import ReactionWrapper from './ReactionWrapper';
 import ShareButton from './ShareButton';
 
-function EmojiShareWrapper({ setShowToast }) {
+function EmojiShareWrapper({ setShowToast, isLoading }) {
   const [isOpenReactionList, setIsOpenReactionList] = useState(false);
   const [currentEmoji, setCurrentEmoji] = useState('');
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -56,6 +56,7 @@ function EmojiShareWrapper({ setShowToast }) {
         isOpen={isOpenReactionList}
         setOpen={setIsOpenReactionList}
         getAllReactions={getAllReactions}
+        isLoading={isLoading}
       />
 
       <div className='button-wrapper'>
@@ -64,9 +65,10 @@ function EmojiShareWrapper({ setShowToast }) {
           getAllReactions={getAllReactions}
           isOpenReactionList={isOpenReactionList}
           setCurrentEmoji={setCurrentEmoji}
+          isLoading={isLoading}
         />
         <div className='border'></div>
-        <ShareButton setShowToast={setShowToast} />
+        <ShareButton setShowToast={setShowToast} isLoading={isLoading} />
       </div>
     </div>
   );

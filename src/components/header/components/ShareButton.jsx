@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 const { Kakao } = window;
 const KAKAO_LINK_KEY = process.env.REACT_APP_SHARE_KAKAO_LINK_KEY;
 
-function ShareButton({ setShowToast }) {
+function ShareButton({ setShowToast, isLoading }) {
   const [isMenuShow, setIsMenuShow] = useState(false);
 
   const route = 'https://rolling.com';
@@ -63,7 +63,12 @@ function ShareButton({ setShowToast }) {
 
   return (
     <div className='share-button-wrapper'>
-      <Button order='outlined' size='36' handleClick={handleShowMenu}>
+      <Button
+        order='outlined'
+        size='36'
+        handleClick={handleShowMenu}
+        disabled={isLoading}
+      >
         <img src={iconShare24} alt='공유하기' />
       </Button>
       {isMenuShow && (
