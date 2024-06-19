@@ -52,10 +52,9 @@ export function RecipientsAPI(
     query = `${query}${id}/`;
   } else if (limit !== 9999 && offset != null) {
     query = `${query}?limit=${limit}&offset=${offset}`;
-  } else {
+  } else if (id == null && offset == null && limit === 9999) {
     query = `${query}?limit=${limit}`;
   }
-
   return Axios(Method, query, body, 'recipient');
 }
 

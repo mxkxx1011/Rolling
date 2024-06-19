@@ -73,33 +73,33 @@ function PostPage() {
       formData.append('backgroundColor', DEFAULT_COLOR);
     }
 
-    // try {
-    //   RecipientsAPI('post', formData);
-    // } catch (error) {
-    //   console.error('Error posting data:', error);
-    // }
-
     try {
-      // axios를 사용하여 POST 요청 보내기
-      const response = await axios.post(
-        'https://rolling-api.vercel.app/7-4/recipients/',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log('Response:', response.data);
-      // 성공적으로 post한 경우에 대한 처리
+      RecipientsAPI('post', null, formData, null, null);
     } catch (error) {
       console.error('Error posting data:', error);
-      console.error('Error response:', error.response);
-      if (error.response && error.response.data) {
-        console.error('Error details:', error.response.data);
-      }
-    } finally {
     }
+
+    // try {
+    //   // axios를 사용하여 POST 요청 보내기
+    //   const response = await axios.post(
+    //     'https://rolling-api.vercel.app/7-4/recipients/',
+    //     formData,
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //   );
+    //   console.log('Response:', response.data);
+    //   // 성공적으로 post한 경우에 대한 처리
+    // } catch (error) {
+    //   console.error('Error posting data:', error);
+    //   console.error('Error response:', error.response);
+    //   if (error.response && error.response.data) {
+    //     console.error('Error details:', error.response.data);
+    //   }
+    // } finally {
+    // }
   };
 
   return (
