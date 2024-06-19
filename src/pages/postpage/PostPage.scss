@@ -63,3 +63,10 @@
   color: $gray-500;
   line-height: 26px;
 }
+
+.error-message {
+  @include font-style(18, regular);
+  color: $color--error;
+  line-height: 18px;
+  margin-top: 4px;
+}

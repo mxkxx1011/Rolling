@@ -17,6 +17,7 @@ function PostPage() {
   // Option 컴포넌트의 type을 관리하는 state와 객체
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
+
   // 선택된 옵션 컴포넌트 값 관리하는 state
   const [selectedOption, setSelectedOption] = useState(DEFAULT_COLOR);
 
@@ -25,11 +26,26 @@ function PostPage() {
   const handleOptionSelect = (selectedOption) => {
     setOptionType(selectedOption === '컬러' ? 'color' : 'image');
     setSelectedOption(selectedOption === '컬러' ? DEFAULT_COLOR : null);
+    // Set state for background color or image URL
+    if (selectedOption === '컬러') {
+      setBackColor(DEFAULT_COLOR);
+      setBackImageURL(null);
+    } else {
+      setBackImageURL(null);
+    }
   };
 
   // Option 컴포넌트에서 선택된 값 -> setState 지정
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+    // background color, image URL 상태관리
+    if (optionType === 'color') {
+      setBackColor(option);
+      setBackImageURL(null);
+    } else if (optionType === 'image') {
+      setBackImageURL(option);
+      setBackColor(DEFAULT_COLOR);
+    }
   };
 
   /* ---- POST API 부분 ---- */
@@ -37,15 +53,26 @@ function PostPage() {
   const [backColor, setBackColor] = useState(DEFAULT_COLOR);
   const [backImageURL, setBackImageURL] = useState(null);
   const handleMovePage = useNavigator();
+  const [isFocus, setIsFocus] = useState(false);
 
   // input 값 관리하는 함수
   const handleInputChange = (e) => {
     setName(e.target.value);
   };
 
+  //포커스 아웃 되었는지 check
+  const handleBlur = () => {
+    setIsFocus(true);
+  };
+
   // Form Submit 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //값이 비어있으면 제출되지 않도록 함
+    if (!name) {
+      return;
+    }
 
     const formData = {
       team: '7-4',
@@ -54,17 +81,8 @@ function PostPage() {
       backgroundImageURL: backImageURL,
     };
 
-    // optionType에 따라서 배경 색상 또는 이미지 URL을 formData에 추가
-    if (optionType === 'color') {
-      formData.backgroundColor = selectedOption || DEFAULT_COLOR;
-    } else if (optionType === 'image') {
-      formData.backgroundImageURL = selectedOption || null;
-      // backgroundImageURL이 아닌 경우에는 기본 배경색을 추가
-      formData.backgroundColor = DEFAULT_COLOR;
-    }
-
     try {
-      RecipientsAPI('post', null, formData);
+      await RecipientsAPI('post', null, formData);
       console.log(formData);
       handleMovePage(`/list`);
     } catch (error) {
@@ -84,9 +102,14 @@ function PostPage() {
             value={name}
             id='inputName'
             onChange={handleInputChange}
+            onBlur={handleBlur}
           >
             받는 사람 이름을 선택해 주세요
           </TextInputField>
+          {/* input에 값이 없을 때 표시할 에러 메세지 */}
+          {isFocus && !name && (
+            <p className='error-message'>값을 입력해 주세요</p>
+          )}
         </div>
         <div className='text-container'>
           <p className='font-24-bold title-choice'>배경화면을 선택해 주세요.</p>
@@ -100,7 +123,7 @@ function PostPage() {
         <div className='option-container'>
           <Options type={optionType} onClick={handleOptionClick} />
         </div>
-        <Button type='submit' size='56' order='primary'>
+        <Button type='submit' size='56' order='primary' disabled={!name}>
           생성하기
         </Button>
       </form>
