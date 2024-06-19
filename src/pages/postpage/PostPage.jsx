@@ -8,9 +8,6 @@ import './PostPage.scss';
 import { RecipientsAPI } from 'data/CallAPI';
 
 function PostPage() {
-  // 배경
-  const backImg01 =
-    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
   // 컬러 기본값 상수로 지정
   const DEFAULT_COLOR = 'beige';
 
