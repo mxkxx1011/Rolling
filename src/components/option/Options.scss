@@ -4,6 +4,7 @@
 @import 'assets/styles/common.scss';
 .options {
   @include Flex(row, null, center, 16px);
+  flex-wrap: wrap;
 
   .option {
     width: 168px;

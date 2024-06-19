@@ -74,7 +74,7 @@ function PostPage() {
     }
 
     // try {
-    //   RecipientsAPI('post', formData);
+    //   RecipientsAPI('post', null, formData);
     // } catch (error) {
     //   console.error('Error posting data:', error);
     // }
@@ -103,9 +103,9 @@ function PostPage() {
   };
 
   return (
-    <>
-      <div className='page-container'>
-        <form className='form-container' onSubmit={handleSubmit}>
+    <div className='page-container'>
+      <form className='form-container' onSubmit={handleSubmit}>
+        <div className='input-container'>
           <label>
             <p className='font-24-bold title-to'>To.</p>
           </label>
@@ -116,26 +116,24 @@ function PostPage() {
           >
             받는 사람 이름을 선택해 주세요
           </TextInputField>
-          <div className='text-container'>
-            <p className='font-24-bold title-choice'>
-              배경화면을 선택해 주세요.
-            </p>
-            <p className='font-16-regular'>
-              컬러를 선택하거나, 이미지를 선택할 수 있습니다.
-            </p>
-          </div>
-          {/* 토글버튼 컴포넌트*/}
-          <ToggleButton options={options} onOptionSelect={handleOptionSelect} />
-          {/* 옵션 컴포넌트 */}
-          <div className='option-container'>
-            <Options type={optionType} onClick={handleOptionClick} />
-          </div>
-          <Button type='submit' size='56' order='primary'>
-            생성하기
-          </Button>
-        </form>
-      </div>
-    </>
+        </div>
+        <div className='text-container'>
+          <p className='font-24-bold title-choice'>배경화면을 선택해 주세요.</p>
+          <p className='font-16-regular'>
+            컬러를 선택하거나, 이미지를 선택할 수 있습니다.
+          </p>
+        </div>
+        {/* 토글버튼 컴포넌트*/}
+        <ToggleButton options={options} onOptionSelect={handleOptionSelect} />
+        {/* 옵션 컴포넌트 */}
+        <div className='option-container'>
+          <Options type={optionType} onClick={handleOptionClick} />
+        </div>
+        <Button type='submit' size='56' order='primary'>
+          생성하기
+        </Button>
+      </form>
+    </div>
   );
 }
 
