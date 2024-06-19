@@ -8,9 +8,9 @@ import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
 // import Carousel from 'components/carousel/Carousel';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+// import Slider from 'react-slick';
+// import 'slick-carousel/slick/slick.scss'
+// import 'slick-carousel/slick/slick-theme.scss';
 
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
@@ -114,13 +114,15 @@ function CardListPage() {
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 5,
+  //   slidesToScroll: 1,
+  //   vertical: false,
+  //   verticalSwiping: false,
+  // };
 
   useDragScroll(hotListRef);
   useDragScroll(dateListRef);
@@ -166,13 +168,13 @@ function CardListPage() {
             <ArrowButton direction={'left'} />
           </div>
           <div className='card-list-wrapper hot-card' ref={hotListRef}>
-            <Slider {...settings}>
+            {/* <Slider {...settings}> */}
               {sliceWithFallback(hotRecipients, hotOffset, limit).map(
                 (data) => (
                   <CardList key={`${data.id}`} recipient={data} />
                 ),
               )}
-            </Slider>
+            {/* </Slider> */}
           </div>
           <div
             className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
@@ -210,14 +212,14 @@ function CardListPage() {
         className={'post-link-button'}
         handleClick={() => handleMovePage('/post')}
       />
-      <div className='testlayer'>
+      {/* <div className='testlayer'>
         <br />
         <TextDropdownField options={test}></TextDropdownField>
         <br />
         <br />
         <TextInputField></TextInputField>
         <br />
-      </div>
+      </div> */}
     </div>
   );
 }

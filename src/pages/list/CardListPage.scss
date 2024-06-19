@@ -4,8 +4,7 @@
 
 .card-list-layer {
   margin: 0 auto;
-  // padding: 0 24px;
-  width: 1200px;
+  width: 100%;
   overflow: hidden;
   @include Flex(column, center, center, null);
 
@@ -28,10 +27,12 @@
 
   .card-list-box {
     @include Flex(column, center, flex-start, null);
-    // width: 100%;
-    width: 1200pxs;
+    // padding: 0 24px;
+    width: 100%;
     margin-bottom: 50px;
+
     .card-list-title {
+      margin: 0 24px;
       margin-bottom: 16px;
       @include font-style(24, bold);
       line-height: 36px;
@@ -39,8 +40,11 @@
 
     .card-list-data {
       @include Flex(row, center, center, null);
+      // width: 1200px;
+      width: 100%;
       position: relative;
       transition: 1s;
+
       .arrow {
         position: absolute;
         cursor: pointer;
@@ -52,20 +56,26 @@
         height: 40px;
         z-index: 2;
         &.right {
-          right: -20px;
+          right: 5px;
         }
         &.left {
-          left: -20px;
+          left: 5px;
         }
         &.disabled {
           visibility: hidden;
         }
       }
-    }
-    .card-list-wrapper {
-      @include Flex(row, flex-start, flex-start, 20px);
+      .card-list-wrapper {
+        padding: 0 24px;
+        @include Flex(row, flex-start, flex-start, 20px);
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        scroll-behavior: smooth;
+      }
     }
   }
+
   .post-link-button {
     margin-top: 16px;
     width: 280px;
