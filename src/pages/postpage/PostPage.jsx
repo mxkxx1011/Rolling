@@ -11,6 +11,8 @@ function PostPage() {
   // 배경
   const backImg01 =
     'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
+  // 컬러 기본값 상수로 지정
+  const DEFAULT_COLOR = 'beige';
 
   /* ---- 옵션과 토글 관리 부분 ---- */
 
@@ -18,13 +20,13 @@ function PostPage() {
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
   // 선택된 옵션 컴포넌트 값 관리하는 state
-  const [selectedOption, setSelectedOption] = useState('beige');
+  const [selectedOption, setSelectedOption] = useState(DEFAULT_COLOR);
 
   // 선택된 토글 값에 따라 Option type 지정하는 핸들러
   // 컬러/이미지 토글 버튼 클릭 -> 컬러/이미지 옵션 컴포넌트 표시
   const handleOptionSelect = (selectedOption) => {
     setOptionType(selectedOption === '컬러' ? 'color' : 'image');
-    setSelectedOption(selectedOption === '컬러' ? 'beige' : null);
+    setSelectedOption(selectedOption === '컬러' ? DEFAULT_COLOR : null);
   };
 
   // Option 컴포넌트에서 선택된 값 -> setState 지정
@@ -33,12 +35,13 @@ function PostPage() {
   };
 
   /* ---- POST API 부분 ---- */
+
   // post 요청 초기값 설정
   const INITIAL_VALUES = {
     team: '7-4',
     name: '',
-    backgroundColor: 'beige',
-    backgroundImageURL: backImg01,
+    backgroundColor: DEFAULT_COLOR,
+    backgroundImageURL: null,
   };
   // post 전달 값 관리하는 state
   const [values, setValues] = useState(INITIAL_VALUES);
@@ -66,12 +69,18 @@ function PostPage() {
 
     // optionType에 따라서 배경 색상 또는 이미지 URL을 formData에 추가
     if (optionType === 'color') {
-      formData.append('backgroundColor', selectedOption || 'beige');
+      formData.append('backgroundColor', selectedOption || DEFAULT_COLOR);
     } else if (optionType === 'image') {
-      formData.append('backgroundImageURL', selectedOption || backImg01);
+      formData.append('backgroundImageURL', selectedOption || null);
       // backgroundImageURL이 아닌 경우에는 기본 배경색을 추가
-      formData.append('backgroundColor', 'beige');
+      formData.append('backgroundColor', DEFAULT_COLOR);
     }
+
+    // try {
+    //   RecipientsAPI('post', formData);
+    // } catch (error) {
+    //   console.error('Error posting data:', error);
+    // }
 
     try {
       // axios를 사용하여 POST 요청 보내기
