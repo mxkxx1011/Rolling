@@ -4,16 +4,13 @@ import iconArrowTop from 'assets/images/ic_arrow_top.svg';
 import { useState } from 'react';
 import DropMenu from 'components/textfield/DropMenu';
 
-function TextDropdownField({ options, onChangeOptions }) {
+
+function TextDropdownField({ options, onChangeOptions = null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
-  };
-
-  const handleURLCopy = () => {
-    console.log('됨');
   };
 
   const handleOptionClick = (option) => {

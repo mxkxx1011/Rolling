@@ -7,6 +7,10 @@ import 'pages/list/CardListPage.scss';
 import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
+// import Carousel from 'components/carousel/Carousel';
+// import Slider from 'react-slick';
+// import 'slick-carousel/slick/slick.scss'
+// import 'slick-carousel/slick/slick-theme.scss';
 
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
@@ -36,6 +40,68 @@ function useWindowWidth() {
   return width;
 }
 
+function useDragScroll(ref) {
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      element.classList.add('active');
+      startX = e.pageX - element.offsetLeft;
+      scrollLeft = element.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      element.classList.remove('active');
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      element.classList.remove('active');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - element.offsetLeft;
+      const walk = (x - startX) * 2; // 스크롤 속도를 조정할 수 있습니다.
+      element.scrollLeft = scrollLeft - walk;
+    };
+
+    element.addEventListener('mousedown', handleMouseDown);
+    element.addEventListener('mouseleave', handleMouseLeave);
+    element.addEventListener('mouseup', handleMouseUp);
+    element.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      element.removeEventListener('mousedown', handleMouseDown);
+      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener('mouseup', handleMouseUp);
+      element.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [ref]);
+}
+
+function sliceWithFallback(recipient, offset, limit) {
+  let end = offset + limit; //마지막 출력지점
+  let slice = recipient.slice(offset, end); //데이터를 시작부터 출력까지 자른 데이터
+  if (slice.length < limit) {
+    //자른 데이터가 4개보다 작으면
+    const remaining = limit - slice.length; //부족한 숫자
+    const previousSlice = recipient
+      .slice(Math.max(0, offset - remaining), offset)
+      .slice(-remaining);
+    slice = previousSlice.concat(slice); //애초에 4개가 안되서 -일경우 에러가 나기 때문에
+  }
+  return slice;
+}
+
 function CardListPage() {
   const test = ['a', 'b', 'c', 'd'];
   const [recipients, setRecipients] = useState([]);
@@ -48,6 +114,19 @@ function CardListPage() {
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
 
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 5,
+  //   slidesToScroll: 1,
+  //   vertical: false,
+  //   verticalSwiping: false,
+  // };
+
+  useDragScroll(hotListRef);
+  useDragScroll(dateListRef);
+
   function listShift(count) {
     setOffSet(offset + count);
   }
@@ -59,16 +138,6 @@ function CardListPage() {
   useEffect(() => {
     if (width < 1024) {
       setLimit(9999);
-      console.log('태블릿모드');
-      console.log(hotListRef, dateListRef);
-      dateListRef.current.scrollBy({
-        left: 2 * 300,
-        behavior: 'smooth',
-      });
-      hotListRef.current.scrollBy({
-        left: 2 * 300,
-        behavior: 'smooth',
-      });
     } else {
       setLimit(4);
     }
@@ -85,7 +154,7 @@ function CardListPage() {
       }
     };
     getRecipient();
-  }, [limit]);
+  }, []);
 
   return (
     <div className='card-list-layer'>
@@ -99,9 +168,13 @@ function CardListPage() {
             <ArrowButton direction={'left'} />
           </div>
           <div className='card-list-wrapper hot-card' ref={hotListRef}>
-            {hotRecipients.slice(hotOffset, hotOffset + limit).map((data) => (
-              <CardList key={`${data.id}`} recipient={data} />
-            ))}
+            {/* <Slider {...settings}> */}
+              {sliceWithFallback(hotRecipients, hotOffset, limit).map(
+                (data) => (
+                  <CardList key={`${data.id}`} recipient={data} />
+                ),
+              )}
+            {/* </Slider> */}
           </div>
           <div
             className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
@@ -121,7 +194,7 @@ function CardListPage() {
             <ArrowButton direction={'left'} />
           </div>
           <div className='card-list-wrapper date-card' ref={dateListRef}>
-            {recipients.slice(offset, offset + limit).map((data) => (
+            {sliceWithFallback(recipients, offset, limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
           </div>
@@ -139,14 +212,14 @@ function CardListPage() {
         className={'post-link-button'}
         handleClick={() => handleMovePage('/post')}
       />
-      <div className='testlayer'>
+      {/* <div className='testlayer'>
         <br />
         <TextDropdownField options={test}></TextDropdownField>
         <br />
         <br />
         <TextInputField></TextInputField>
         <br />
-      </div>
+      </div> */}
     </div>
   );
 }
