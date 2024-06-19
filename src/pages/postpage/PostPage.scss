@@ -65,7 +65,7 @@
 }
 
 .error-message {
-  @include font-style(18, regular);
+  @include font-style(14, regular);
   color: $color--error;
   line-height: 18px;
   margin-top: 4px;
