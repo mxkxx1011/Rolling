@@ -1,4 +1,3 @@
-import imageBackground01 from 'assets/images/image_background_01.jpg';
 import Button from 'components/Button';
 import { useEffect } from 'react';
 import iconShare24 from 'assets/images/ic_share_24.svg';

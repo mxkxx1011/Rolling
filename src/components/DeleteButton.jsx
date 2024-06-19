@@ -2,9 +2,15 @@ import './Button.scss';
 import Button from './Button';
 import { ReactComponent as IconDelete } from '../assets/images/ic_deleted.svg';
 
-function DeleteButton({ disabled }) {
+function DeleteButton({ disabled, handleClick }) {
   return (
-    <Button disabled={disabled} order='delete' size='36' emoji={false}>
+    <Button
+      handleClick={handleClick}
+      disabled={disabled}
+      order='delete'
+      size='36'
+      emoji={false}
+    >
       <IconDelete />
     </Button>
   );

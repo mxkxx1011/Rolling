@@ -1,7 +1,11 @@
 import HeaderCardMessage from 'components/header/HeaderCardMessage';
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { RecipientsAPI, RecipientsMessagesAPI } from 'data/CallAPI';
+import {
+  MessagesAPI,
+  RecipientsAPI,
+  RecipientsMessagesAPI,
+} from 'data/CallAPI';
 import Card from 'components/card/Card';
 import './CardMessagePage.scss';
 import classNames from 'classnames';
@@ -9,11 +13,10 @@ import ShareKakao from 'utils/ShareKakao';
 import Modal from 'components/modal/Modal';
 import useNavigator from 'hooks/useNavigator';
 import { useInView } from 'react-intersection-observer';
-import CardList from 'components/card/CardList';
-import SkeletonCardList from 'components/card/SkeletonCardList';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
+import { check } from 'prettier';
 
 // post/{id}
 function CardMessagePage() {
@@ -22,6 +25,7 @@ function CardMessagePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +38,7 @@ function CardMessagePage() {
 
   const location = useLocation();
   const isEditPage = location.pathname.includes('/edit');
+  const isEditSelectPage = location.pathname.includes('/edit/select');
 
   const {
     name = 'null',
@@ -58,6 +63,35 @@ function CardMessagePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedMessage(null);
+  };
+
+  const deleteMessage = async (id) => {
+    try {
+      const response = await MessagesAPI('delete', id, null);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  const handleSelectDelete = () => {
+    if (checkedItems.length == 0) {
+      alert('삭제할 항목을 선택해주세요');
+      return;
+    }
+
+    checkedItems.map((item) => {
+      deleteMessage(item);
+      getRecipientMessage();
+      getRecipient();
+    });
+  };
+
+  const handleDeleteButton = () => {
+    if (messageCount == 0) {
+      alert('삭제할 메시지가 없어요');
+      return;
+    }
+    handleMovePage(`/post/${postId}/edit`);
   };
 
   const fetchMoreItems = async () => {
@@ -91,25 +125,28 @@ function CardMessagePage() {
     }
   }, [inView, hasMore]);
 
-  useEffect(() => {
-    const getRecipient = async () => {
-      try {
-        const responseRecipient = await RecipientsAPI('get', postId);
-        const limit = isEditPage ? 6 : 5;
-        const responseMessage = await RecipientsMessagesAPI(
-          'get',
-          postId,
-          null,
-          limit,
-        );
-        setRecipient(responseRecipient);
-        setRecipientMessage(responseMessage.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const getRecipient = async () => {
+    try {
+      const response = await RecipientsAPI('get', postId);
+      setRecipient(response);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
 
+  const getRecipientMessage = async () => {
+    try {
+      const limit = isEditPage ? 6 : 5;
+      const response = await RecipientsMessagesAPI('get', postId, null, limit);
+      setRecipientMessage(response.results);
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  useEffect(() => {
     getRecipient();
+    getRecipientMessage();
   }, [postId, isEditPage]);
 
   return (
@@ -127,26 +164,70 @@ function CardMessagePage() {
         style={BackGroundImageStyle}
       >
         {isEditPage ? (
-          <div className='button-wrapper button-right'>
-            <Button order='secondary' size='40'>
-              페이지 삭제
-            </Button>
-            <Button order='primary' size='40'>
-              선택 삭제
-            </Button>
-            <Button order='primary' size='40'>
-              전체 삭제
-            </Button>
+          <div className='content-button-wrapper'>
+            <div className='button-left'>
+              <Button
+                order='secondary'
+                size='40'
+                handleClick={() =>
+                  handleMovePage(
+                    isEditSelectPage
+                      ? `/post/${postId}/edit`
+                      : `/post/${postId}`,
+                  )
+                }
+              >
+                뒤로 가기
+              </Button>
+            </div>
+            <div className='button-right'>
+              {isEditSelectPage ? (
+                <Button
+                  order='primary'
+                  size='40'
+                  handleClick={handleSelectDelete}
+                >
+                  선택한 항목 삭제하기
+                </Button>
+              ) : (
+                <>
+                  <Button order='secondary' size='40'>
+                    페이지 삭제
+                  </Button>
+                  <Button
+                    order='primary'
+                    size='40'
+                    handleClick={() => handleMovePage(`select`)}
+                  >
+                    선택 삭제
+                  </Button>
+                  <Button order='primary' size='40'>
+                    전체 삭제
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         ) : (
-          <div className='button-wrapper button-left'>
-            <Button
-              order='secondary'
-              size='40'
-              handleClick={() => handleMovePage('/list')}
-            >
-              뒤로 가기
-            </Button>
+          <div className='content-button-wrapper'>
+            <div className='button-left'>
+              <Button
+                order='secondary'
+                size='40'
+                handleClick={() => handleMovePage('/list')}
+              >
+                뒤로 가기
+              </Button>
+            </div>
+            <div className='button-right'>
+              <Button
+                order='primary'
+                size='40'
+                handleClick={handleDeleteButton}
+              >
+                삭제
+              </Button>
+            </div>
           </div>
         )}
         {recentMessages ? (
@@ -166,6 +247,10 @@ function CardMessagePage() {
                 handleClick={
                   !isEditPage ? () => handleOpenModal(message) : null
                 }
+                getRecipient={getRecipient}
+                getRecipientMessage={getRecipientMessage}
+                checkedItems={checkedItems}
+                setCheckedItems={setCheckedItems}
               />
             ))}
             {hasMore && <div ref={ref}></div>}

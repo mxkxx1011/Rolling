@@ -8,7 +8,13 @@ function WriterCount({ messageCount, recentMessages }) {
         recentMessages={recentMessages}
       />
       <p className='font-18-regular'>
-        <span className='font-18-bold'>{messageCount}</span>명이 작성했어요!
+        {messageCount == 0 ? (
+          '아직 작성한 메시지가 없어요'
+        ) : (
+          <>
+            <span className='font-18-bold'>{messageCount}</span>명이 작성했어요!
+          </>
+        )}
       </p>
     </div>
   );
