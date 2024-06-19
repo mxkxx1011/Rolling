@@ -8,30 +8,24 @@
   .selectedProfileImage {
     border-radius: 100%;
     background-color: $gray-200;
-    width: 80px;
-    height: 80px;
+    width: 30%;
   }
 
   .wrapper {
     @include Flex(column, null, null, 12px);
     @include font-style(16, regular);
 
-    @include mobile {
-    }
     .profileImages {
-      @include Flex(row, space-between, null, 4px);
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 4px;
 
       .profileImage {
         border-radius: 100%;
         background-color: $gray-200;
         cursor: pointer;
-        width: 56px;
-        height: 56px;
-        @include mobile {
-          width: 40px;
-          height: 40px;
-        }
+        width: 90%;
         &:hover {
           transform: scale(1.1);
         }

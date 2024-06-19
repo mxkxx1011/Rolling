@@ -10,11 +10,7 @@
     border: 1px solid $gray-300;
     background-color: $color--white;
     outline: none;
-    width: 720px;
-
-    @include mobile {
-      width: 320px;
-    }
+    width: 100%;
 
     &:hover {
       border: 1px solid $gray-500;

@@ -12,7 +12,7 @@ export const DEFAULT_IMAGE =
 
 export const PROFILE_IMAGES = [
   {
-    src: 'https://cdn.icon-icons.com/icons2/1999/PNG/96/avatar_man_people_person_profile_user_icon_123375.png',
+    src: 'https://cdn.icon-icons.com/icons2/1999/PNG/512/avatar_man_people_person_profile_user_icon_123375.png',
     alt: '프로필이미지1',
   },
   {
