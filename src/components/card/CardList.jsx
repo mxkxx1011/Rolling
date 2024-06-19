@@ -19,10 +19,11 @@ function CardList({ type = 'color', recipient }) {
   const CardBackgroundImage = {
     backgroundImage: `url(${backgroundImageURL})`,
   };
+
   // 카드 이미지 사용할때 백그라운드 설정해주는 스타일
   // 인라인 스타일로밖에 안됩니당
   return (
-    <Link to={id}>
+    <Link to={`/post/${id}`}>
       <div
         className={classNames('card-list', type, backgroundColor)}
         style={backgroundImageURL && CardBackgroundImage}

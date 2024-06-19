@@ -1,0 +1,37 @@
+@import 'assets/styles/common.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+
+.container {
+  @include Flex(row, space-between, center, null);
+
+  .selectedProfileImage {
+    border-radius: 100%;
+    background-color: $gray-200;
+    width: 80px;
+    height: 80px;
+  }
+
+  .wrapper {
+    @include Flex(column, null, null, 12px);
+    @include font-style(16, regular);
+
+    .profileImages {
+      @include Flex(row, null, null, 4px);
+
+      .profileImage {
+        border-radius: 100%;
+        background-color: $gray-200;
+        cursor: pointer;
+        width: 56px;
+        height: 56px;
+        @mixin mobile {
+          width: 40px;
+          height: 40px;
+        }
+        &:hover {
+        }
+      }
+    }
+  }
+}

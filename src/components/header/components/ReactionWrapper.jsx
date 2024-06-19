@@ -1,7 +1,13 @@
 import EmojiToggle from 'components/EmojiToggle';
 import ReactionList from 'components/reaction/Reaction';
 
-function ReactionWrapper({ reactions, allReactions, isOpen, setOpen }) {
+function ReactionWrapper({
+  reactions,
+  allReactions,
+  isOpen,
+  setOpen,
+  getAllReactions,
+}) {
   const handleOpenReactionList = () => {
     setOpen((prev) => !prev);
   };
@@ -12,6 +18,7 @@ function ReactionWrapper({ reactions, allReactions, isOpen, setOpen }) {
         handleClick={handleOpenReactionList}
         reactions={allReactions}
         isOpen={isOpen}
+        getAllReactions={getAllReactions}
       />
     </div>
   );
