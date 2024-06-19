@@ -9,11 +9,17 @@
     @include Flex(column, null, null, 50px);
     margin-top: 50px;
     margin-bottom: 24px;
+
+    @include mobile {
+      width: 320px;
+    }
+
     .wrapper {
       @include Flex(column, center, null, 12px);
 
       .label {
         @include font-style(24, bold);
+        line-height: 150%;
       }
     }
   }

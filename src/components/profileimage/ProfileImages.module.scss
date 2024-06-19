@@ -1,9 +1,9 @@
-@import 'assets/styles/common.scss';
 @import 'assets/styles/palette.scss';
 @import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
 
 .container {
-  @include Flex(row, space-between, center, null);
+  @include Flex(row, space-between, center, 20px);
 
   .selectedProfileImage {
     border-radius: 100%;
@@ -16,8 +16,11 @@
     @include Flex(column, null, null, 12px);
     @include font-style(16, regular);
 
+    @include mobile {
+    }
     .profileImages {
-      @include Flex(row, null, null, 4px);
+      @include Flex(row, space-between, null, 4px);
+      flex-wrap: wrap;
 
       .profileImage {
         border-radius: 100%;
@@ -25,11 +28,12 @@
         cursor: pointer;
         width: 56px;
         height: 56px;
-        @mixin mobile {
+        @include mobile {
           width: 40px;
           height: 40px;
         }
         &:hover {
+          transform: scale(1.1);
         }
       }
     }

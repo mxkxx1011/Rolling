@@ -17,10 +17,9 @@ function ToastEditor({ body, setBody }) {
         ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol'],
-        ['image', 'link'],
       ]}
-      initialValue={body || '롤링페이퍼 메시지를 보내보세요!'} // 처음에 보이는 값
-      initialEditType='markdown' // 초기 편집 타입 (wysiwyg 또는 markdown)
+      initialValue={body || '메시지를 입력하세요'} // 처음에 보이는 값
+      initialEditType='wysiwyg' // 초기 편집 타입 (wysiwyg 또는 markdown)
       previewStyle='vertical' // 미리보기 스타일 (vertical 또는 tab)
       height='260px' // 에디터 창 높이
       useCommandShortcut={true} // 단축키 사용 여부

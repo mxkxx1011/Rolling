@@ -47,8 +47,8 @@ function CardMessagePostPage() {
     }
   };
 
-  const handleNameChange = (value) => {
-    const name = value.trim();
+  const handleNameChange = (e) => {
+    const name = e.target.value.trim();
     setSender(name);
     if (name.length > 0) {
       setSenderError(false);
