@@ -132,6 +132,35 @@ $types: (
     &:hover {
       cursor: pointer;
     }
+
+    .plus-wrapper {
+      width: 336px;
+      height: 228px;
+      @include Flex(row, center, center, null);
+    }
+
+    .card-button-wrapper {
+      input[type='checkbox'] {
+        display: none;
+      }
+      .checkbox {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        border: 2px solid $gray-300;
+        border-radius: 10px;
+        position: relative;
+        @include Flex(row, center, center, null);
+
+        img {
+          // filter: invert(0%) sepia(3%) saturate(13%) hue-rotate(202deg)
+          //   brightness(92%) contrast(100%);
+          filter: invert(27%) sepia(0%) saturate(4242%) hue-rotate(144deg)
+            brightness(99%) contrast(121%);
+          user-select: none;
+        }
+      }
+    }
   }
 
   &.modal {

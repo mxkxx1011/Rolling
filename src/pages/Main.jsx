@@ -1,11 +1,9 @@
 import Header from 'components/Header';
-import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useMediaQuery } from 'react-responsive';
 import { Outlet, useLocation } from 'react-router-dom';
 
 function Main() {
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isPostPage = location.pathname.startsWith('/post');
@@ -17,7 +15,7 @@ function Main() {
       <Helmet>
         <title>Rolling</title>
       </Helmet>
-      {!isHeaderHidden && <Header />}
+      {!isHeaderHidden && <Header isPostPage={isPostPage} />}
       <Outlet />
     </>
   );

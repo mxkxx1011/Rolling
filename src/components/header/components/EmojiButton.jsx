@@ -4,11 +4,11 @@ import EmojiPicker from 'emoji-picker-react';
 import { RecipientsReactionsAPI } from 'data/CallAPI';
 import { useParams } from 'react-router-dom';
 
-function EmojiButton() {
+function EmojiButton({ getReactions, getAllReactions }) {
   const { postId } = useParams();
   const [isEmoji, setIsEmoji] = useState(false);
 
-  const handleEmojiClick = (e) => {
+  const handleEmojiClick = async (e) => {
     const { emoji } = e;
     const emojiBody = {
       emoji,
@@ -16,8 +16,9 @@ function EmojiButton() {
     };
 
     try {
-      const response = RecipientsReactionsAPI('post', postId, emojiBody);
-      console.log(response);
+      const response = await RecipientsReactionsAPI('post', postId, emojiBody);
+      await getReactions();
+      await getAllReactions();
     } catch (error) {
       console.error('Error while updating emoji reaction:', error);
     }
