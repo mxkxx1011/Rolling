@@ -1,34 +1,58 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
+import ProfileImages from 'components/profileimage/ProfileImages';
 import Button from 'components/Button';
-import styles from 'pages/CardMessagePostPage.module.scss';
-import DefaultProfileIcon from 'assets/images/ic_person.svg';
 import ToastEditor from 'components/ToastEditor';
+import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
+import { RecipientsMessagesAPI } from 'data/CallAPI';
+import {
+  DEFAULT_IMAGE,
+  RELATIONSHIP_OPTIONS,
+  FONT_OPTIONS,
+} from 'constants/PostMessagePage';
 
 function CardMessagePostPage() {
   const [sender, setSender] = useState('');
-  const [relationship, setRelationship] = useState('');
-  const [font, setFont] = useState('');
+  const [senderError, setSenderError] = useState(false);
+  const [relationship, setRelationship] = useState('지인');
+  const [font, setFont] = useState('Noto Sans');
   const [message, setMessage] = useState('');
-  const relationshipOptions = ['친구', '지인', '동료', '가족'];
-  const fontOptions = [
-    'Noto Sans',
-    'Pretendard',
-    '나눔명조',
-    '나눔손글씨 손편지체',
-  ];
+  const [profileImage, setProfileImage] = useState(DEFAULT_IMAGE);
+
+  const { postId } = useParams();
+  const handleMovePage = useNavigator();
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+
     const formData = {
-      sender,
-      relationship,
-      message,
-      font,
+      team: '7-4',
+      recipientId: postId,
+      sender: sender,
+      profileImageURL: profileImage,
+      relationship: relationship,
+      content: message,
+      font: font,
     };
-    console.log(formData);
-    //api 추가
+
+    try {
+      RecipientsMessagesAPI('post', postId, formData);
+      console.log(formData);
+      handleMovePage(`/post/${postId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleNameChange = (value) => {
+    const name = value.trim();
+    setSender(name);
+    if (name.length > 0) {
+      setSenderError(false);
+    }
   };
 
   return (
@@ -43,7 +67,7 @@ function CardMessagePostPage() {
             id='nameInput'
             name='sender'
             value={sender}
-            onChange={(e) => setSender(e.target.value)}
+            onChange={handleNameChange}
           >
             이름을 입력해 주세요.
           </TextInputField>
@@ -52,19 +76,17 @@ function CardMessagePostPage() {
           <label className={styles.label} htmlFor='profileSelect'>
             프로필 이미지
           </label>
-          <img
-            src={DefaultProfileIcon}
-            alt='프로필 이미지'
-            width='20px'
-            height='20px'
+          <ProfileImages
+            profileImage={profileImage}
+            setProfileImage={setProfileImage}
           />
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label} htmlFor=''>
+          <label className={styles.label} htmlFor='relationship'>
             상대와의 관계
           </label>
           <TextDropdownField
-            options={relationshipOptions}
+            options={RELATIONSHIP_OPTIONS}
             onChangeOptions={setRelationship}
           />
         </div>
@@ -74,7 +96,7 @@ function CardMessagePostPage() {
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>폰트 선택</label>
-          <TextDropdownField options={fontOptions} onChangeOptions={setFont} />
+          <TextDropdownField options={FONT_OPTIONS} onChangeOptions={setFont} />
         </div>
         <Button type='submit' order='primary' size='56'>
           생성하기

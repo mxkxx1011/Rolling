@@ -23,43 +23,18 @@ function HeaderCardMessage({
   name,
   messageCount,
   recentMessages,
-  reactions,
   handleClick,
   setShowToast,
 }) {
-  const [isOpenReactionList, setIsOpenReactionList] = useState(false);
-  const [allReactions, setAllReactions] = useState([]);
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-
-  const { postId } = useParams();
-
-  useEffect(() => {
-    const getAllReactions = async () => {
-      const limit = isDesktop ? 8 : 6;
-      try {
-        const responseReactions = await RecipientsReactionsAPI(
-          'get',
-          postId,
-          null,
-          limit,
-        );
-        setAllReactions(responseReactions.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (isOpenReactionList) {
-      getAllReactions();
-    }
-  }, [isOpenReactionList, postId, isDesktop]);
 
   return (
     <>
       {!isMobile ? (
         <header className={styles.header}>
           <div className={styles.container}>
-            <HeaderName name={name} />
+            <HeaderName name={name} messageCount={messageCount} />
             <div className='header-right'>
               {isDesktop ? (
                 <>
@@ -70,29 +45,17 @@ function HeaderCardMessage({
                   <div className='border'></div>
                 </>
               ) : null}
-              <EmojiShareWrapper
-                reactions={reactions}
-                allReactions={allReactions}
-                isOpenReactionList={isOpenReactionList}
-                setIsOpenReactionList={setIsOpenReactionList}
-                setShowToast={setShowToast}
-              />
+              <EmojiShareWrapper setShowToast={setShowToast} />
             </div>
           </div>
         </header>
       ) : (
         <div className='header-mobile'>
           <div>
-            <HeaderName name={name} />
+            <HeaderName name={name} messageCount={messageCount} />
           </div>
           <div>
-            <EmojiShareWrapper
-              reactions={reactions}
-              allReactions={allReactions}
-              isOpenReactionList={isOpenReactionList}
-              setIsOpenReactionList={setIsOpenReactionList}
-              setShowToast={setShowToast}
-            />
+            <EmojiShareWrapper setShowToast={setShowToast} />
           </div>
         </div>
       )}
