@@ -60,7 +60,7 @@ export function RecipientsAPI(
 }
 
 //특정 롤링페이퍼의 메시지 조회 및 추가 API
-export function RecipientsMessagesAPI(Method, id, body, limit = 5, offset = 1) {
+export function RecipientsMessagesAPI(Method, id, body, limit = 5, offset = 0) {
   const query = `${API_KEY}/recipients/${id}/messages/?limit=${limit}&offset=${offset}`;
   return Axios(Method, query, body, 'recipient-messages');
 }

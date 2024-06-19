@@ -1,6 +1,6 @@
 import CardListPage from 'pages/list/CardListPage';
 import CardMessagePage from 'pages/message/CardMessagePage';
-import CardMessagePostPage from 'pages/CardMessagePostPage';
+import CardMessagePostPage from 'pages/postmessage/CardMessagePostPage';
 import HomePage from 'pages/home/HomePage';
 import Main from 'pages/Main';
 import NotFoundPage from 'pages/NotFoundPage';
