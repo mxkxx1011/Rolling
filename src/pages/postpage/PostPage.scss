@@ -6,9 +6,10 @@
   padding: 57px 600px;
 
   Button {
-    width: 720px;
+    width: 100%;
   }
 }
+
 .font-24-bold {
   @include font-style(24, bold);
   color: $gray-900;

@@ -10,7 +10,7 @@ function TextInputField({ children, type, id, name, value, onChange }) {
         id={id}
         name={name}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange} // 이벤트 객체 전체를 전달
       />
     </div>
   );

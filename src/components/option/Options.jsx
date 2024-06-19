@@ -3,11 +3,6 @@ import { useState } from 'react';
 import Check from './Check';
 import './Options.scss';
 
-import imageBackground01 from 'assets/images/image_background_01.jpg';
-import imageBackground02 from 'assets/images/image_background_02.jpg';
-import imageBackground03 from 'assets/images/image_background_03.jpg';
-import imageBackground04 from 'assets/images/image_background_04.jpg';
-
 function Option({ idx, isSelected, color = null, image, handleClick }) {
   const BackGroundImageStyle = {
     backgroundImage: `url(${image})`,
@@ -16,7 +11,6 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
   return (
     <div
       className={classNames('option', color)}
-      selected
       style={BackGroundImageStyle}
       onClick={handleClick}
     >
@@ -27,7 +21,15 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
 
 // 토글을 누르면 type이 변해야함
 // 이미지 누르면 type = image / 컬러 누르면 type = color
-function Options({ type = 'image' }) {
+function Options({ type = 'image', onClick }) {
+  const imageBackground01 =
+    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
+  const imageBackground02 =
+    'https://c.pxhere.com/photos/e1/2e/meadow_field_grass_yellow_hill-99221.jpg!d';
+  const imageBackground03 =
+    'https://images.pexels.com/photos/796605/pexels-photo-796605.jpeg?auto=compress&cs=tinysrgb&w=600';
+  const imageBackground04 =
+    'https://images.pexels.com/photos/261403/pexels-photo-261403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
   const [isSelected, setIsSelected] = useState(0);
   const colors = ['beige', 'purple', 'blue', 'green'];
   const imgs = [
@@ -41,6 +43,7 @@ function Options({ type = 'image' }) {
 
   const handleClick = (idx) => {
     setIsSelected(idx);
+    onClick(OptionArray[idx]); // 선택된 옵션 값 전달
   };
 
   return (
@@ -50,9 +53,9 @@ function Options({ type = 'image' }) {
           key={idx}
           idx={idx}
           isSelected={isSelected}
-          color={option}
+          color={type === 'color' ? option : null}
           handleClick={() => handleClick(idx)}
-          image={option}
+          image={type === 'image' ? option : null}
         />
       ))}
     </div>
