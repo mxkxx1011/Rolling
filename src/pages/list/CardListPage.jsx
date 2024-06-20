@@ -5,7 +5,6 @@ import 'pages/list/CardListPage.scss';
 import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
-import UseWindowWidth from 'utils/UseWindowWidth';
 import UseDragScroll from 'utils/UseDragScroll';
 
 function hotSort(recipients) {
