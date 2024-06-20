@@ -4,16 +4,33 @@
 
 .container {
   @include Flex(column, null, center, null);
+  min-width: 360px;
+
+  @include tablet {
+    padding: 0 20px;
+  }
 
   form {
     @include Flex(column, null, null, 50px);
     margin-top: 50px;
     margin-bottom: 24px;
+    width: 720px;
+
+    @include tablet {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+
     .wrapper {
       @include Flex(column, center, null, 12px);
 
       .label {
         @include font-style(24, bold);
+        line-height: 150%;
       }
     }
   }

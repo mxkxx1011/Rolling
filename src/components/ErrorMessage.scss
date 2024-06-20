@@ -1,0 +1,9 @@
+@import 'assets/styles/reset.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+.error-message {
+  color: $color--error;
+  @include font-style(14, normal);
+}
