@@ -42,4 +42,10 @@
       height: 44px;
     }
   }
+
+  //2x2배열을 위함
+  @include mobile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
