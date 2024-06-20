@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
@@ -32,12 +32,18 @@ const colorSyntaxOptions = {
   ],
 };
 
-function ToastEditor({ body, setBody, onBlur }) {
+function ToastEditor({ body, setBody, handleMessageValidate }) {
   const editorRef = useRef(null);
 
   const onChangeGetHTML = () => {
-    const data = editorRef.current.getInstance().getHTML();
+    const data = editorRef.current.getInstance().getHTML().trim();
+    const text = editorRef.current.getInstance().getMarkdown().trim();
     setBody(data);
+    handleMessageValidate(text);
+  };
+
+  const onBlur = () => {
+    handleMessageValidate(body);
   };
 
   return (
@@ -52,13 +58,13 @@ function ToastEditor({ body, setBody, onBlur }) {
       initialEditType='wysiwyg' // 초기 편집 타입 (wysiwyg 또는 markdown)
       previewStyle='vertical' // 미리보기 스타일 (vertical 또는 tab)
       height='260px' // 에디터 창 높이
-      placeholder='메시지를 입력하세요'
-      plugins={[[colorSyntax, colorSyntaxOptions]]}
+      placeholder='메시지를 입력하세요' // placeholder 설정
+      plugins={[[colorSyntax, colorSyntaxOptions]]} // Color Syntax Plugin 적용
       useCommandShortcut={true} // 단축키 사용 여부
-      hideModeSwitch={true}
-      ref={editorRef}
+      hideModeSwitch={true} // 모드 스위치 숨김 여부
+      ref={editorRef} // 에디터 참조
       onChange={onChangeGetHTML} // 내용 변경 시 호출될 함수
-      onBlur={onBlur}
+      onBlur={onBlur} // 포커스 아웃 시 호출될 함수
     />
   );
 }

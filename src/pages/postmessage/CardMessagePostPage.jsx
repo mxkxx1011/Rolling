@@ -5,10 +5,12 @@ import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import ProfileImages from 'components/profileimage/ProfileImages';
 import Button from 'components/Button';
+import ErrorMessage from 'components/ErrorMessage';
 import ToastEditor from 'components/ToastEditor';
 import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
 import { RecipientsMessagesAPI } from 'data/CallAPI';
 import {
+  TEAM_NUMBER,
   DEFAULT_IMAGE,
   RELATIONSHIP_OPTIONS,
   FONT_OPTIONS,
@@ -16,23 +18,24 @@ import {
 
 function CardMessagePostPage() {
   const [sender, setSender] = useState('');
-  const [senderError, setSenderError] = useState(false);
+  const [isSenderError, setIsSenderError] = useState(false);
   const [relationship, setRelationship] = useState('지인');
   const [font, setFont] = useState('Noto Sans');
   const [message, setMessage] = useState('');
-  const [messageError, setMessageError] = useState(false);
+  const [isMessageError, setIsMessageError] = useState(false);
   const [profileImage, setProfileImage] = useState(DEFAULT_IMAGE);
 
   const { postId } = useParams();
   const handleMovePage = useNavigator();
 
-  const isButtonDisabled = !message || !sender || senderError || messageError;
+  const isButtonDisabled =
+    !sender || !message || isSenderError || isMessageError;
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
     const formData = {
-      team: '7-4',
+      team: TEAM_NUMBER,
       recipientId: postId,
       sender: sender,
       profileImageURL: profileImage,
@@ -53,20 +56,18 @@ function CardMessagePostPage() {
   const handleNameChange = (e) => {
     const name = e.target.value.trim();
     setSender(name);
+    if (name.length > 0) {
+      setIsSenderError(false);
+    }
   };
 
   const handleSenderValidate = () => {
-    sender.trim() === '' ? setSenderError(true) : setSenderError(false);
-    console.log(senderError);
+    sender.trim() === '' ? setIsSenderError(true) : setIsSenderError(false);
   };
 
-  useEffect(() => {
-    handleSenderValidate();
-  }, [senderError]);
-
-  const handleMessageValidate = () => {
-    const currentMessage = message.getText().trim();
-    currentMessage === '' ? setMessageError(true) : setMessageError(false);
+  const handleMessageValidate = (text) => {
+    const trimmedText = text.replace(/(<([^>]+)>)/gi, ''); // HTML 태그 제거
+    trimmedText === '' ? setIsMessageError(true) : setIsMessageError(false);
   };
 
   return (
@@ -86,6 +87,7 @@ function CardMessagePostPage() {
           >
             이름을 입력해 주세요.
           </TextInputField>
+          {isSenderError && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label} htmlFor='profileSelect'>
@@ -110,8 +112,9 @@ function CardMessagePostPage() {
           <ToastEditor
             body={message}
             setBody={setMessage}
-            onBlur={handleMessageValidate}
+            handleMessageValidate={handleMessageValidate}
           />
+          {isMessageError && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className={styles.wrapper}>
           <label className={styles.label}>폰트 선택</label>

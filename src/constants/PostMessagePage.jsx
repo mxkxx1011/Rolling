@@ -1,3 +1,5 @@
+export const TEAM_NUMBER = '7-4';
+
 export const RELATIONSHIP_OPTIONS = ['지인', '친구', '동료', '가족'];
 
 export const FONT_OPTIONS = [
