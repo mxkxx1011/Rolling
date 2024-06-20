@@ -75,6 +75,12 @@ $types: (
 
       &.modal {
         @include ProfileFlex(modal);
+
+        .profile-text-wrapper {
+          & > p {
+            width: 300px;
+          }
+        }
       }
 
       &.card {

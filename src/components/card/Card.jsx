@@ -5,11 +5,13 @@ import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
-import dompurify from 'dompurify';
+
 import { MessagesAPI } from 'data/CallAPI';
 import { useLocation, useParams } from 'react-router-dom';
 import iconCheck from 'assets/images/ic_check.svg';
 import useNavigator from 'hooks/useNavigator';
+import getFonts from 'utils/getFonts';
+import Sanitizer from 'utils/Sanitizer';
 
 function Card({
   type = 'normal',
@@ -51,20 +53,6 @@ function Card({
     content,
     createdAt,
   } = message;
-
-  const sanitizer = dompurify.sanitize;
-  const cleanContent = sanitizer(content);
-
-  function getFonts(inputFont) {
-    const fonts = {
-      'Noto Sans': 'Noto Sans KR',
-      Pretendard: 'Pretendard',
-      나눔명조: 'NanumGothic',
-      '나눔손글씨 손편지체': 'Handletter',
-    };
-
-    return fonts[inputFont] || fonts['Noto Sans'];
-  }
 
   const handleSelectDelete = async () => {
     try {
@@ -118,7 +106,7 @@ function Card({
           <div>
             <p
               className='card-letter card'
-              dangerouslySetInnerHTML={{ __html: cleanContent }}
+              dangerouslySetInnerHTML={{ __html: Sanitizer(content) }}
               style={{ fontFamily: getFonts(font) }}
             ></p>
           </div>
