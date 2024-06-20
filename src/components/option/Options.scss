@@ -18,6 +18,9 @@
 
     &:hover {
       cursor: pointer;
+      //애니메이션 효과
+      transform: scale(1.05);
+      transition-duration: 0.2s;
     }
     &.purple {
       background-color: $purple-200;
@@ -40,10 +43,14 @@
       width: 44px;
       height: 44px;
     }
-  }
 
-  //2x2배열을 위함
+    @include mobile {
+      width: 154px;
+      height: 154px;
+    }
+  }
   @include mobile {
+    //2x2배열을 위함
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
