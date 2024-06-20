@@ -1,7 +1,7 @@
-import 'components/ErrorMessage.scss';
+import styles from 'components/ErrorMessage.module.scss';
 
 function ErrorMessage({ children }) {
-  return <p className='error-message'>{children}</p>;
+  return <p className={styles.error}>{children}</p>;
 }
 
 export default ErrorMessage;

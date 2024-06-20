@@ -28,9 +28,9 @@
     .wrapper {
       @include Flex(column, center, null, 12px);
 
-      .label {
-        @include font-style(24, bold);
-        line-height: 150%;
+      .editor {
+        position: relative;
+        z-index: 1;
       }
     }
   }

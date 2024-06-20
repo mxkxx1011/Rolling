@@ -1,0 +1,8 @@
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+.label {
+  @include font-style(24, bold);
+  line-height: 150%;
+}

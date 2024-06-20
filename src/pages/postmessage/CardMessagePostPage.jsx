@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
 import ProfileImages from 'components/profileimage/ProfileImages';
 import Button from 'components/Button';
+import Label from 'components/Label';
 import ErrorMessage from 'components/ErrorMessage';
 import ToastEditor from 'components/ToastEditor';
 import styles from 'pages/postmessage/CardMessagePostPage.module.scss';
 import { RecipientsMessagesAPI } from 'data/CallAPI';
 import {
+  LABELS_OPTIONS,
   TEAM_NUMBER,
   DEFAULT_IMAGE,
   RELATIONSHIP_OPTIONS,
@@ -54,7 +56,7 @@ function CardMessagePostPage() {
   };
 
   const handleNameChange = (e) => {
-    const name = e.target.value.trim();
+    const name = e.target.value;
     setSender(name);
     if (name.length > 0) {
       setIsSenderError(false);
@@ -74,9 +76,7 @@ function CardMessagePostPage() {
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleFormSubmit}>
         <div className={styles.wrapper}>
-          <label className={styles.label} htmlFor='nameInput'>
-            From.
-          </label>
+          <Label htmlFor='nameInput'>{LABELS_OPTIONS.sender}</Label>
           <TextInputField
             type='text'
             id='nameInput'
@@ -84,50 +84,49 @@ function CardMessagePostPage() {
             value={sender}
             onChange={handleNameChange}
             onBlur={handleSenderValidate}
+            isError={isSenderError}
           >
             이름을 입력해 주세요.
           </TextInputField>
           {isSenderError && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label} htmlFor='profileSelect'>
-            프로필 이미지
-          </label>
+          <Label>{LABELS_OPTIONS.profileImage}</Label>
           <ProfileImages
             profileImage={profileImage}
             setProfileImage={setProfileImage}
           />
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label} htmlFor='relationship'>
-            상대와의 관계
-          </label>
+          <Label>{LABELS_OPTIONS.relationship}</Label>
           <TextDropdownField
             options={RELATIONSHIP_OPTIONS}
             onChangeOptions={setRelationship}
           />
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label}>내용을 입력해 주세요</label>
-          <ToastEditor
-            body={message}
-            setBody={setMessage}
-            handleMessageValidate={handleMessageValidate}
-          />
+          <Label>{LABELS_OPTIONS.message}</Label>
+          <div className={styles.editor}>
+            <ToastEditor
+              body={message}
+              setBody={setMessage}
+              handleMessageValidate={handleMessageValidate}
+            />
+          </div>
           {isMessageError && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label}>폰트 선택</label>
+          <Label>{LABELS_OPTIONS.font}</Label>
           <TextDropdownField options={FONT_OPTIONS} onChangeOptions={setFont} />
+          <Button
+            type='submit'
+            order='primary'
+            size='56'
+            disabled={isButtonDisabled}
+          >
+            생성하기
+          </Button>
         </div>
-        <Button
-          type='submit'
-          order='primary'
-          size='56'
-          disabled={isButtonDisabled}
-        >
-          생성하기
-        </Button>
       </form>
     </div>
   );
