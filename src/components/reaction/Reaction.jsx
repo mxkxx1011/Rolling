@@ -1,10 +1,22 @@
+import { RecipientsReactionsAPI } from 'data/CallAPI';
+import { useParams } from 'react-router-dom';
 import './Reaction.scss';
 
 export function Reaction({ reaction, className }) {
   const { emoji, count } = reaction;
+  const { postId } = useParams();
+
+  const handleDecrease = () => {
+    const body = {
+      emoji,
+      type: 'decrease',
+    };
+
+    RecipientsReactionsAPI('post', postId, body);
+  };
 
   return (
-    <div className={`reaction ${className}`}>
+    <div className={`reaction ${className}`} onClick={handleDecrease}>
       {emoji} {count}
     </div>
   );
