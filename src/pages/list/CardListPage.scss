@@ -57,7 +57,8 @@
           background-color: $color--white;
           width: 40px;
           height: 40px;
-          top: 40%;
+          top: 50%;
+          transform: translateY(-50%);
           &.right {
             right: 5px;
           }
