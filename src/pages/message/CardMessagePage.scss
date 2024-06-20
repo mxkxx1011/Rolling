@@ -40,7 +40,17 @@ main {
     margin: 0 auto;
 
     & > div {
+      @include Flex(row, null, center, 10px);
+    }
+
+    .all-select-wrapper {
       @include Flex(row, null, center, 6px);
+
+      & > p {
+        @include Flex(row, null, center, null);
+
+        line-height: 27px;
+      }
     }
     @include size-1248 {
       width: 100%;

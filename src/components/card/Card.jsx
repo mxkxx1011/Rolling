@@ -12,6 +12,7 @@ import iconCheck from 'assets/images/ic_check.svg';
 import useNavigator from 'hooks/useNavigator';
 import getFonts from 'utils/getFonts';
 import Sanitizer from 'utils/Sanitizer';
+import Checkbox from 'components/checkbox/CheckBox';
 
 function Card({
   type = 'normal',
@@ -21,22 +22,21 @@ function Card({
   getRecipientMessage,
   checkedItems,
   setCheckedItems,
+  allSelected,
 }) {
-  const [isDelete, setIsDelete] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
 
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
-  const handleMovePage = useNavigator();
-  const { postId } = useParams();
 
   const handleToggleCheck = (value) => {
-    console.log(value);
     if (isChecked) {
-      setCheckedItems(checkedItems.filter((item) => item !== value));
+      setCheckedItems((prevItems) =>
+        prevItems.filter((item) => item !== value),
+      );
     } else {
-      setCheckedItems([...checkedItems, value]);
+      setCheckedItems((prevItems) => [...prevItems, value]);
     }
     setIsChecked((prev) => !prev);
   };
@@ -53,6 +53,16 @@ function Card({
     content,
     createdAt,
   } = message;
+
+  useEffect(() => {
+    if (allSelected) {
+      if (!checkedItems.includes(id)) {
+        setCheckedItems((prevItems) => [...prevItems, id]);
+      }
+    } else {
+      setCheckedItems([]);
+    }
+  }, [allSelected]);
 
   const handleSelectDelete = async () => {
     try {
@@ -90,16 +100,11 @@ function Card({
                 <DeleteButton handleClick={handleSelectDelete} />
               )}
               {isEditSelectPage && (
-                <div class='cntr'>
-                  <input
-                    checked={isChecked}
-                    type='checkbox'
-                    id={id}
-                    class='hidden-xs-up'
-                    onClick={() => handleToggleCheck(id)}
-                  />
-                  <label htmlFor={id} class='cbx'></label>
-                </div>
+                <Checkbox
+                  id={id}
+                  handleClick={() => handleToggleCheck(id)}
+                  isChecked={allSelected || isChecked}
+                />
               )}
             </div>
           </div>
@@ -124,14 +129,3 @@ function Card({
 }
 
 export default Card;
-
-// {
-//     "id": 13687,
-//     "recipientId": 7720,
-//     "sender": "현서",
-//     "profileImageURL": "https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png",
-//     "relationship": "지인",
-//     "content": "<p>Hero</p>",
-//     "font": "나눔손글씨 손편지체",
-//     "createdAt": "2024-05-22T06:03:08.034876Z"
-// }

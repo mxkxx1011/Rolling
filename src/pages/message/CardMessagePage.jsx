@@ -16,7 +16,7 @@ import { useInView } from 'react-intersection-observer';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
-import { check } from 'prettier';
+import Checkbox from '../../components/checkbox/CheckBox';
 
 // post/{id}
 function CardMessagePage() {
@@ -26,6 +26,7 @@ function CardMessagePage() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [allSelected, setAllSelected] = useState(false);
 
   const [page, setPage] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +69,8 @@ function CardMessagePage() {
   const deleteMessage = async (id) => {
     try {
       const response = await MessagesAPI('delete', id, null);
+      getRecipientMessage();
+      getRecipient();
     } catch (error) {
       console.warn(error);
     }
@@ -81,14 +84,13 @@ function CardMessagePage() {
 
     checkedItems.map((item) => {
       deleteMessage(item);
-      getRecipientMessage();
-      getRecipient();
+      handleMovePage(`/post/${postId}`);
     });
   };
 
   const handlePageDelete = () => {
     const result = window.confirm(
-      `해당 'To.${name}'의 롤링페이지를 삭제하시겠습니까?`,
+      `해당 '${name}'님의 롤링페이지를 삭제하시겠습니까?`,
     );
     if (result) {
       RecipientsAPI('delete', postId);
@@ -105,6 +107,10 @@ function CardMessagePage() {
       return;
     }
     handleMovePage(`/post/${postId}/edit`);
+  };
+
+  const handleAllSelect = () => {
+    setAllSelected((prev) => !prev);
   };
 
   const fetchMoreItems = async () => {
@@ -166,7 +172,11 @@ function CardMessagePage() {
   useEffect(() => {
     getRecipient();
     getRecipientMessage();
-  }, [postId, isEditPage]);
+  }, []);
+  useEffect(() => {
+    getRecipient();
+    getRecipientMessage();
+  }, [postId, isEditPage, isEditSelectPage]);
 
   return (
     <>
@@ -202,13 +212,24 @@ function CardMessagePage() {
             </div>
             <div className='button-right'>
               {isEditSelectPage ? (
-                <Button
-                  order='primary'
-                  size='40'
-                  handleClick={handleSelectDelete}
-                >
-                  선택한 항목 삭제하기
-                </Button>
+                <>
+                  <div className='all-select-wrapper'>
+                    <p className='font-18-bold'>전체 선택</p>
+                    <Checkbox
+                      id='selectAll'
+                      handleClick={handleAllSelect}
+                      isChecked={allSelected}
+                    />
+                  </div>
+                  <Button
+                    order='primary'
+                    size='40'
+                    handleClick={handleSelectDelete}
+                    disabled={checkedItems.length == 0}
+                  >
+                    선택한 항목 삭제하기
+                  </Button>
+                </>
               ) : (
                 <>
                   <Button
@@ -217,9 +238,6 @@ function CardMessagePage() {
                     handleClick={() => handleMovePage(`select`)}
                   >
                     선택 삭제
-                  </Button>
-                  <Button order='primary' size='40'>
-                    전체 삭제
                   </Button>
                 </>
               )}
@@ -267,6 +285,7 @@ function CardMessagePage() {
                 <Card
                   type='plus'
                   handleClick={() => handleMovePage(`/post/${postId}/message`)}
+                  setCheckedItems={setCheckedItems}
                 />
               ) : null}
               {recipientMessage.map((message) => (
@@ -282,6 +301,7 @@ function CardMessagePage() {
                   getRecipientMessage={getRecipientMessage}
                   checkedItems={checkedItems}
                   setCheckedItems={setCheckedItems}
+                  allSelected={allSelected}
                 />
               ))}
             </>
