@@ -16,17 +16,19 @@
     @include Flex(column, center, center, null);
     width: 100%;
     margin-bottom: 50px;
+    position: relative;
 
     @include mobile {
       margin-bottom: 74px;
     }
-
     .title-layer {
       @include Flex(column, flex-start, flex-start, null);
       width: 100%;
       max-width: 1200px;
+      padding: 0 24px;
       .card-list-title {
         margin: 0 24px 16px;
+        width: fit-content;
 
         @include font-style(24, bold);
         line-height: 36px;
@@ -38,39 +40,46 @@
       width: 100%;
       position: relative;
       transition: 1s;
+      
+      .arrow {
+        position: relative;
+        cursor: pointer;
+        @include Flex(row, center, center, null);
+        border: 1px solid $gray-arrow-border;
+        border-radius: 100%;
+        background-color: $color--white;
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        &.right {
+          right: 20px;
+        }
+        &.left {
+          left: 20px;
+        }
+        &.disabled {
+          visibility: hidden;
+        }
+        @include tablet {
+          visibility: hidden;
+        }
+      }
 
       .card-list-wrapper {
-        position: relative;
-        padding: 0 24px;
+        width: 1160px;
         @include Flex(row, flex-start, flex-start, 20px);
         overflow: hidden;
         scroll-behavior: smooth;
-        @include mobile {
-          gap: 12px;
+
+        @include tablet {
+          // width: 100%;
         }
-        .arrow {
-          position: absolute;
-          cursor: pointer;
-          @include Flex(row, center, center, null);
-          border: 1px solid $gray-arrow-border;
-          border-radius: 100%;
-          background-color: $color--white;
-          width: 40px;
-          height: 40px;
-          top: 50%;
-          transform: translateY(-50%);
-          &.right {
-            right: 5px;
-          }
-          &.left {
-            left: 5px;
-          }
-          &.disabled {
-            visibility: hidden;
-          }
-          @include tablet {
-            visibility: hidden;
-          }
+
+        @include mobile {
+          // width: 100%;
+          gap: 12px;
         }
       }
     }
