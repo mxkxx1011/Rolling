@@ -117,16 +117,20 @@ function CardMessagePostPage() {
         </div>
         <div className={styles.wrapper}>
           <Label>{LABELS_OPTIONS.font}</Label>
-          <TextDropdownField options={FONT_OPTIONS} onChangeOptions={setFont} />
-          <Button
-            type='submit'
-            order='primary'
-            size='56'
-            disabled={isButtonDisabled}
-          >
-            생성하기
-          </Button>
+          <TextDropdownField
+            options={FONT_OPTIONS}
+            onChangeOptions={setFont}
+            setPositionRelative={true}
+          />
         </div>
+        <Button
+          type='submit'
+          order='primary'
+          size='56'
+          disabled={isButtonDisabled}
+        >
+          생성하기
+        </Button>
       </form>
     </div>
   );

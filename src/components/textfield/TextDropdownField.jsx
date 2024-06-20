@@ -8,6 +8,7 @@ function TextDropdownField({
   options,
   handleClick = null,
   onChangeOptions = null,
+  setPositionRelative = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
@@ -39,7 +40,13 @@ function TextDropdownField({
           className='arrow'
         />
       </button>
-      {isOpen && <DropMenu options={options} handleClick={handleOptionClick} />}
+      {isOpen && (
+        <DropMenu
+          options={options}
+          handleClick={handleOptionClick}
+          setPositionRelative={setPositionRelative}
+        />
+      )}
     </div>
   );
 }
