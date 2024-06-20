@@ -1,7 +1,16 @@
 @import 'assets/styles/reset.scss';
 @import 'assets/styles/common.scss';
 @import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
 @import '../card/Skeleton.scss';
+
+.header-name {
+  @include font-style(28, bold);
+
+  @include mobile {
+    @include font-style(18, bold);
+  }
+}
 
 .header-right {
   @include Flex(row, null, center, 28px);
