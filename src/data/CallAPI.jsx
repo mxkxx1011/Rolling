@@ -50,11 +50,15 @@ export function RecipientsAPI(
 
   if (id) {
     query = `${query}${id}/`;
-  } else if (limit !== 9999 && offset != null) {
-    query = `${query}?limit=${limit}&offset=${offset}`;
-  } else if (id == null && offset == null && limit === 9999) {
+  } else if(!body) {
     query = `${query}?limit=${limit}`;
+    if (limit !== 9999 && offset != null) {
+    query = `${query}&offset=${offset}`;
   }
+}
+
+  console.log(query);
+
   return Axios(Method, query, body, 'recipient');
 }
 
