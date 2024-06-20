@@ -307,8 +307,8 @@ function CardMessagePage() {
           )}
 
           {hasMore && <div ref={ref}></div>}
+          {showToast && <Toast setShowToast={setShowToast} />}
         </div>
-        {showToast && <Toast setShowToast={setShowToast} />}
       </main>
       {selectedMessage && (
         <Modal

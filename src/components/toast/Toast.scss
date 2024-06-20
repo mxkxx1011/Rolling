@@ -22,6 +22,10 @@
   border-radius: 8px;
   width: 524px;
 
+  @include mobile {
+    width: 95%;
+  }
+
   .toast-container {
     @include Flex(column, null, null, 9px);
     position: relative;
