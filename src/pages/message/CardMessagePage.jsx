@@ -17,22 +17,21 @@ import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
 import Checkbox from '../../components/checkbox/CheckBox';
+import useRecipient from 'hooks/useRecipient';
+import useRecipientMessage from 'hooks/useRecipientMessage';
 
 // post/{id}
 function CardMessagePage() {
-  const [recipient, setRecipient] = useState({});
-  const [recipientMessage, setRecipientMessage] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
-  const [page, setPage] = useState(2);
-  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const { postId } = useParams(); // id랑 겹쳐서 수정 ㅠ
+  const { postId } = useParams();
   const handleMovePage = useNavigator();
 
   const [ref, inView] = useInView();
@@ -40,6 +39,14 @@ function CardMessagePage() {
   const location = useLocation();
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
+
+  const { getRecipient, recipient } = useRecipient();
+  const {
+    getRecipientMessage,
+    recipientMessage,
+    setRecipientMessage,
+    isLoading,
+  } = useRecipientMessage();
 
   const {
     name = 'null',
@@ -114,8 +121,8 @@ function CardMessagePage() {
   };
 
   const fetchMoreItems = async () => {
-    const limit = page === 1 ? 5 : 6; // 첫 페이지는 5개, 이후 페이지는 6개
-    const offset = (page - 1) * 6; // 첫 페이지는 0, 이후 페이지는 6의 배수
+    const limit = 6; // 첫 페이지는 5개, 이후 페이지는 6개
+    const offset = isEditPage ? page * 6 : (page - 1) * limit + 5; //(page == 1 ? 5 : 6); // 첫 페이지는 0, 이후 페이지는 6의 배수
 
     const responseMessage = await RecipientsMessagesAPI(
       'get',
@@ -143,40 +150,6 @@ function CardMessagePage() {
       fetchMoreItems();
     }
   }, [inView, hasMore]);
-
-  const getRecipient = async () => {
-    try {
-      setIsLoading(true);
-      const response = await RecipientsAPI('get', postId);
-      setRecipient(response);
-    } catch (error) {
-      console.warn(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getRecipientMessage = async () => {
-    try {
-      setIsLoading(true);
-      const limit = isEditPage ? 6 : 5;
-      const response = await RecipientsMessagesAPI('get', postId, null, limit);
-      setRecipientMessage(response.results);
-    } catch (error) {
-      console.warn(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getRecipient();
-    getRecipientMessage();
-  }, []);
-  useEffect(() => {
-    getRecipient();
-    getRecipientMessage();
-  }, [postId, isEditPage, isEditSelectPage]);
 
   return (
     <>
