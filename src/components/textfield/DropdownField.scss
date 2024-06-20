@@ -30,15 +30,10 @@
     & .arrow {
       display: inline-block;
       padding: 3px;
-      transition: transform 0.3s;
-      -webkit-transform: rotate(0deg);
-    }
-    &.arrow.open {
-      -webkit-transform: rotate(180deg);
-    }
-    &:disabled {
-      outline: 1px solid $gray-300;
-      color: $color--surface;
+      &:disabled {
+        outline: 1px solid $gray-300;
+        color: $color--surface;
+      }
     }
   }
 }
