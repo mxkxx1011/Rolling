@@ -4,6 +4,7 @@ import 'components/EmojiToggle.scss';
 import { Reaction } from 'components/reaction/Reaction';
 import Button from './Button';
 import iconPlus4 from 'assets/images/ic_plus_4.svg';
+import iconMinus from 'assets/images/ic_minus.svg';
 import { useState } from 'react';
 
 function EmojiToggle({ reactions, handleClick, isOpen, getAllReactions }) {
@@ -35,7 +36,11 @@ function EmojiToggle({ reactions, handleClick, isOpen, getAllReactions }) {
                 />
               ))}
               <Button order='outlined' size='28' handleClick={handlePlusClick}>
-                <img src={iconPlus4} alt='plus' className='icon-plus' />
+                <img
+                  src={showAllReactions ? iconMinus : iconPlus4}
+                  alt='plus'
+                  className='icon-plus'
+                />
               </Button>
             </>
           )}
