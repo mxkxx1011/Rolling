@@ -32,7 +32,7 @@ const colorSyntaxOptions = {
   ],
 };
 
-function ToastEditor({ body, setBody }) {
+function ToastEditor({ body, setBody, onBlur }) {
   const editorRef = useRef(null);
 
   const onChangeGetHTML = () => {
@@ -52,11 +52,13 @@ function ToastEditor({ body, setBody }) {
       initialEditType='wysiwyg' // 초기 편집 타입 (wysiwyg 또는 markdown)
       previewStyle='vertical' // 미리보기 스타일 (vertical 또는 tab)
       height='260px' // 에디터 창 높이
+      placeholder='메시지를 입력하세요'
       plugins={[[colorSyntax, colorSyntaxOptions]]}
       useCommandShortcut={true} // 단축키 사용 여부
       hideModeSwitch={true}
       ref={editorRef}
       onChange={onChangeGetHTML} // 내용 변경 시 호출될 함수
+      onBlur={onBlur}
     />
   );
 }
