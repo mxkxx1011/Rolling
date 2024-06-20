@@ -112,6 +112,8 @@ $types: (
       color: #4a4a4a;
       width: 336px;
       height: 106px;
+      overflow: auto;
+      overscroll-behavior: contain;
     }
   }
 
@@ -126,11 +128,14 @@ $types: (
     padding: 28px 24px 24px;
     @include Flex(column, null, null, 16px);
 
+    transition: transform 0.3s ease-in-out;
+
     @media (max-width: 1248px) {
       width: 100%;
     }
     &:hover {
       cursor: pointer;
+      transform: scale(0.93);
     }
 
     .plus-wrapper {

@@ -30,14 +30,16 @@ function CardList({ type = 'color', recipient }) {
       >
         <div className='card-list-content'>
           <div className='content-top'>
-            <p className='font-24-bold'>To. {name}</p>
+            <p className='font-24-bold content-name'>To. {name}</p>
             <div className='reaction-wrapper'>
               <ProfileList
                 messageCount={messageCount}
                 recentMessages={recentMessages}
               />
-              <p className='font-16-regular'>
-                <span className='font-16-bold'>{messageCount}</span>
+              <p className='font-16-regular content-write'>
+                <span className='font-16-bold content-count'>
+                  {messageCount}
+                </span>
                 명이 작성했어요!
               </p>
             </div>

@@ -1,16 +1,12 @@
 import { RecipientsAPI } from 'data/CallAPI';
 import { useState, useEffect, useRef } from 'react';
 import CardList from 'components/card/CardList';
-import TextDropdownField from 'components/textfield/TextDropdownField';
-import TextInputField from 'components/textfield/TextInputField';
 import 'pages/list/CardListPage.scss';
 import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
-// import Carousel from 'components/carousel/Carousel';
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.scss'
-// import 'slick-carousel/slick/slick-theme.scss';
+import UseWindowWidth from 'utils/UseWindowWidth';
+import UseDragScroll from 'utils/UseDragScroll';
 
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
@@ -21,71 +17,6 @@ function hotSort(recipients) {
     (a, b) =>
       b.messageCount - a.messageCount || b.reactionCount - a.reactionCount,
   );
-}
-
-function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-  return width;
-}
-
-function useDragScroll(ref) {
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const handleMouseDown = (e) => {
-      isDown = true;
-      element.classList.add('active');
-      startX = e.pageX - element.offsetLeft;
-      scrollLeft = element.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-      element.classList.remove('active');
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      element.classList.remove('active');
-    };
-
-    const handleMouseMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - element.offsetLeft;
-      const walk = (x - startX) * 2; // 스크롤 속도를 조정할 수 있습니다.
-      element.scrollLeft = scrollLeft - walk;
-    };
-
-    element.addEventListener('mousedown', handleMouseDown);
-    element.addEventListener('mouseleave', handleMouseLeave);
-    element.addEventListener('mouseup', handleMouseUp);
-    element.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      element.removeEventListener('mousedown', handleMouseDown);
-      element.removeEventListener('mouseleave', handleMouseLeave);
-      element.removeEventListener('mouseup', handleMouseUp);
-      element.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [ref]);
 }
 
 function sliceWithFallback(recipient, offset, limit) {
@@ -103,29 +34,18 @@ function sliceWithFallback(recipient, offset, limit) {
 }
 
 function CardListPage() {
-  const test = ['a', 'b', 'c', 'd'];
   const [recipients, setRecipients] = useState([]);
   const [limit, setLimit] = useState(4);
   const [offset, setOffSet] = useState(0);
   const [hotOffset, setHotOffSet] = useState(0);
-  const width = useWindowWidth();
+  const width = UseWindowWidth();
   const [hotRecipients, setHotRecipients] = useState([]);
   const handleMovePage = useNavigator();
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
 
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 5,
-  //   slidesToScroll: 1,
-  //   vertical: false,
-  //   verticalSwiping: false,
-  // };
-
-  useDragScroll(hotListRef);
-  useDragScroll(dateListRef);
+  UseDragScroll(hotListRef);
+  UseDragScroll(dateListRef);
 
   function listShift(count) {
     setOffSet(offset + count);
@@ -159,67 +79,61 @@ function CardListPage() {
   return (
     <div className='card-list-layer'>
       <div className='card-list-box'>
-        <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
+        <div className='title-layer'>
+          <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
+        </div>
         <div className='card-list-data'>
-          <div
-            className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
-            onClick={() => hotListShift(-2)}
-          >
-            <ArrowButton direction={'left'} />
-          </div>
           <div className='card-list-wrapper hot-card' ref={hotListRef}>
-            {/* <Slider {...settings}> */}
-              {sliceWithFallback(hotRecipients, hotOffset, limit).map(
-                (data) => (
-                  <CardList key={`${data.id}`} recipient={data} />
-                ),
-              )}
-            {/* </Slider> */}
-          </div>
-          <div
-            className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
-            onClick={() => hotListShift(2)}
-          >
-            <ArrowButton direction={'right'} />
+            <div
+              className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
+              onClick={() => hotListShift(-2)}
+            >
+              <ArrowButton direction={'left'} />
+            </div>
+            {sliceWithFallback(hotRecipients, hotOffset, limit).map((data) => (
+              <CardList key={`${data.id}`} recipient={data} />
+            ))}
+            <div
+              className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
+              onClick={() => hotListShift(2)}
+            >
+              <ArrowButton direction={'right'} />
+            </div>
           </div>
         </div>
       </div>
       <div className='card-list-box'>
+        <div className='title-layer'>
         <p className='card-list-title'>최근에 만든 롤링 페이퍼 ⭐</p>
+        </div>
         <div className='card-list-data'>
-          <div
-            className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
-            onClick={() => listShift(-2)}
-          >
-            <ArrowButton direction={'left'} />
-          </div>
           <div className='card-list-wrapper date-card' ref={dateListRef}>
+            <div
+              className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
+              onClick={() => listShift(-2)}
+            >
+              <ArrowButton direction={'left'} />
+            </div>
             {sliceWithFallback(recipients, offset, limit).map((data) => (
               <CardList key={`${data.id}`} recipient={data} />
             ))}
-          </div>
-          <div
-            className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
-            onClick={() => listShift(2)}
-          >
-            <ArrowButton direction={'right'} />
+            <div
+              className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
+              onClick={() => listShift(2)}
+            >
+              <ArrowButton direction={'right'} />
+            </div>
           </div>
         </div>
       </div>
-      <Button
-        children='나도 만들어보기'
-        size={56}
-        className={'post-link-button'}
-        handleClick={() => handleMovePage('/post')}
-      />
-      {/* <div className='testlayer'>
-        <br />
-        <TextDropdownField options={test}></TextDropdownField>
-        <br />
-        <br />
-        <TextInputField></TextInputField>
-        <br />
-      </div> */}
+      <div className='link-button-layer'>
+        <Button
+          children='나도 만들어보기'
+          size={56}
+          className={'post-link-button'}
+          handleClick={() => handleMovePage('/post')}
+        />
+      </div>
     </div>
   );
 }

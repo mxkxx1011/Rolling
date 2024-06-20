@@ -36,11 +36,9 @@
           line-height: 28px;
         }
       }
-
       .banner-image {
         width: 720px;
         height: 204px;
-        align-self: center;
       }
     }
   }
@@ -61,10 +59,12 @@
           padding-left: 60px;
           justify-content: space-between;
         }
-
         &:nth-child(even) {
           flex-direction: row-reverse;
           justify-content: flex-end;
+        }
+        .content-title-p {
+          display: block;
         }
       }
     }
@@ -76,8 +76,6 @@
 
 @include size-1248 {
   .main-body {
-    margin: 49px 0 24px;
-
     .main-container {
       width: 100%;
       padding: 0px 24px;
@@ -100,11 +98,14 @@
         gap: 36px;
 
         .banner-content {
-          padding-left: 40px;
+          padding: 0 40px;
+          .content-title-p {
+            display: inline;
+          }
         }
-
-        .banner-image {
-          margin: 0 auto;
+        .banner-image-box {
+          display: flex;
+          justify-content: center;
         }
       }
 
@@ -124,24 +125,39 @@
       .banner {
         flex-direction: column;
         padding-top: 24px;
-        height: 320px;
+        height: 352px;
         gap: 36px;
         overflow: hidden;
 
         .banner-content {
-          padding-left: 40px;
+          .content-title {
+            @include font-style(18, bold);
+            line-height: 28px;
+          }
+          .content-ex {
+            @include font-style(18, regular);
+            line-height: 22px;
+          }
+          padding: 0 24px;
         }
+        .banner-image-box {
+          padding-bottom: 30px;
+          display: flex;
+          justify-content: center;
+          overflow: hidden; // 컨테이너를 벗어나는 이미지가 잘리도록 설정
 
-        .banner-image {
+          .banner-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            @media (max-width: 440px) {
+              min-width: 400px; // 최소 너비를 400px로 설정
+            }
+          }
+        }
+        .take-a-look {
           width: 100%;
-          height: auto;
-          align-self: center;
-          object-fit: contain;
         }
-      }
-
-      .take-a-look {
-        width: 100%;
       }
     }
   }

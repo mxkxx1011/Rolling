@@ -17,8 +17,9 @@
   @include mobile {
     width: 208px;
     height: 232px;
-  }
 
+    padding: 30px 22px 20px 24px;
+  }
 }
 
 .card-list {
@@ -33,14 +34,34 @@
   .content-top {
     @include Flex(column, null, null, 12px);
 
-    & > p {
+    .content-name {
       line-height: 36px;
+      @include font-style(24, bold);
+
+      @include mobile {
+        line-height: 28px;
+        @include font-style(18, bold);
+      }
     }
 
     .reaction-wrapper {
       @include Flex(column, null, null, 12px);
-      p {
+      .content-write {
         line-height: 26px;
+        @include font-style(16, regular);
+
+        @include mobile {
+          line-height: 20px;
+          @include font-style(14, regular);
+        }
+
+        .content-count {
+          @include font-style(16, bold);
+
+          @include mobile {
+            @include font-style(14, bold);
+          }
+        }
       }
     }
   }
