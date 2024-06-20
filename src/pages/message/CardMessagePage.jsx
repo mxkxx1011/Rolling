@@ -86,7 +86,20 @@ function CardMessagePage() {
     });
   };
 
-  const handleDeleteButton = () => {
+  const handlePageDelete = () => {
+    const result = window.confirm(
+      `해당 'To.${name}'의 롤링페이지를 삭제하시겠습니까?`,
+    );
+    if (result) {
+      RecipientsAPI('delete', postId);
+      handleMovePage('/list');
+    } else {
+      alert('페이지 삭제를 취소하셨습니다.');
+      return;
+    }
+  };
+
+  const handleDeleteEmpty = () => {
     if (messageCount == 0) {
       alert('삭제할 메시지가 없어요');
       return;
@@ -198,9 +211,6 @@ function CardMessagePage() {
                 </Button>
               ) : (
                 <>
-                  <Button order='secondary' size='40'>
-                    페이지 삭제
-                  </Button>
                   <Button
                     order='primary'
                     size='40'
@@ -228,9 +238,16 @@ function CardMessagePage() {
             </div>
             <div className='button-right'>
               <Button
+                order='secondary'
+                size='40'
+                handleClick={handlePageDelete}
+              >
+                페이지 삭제
+              </Button>
+              <Button
                 order='primary'
                 size='40'
-                handleClick={handleDeleteButton}
+                handleClick={handleDeleteEmpty}
                 disabled={isLoading}
               >
                 삭제
