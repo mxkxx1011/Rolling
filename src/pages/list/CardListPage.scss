@@ -9,7 +9,7 @@
   @include Flex(column, center, center, null);
 
   @include mobile {
-    margin-top: 40px
+    margin-top: 40px;
   }
 
   .card-list-box {
