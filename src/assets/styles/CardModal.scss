@@ -112,6 +112,8 @@ $types: (
       color: #4a4a4a;
       width: 336px;
       height: 106px;
+      overflow: auto;
+      overscroll-behavior: contain;
     }
   }
 

@@ -3,6 +3,7 @@ import Button from 'components/Button';
 import DropMenu from 'components/textfield/DropMenu';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import ShareImageButton from './ShareImageButton';
 
 const { Kakao } = window;
 const KAKAO_LINK_KEY = process.env.REACT_APP_SHARE_KAKAO_LINK_KEY;
@@ -63,14 +64,15 @@ function ShareButton({ setShowToast, isLoading }) {
 
   return (
     <div className='share-button-wrapper'>
-      <Button
+      {/* <Button
         order='outlined'
         size='36'
         handleClick={handleShowMenu}
         disabled={isLoading}
       >
         <img src={iconShare24} alt='공유하기' />
-      </Button>
+      </Button> */}
+      <ShareImageButton handleShowMenu={handleShowMenu} isLoading={isLoading} />
       {isMenuShow && (
         <DropMenu
           options={['카카오톡 공유', 'URL 공유']}
