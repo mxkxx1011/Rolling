@@ -7,6 +7,8 @@ import Options from 'components/option/Options';
 import './PostPage.scss';
 import { RecipientsAPI } from 'data/CallAPI';
 import useNavigator from 'hooks/useNavigator';
+import Label from 'components/Label';
+import ErrorMessage from 'components/ErrorMessage';
 
 function PostPage() {
   const DEFAULT_COLOR = 'beige';
@@ -87,25 +89,22 @@ function PostPage() {
     <div className='page-container'>
       <form className='form-container' onSubmit={handleSubmit}>
         <div className='input-container'>
-          <label htmlFor='inputName'>
-            <p className='font-24-bold title-to'>To.</p>
-          </label>
+          <Label htmlFor='inputName'>To.</Label>
           <TextInputField
             name='name'
             value={name}
             id='inputName'
             onChange={handleInputChange}
             onBlur={handleBlur}
+            isError={!name && isFocus}
           >
             받는 사람 이름을 선택해 주세요
           </TextInputField>
           {/* input에 값이 없을 때 표시할 에러 메세지 */}
-          {isFocus && !name && (
-            <p className='error-message'>값을 입력해 주세요</p>
-          )}
+          {isFocus && !name && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className='text-container'>
-          <p className='font-24-bold title-choice'>배경화면을 선택해 주세요.</p>
+          <Label>배경화면을 선택해 주세요.</Label>
           <p className='font-16-regular'>
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </p>
