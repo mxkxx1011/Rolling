@@ -30,6 +30,7 @@ function Card({
   const { postId } = useParams();
 
   const handleToggleCheck = (value) => {
+    console.log(value);
     if (isChecked) {
       setCheckedItems(checkedItems.filter((item) => item !== value));
     } else {
@@ -101,8 +102,15 @@ function Card({
                 <DeleteButton handleClick={handleSelectDelete} />
               )}
               {isEditSelectPage && (
-                <div className='checkbox' onClick={() => handleToggleCheck(id)}>
-                  {isChecked && <img src={iconCheck} alt='check' />}
+                <div class='cntr'>
+                  <input
+                    checked={isChecked}
+                    type='checkbox'
+                    id={id}
+                    class='hidden-xs-up'
+                    onClick={() => handleToggleCheck(id)}
+                  />
+                  <label htmlFor={id} class='cbx'></label>
                 </div>
               )}
             </div>
