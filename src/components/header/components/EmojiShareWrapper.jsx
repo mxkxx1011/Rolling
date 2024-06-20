@@ -18,7 +18,10 @@ function EmojiShareWrapper({ setShowToast, isLoading }) {
 
   useEffect(() => {
     getReactions();
-    getAllReactions();
+
+    if (isOpenReactionList) {
+      getAllReactions();
+    }
   }, [isOpenReactionList, isDesktop, currentEmoji]);
 
   return (

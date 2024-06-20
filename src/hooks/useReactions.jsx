@@ -1,5 +1,5 @@
 import { RecipientsReactionsAPI } from 'data/CallAPI';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function useReactions() {
@@ -13,13 +13,10 @@ function useReactions() {
       const response = await RecipientsReactionsAPI('get', postId, null, limit);
       setReactions(response.results);
     } catch (error) {
+      console.log('use');
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    getReactions();
-  }, [postId]);
 
   return { reactions, getReactions };
 }

@@ -11,8 +11,7 @@ function useAllReactions() {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   const getAllReactions = async (all = false) => {
-    let limit = isDesktop ? 8 : 6;
-    limit = all ? reactionCount : null;
+    let limit = all ? reactionCount : isDesktop ? 8 : 6;
     try {
       const response = await RecipientsReactionsAPI('get', postId, null, limit);
       setAllReactions(response.results);
