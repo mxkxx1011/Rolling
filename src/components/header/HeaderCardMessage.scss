@@ -1,6 +1,7 @@
 @import 'assets/styles/reset.scss';
 @import 'assets/styles/common.scss';
 @import 'assets/styles/palette.scss';
+@import '../card/Skeleton.scss';
 
 .header-right {
   @include Flex(row, null, center, 28px);
@@ -24,6 +25,15 @@
 
   .reaction-wrapper {
     @include Flex(row, null, center, null);
+
+    .skeleton {
+      @include Skeleton;
+
+      &.skeleton-reaction {
+        width: 62px;
+        height: 32px;
+      }
+    }
   }
   .dropdown {
     width: 36px;
@@ -65,4 +75,27 @@
 .icon-plus {
   width: 20px;
   height: 20px;
+}
+
+.skeleton {
+  @include Skeleton;
+
+  &.skeleton-header-name {
+    width: 200px;
+    height: 28px;
+  }
+
+  &.skeleton-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 100px;
+  }
+  &.skeleton-text {
+    width: 120px;
+    height: 28px;
+  }
+}
+
+.circle-list {
+  @include Flex(row, null, center, null);
 }

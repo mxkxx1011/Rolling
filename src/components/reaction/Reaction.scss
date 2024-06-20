@@ -4,6 +4,11 @@
 @import 'assets/styles/common.scss';
 .reactions {
   @include Flex(row, baseline, center, 8px);
+  flex-wrap: wrap; // 만약 숫자가 엄청 클 때 카드 밖으로 빠져나가는거보다 아래로 내려가는게 나을거같아서 추가
+
+  @include mobile {
+    gap: 4px;
+  }
 }
 
 .reaction {
@@ -13,12 +18,14 @@
   padding: 8px 12px;
   border-radius: 32px;
   @include font-style(16, regular);
-  white-space: nowrap;
+  white-space: nowrap; // 줄바꿈 자동으로 안되게
 
-  &.small {
-    padding: 6px 12px;
+  @include mobile {
+    padding: 6px 8px;
+    @include font-style(14, regular);
 
-    line-height: 26px;
-    letter-spacing: -0.01em;
+    &.small {
+      padding: 4px 8px;
+    }
   }
 }

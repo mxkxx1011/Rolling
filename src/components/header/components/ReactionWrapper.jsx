@@ -1,5 +1,6 @@
 import EmojiToggle from 'components/EmojiToggle';
 import ReactionList from 'components/reaction/Reaction';
+import iconArrowDown from 'assets/images/ic_arrow_down.svg';
 
 function ReactionWrapper({
   reactions,
@@ -7,20 +8,34 @@ function ReactionWrapper({
   isOpen,
   setOpen,
   getAllReactions,
+  isLoading,
 }) {
   const handleOpenReactionList = () => {
     setOpen((prev) => !prev);
   };
   return (
-    <div className='reaction-wrapper'>
-      <ReactionList reactions={reactions} />
-      <EmojiToggle
-        handleClick={handleOpenReactionList}
-        reactions={allReactions}
-        isOpen={isOpen}
-        getAllReactions={getAllReactions}
-      />
-    </div>
+    <>
+      {isLoading ? (
+        <>
+          <div className='reaction-wrapper'>
+            <div className='skeleton skeleton-reaction'></div>
+            <div className='skeleton skeleton-reaction'></div>
+            <div className='skeleton skeleton-reaction'></div>
+          </div>
+          <img src={iconArrowDown} alt='down' />
+        </>
+      ) : (
+        <div className='reaction-wrapper'>
+          <ReactionList reactions={reactions} />
+          <EmojiToggle
+            handleClick={handleOpenReactionList}
+            reactions={allReactions}
+            isOpen={isOpen}
+            getAllReactions={getAllReactions}
+          />
+        </div>
+      )}
+    </>
   );
 }
 

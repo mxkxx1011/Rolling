@@ -4,7 +4,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { RecipientsReactionsAPI } from 'data/CallAPI';
 import { useParams } from 'react-router-dom';
 
-function EmojiButton({ getReactions, getAllReactions }) {
+function EmojiButton({ getReactions, getAllReactions, isLoading }) {
   const { postId } = useParams();
   const [isEmoji, setIsEmoji] = useState(false);
 
@@ -36,6 +36,7 @@ function EmojiButton({ getReactions, getAllReactions }) {
         order='outlined'
         size='36'
         emoji
+        disabled={isLoading}
       >
         추가
       </Button>

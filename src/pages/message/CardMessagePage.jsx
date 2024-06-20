@@ -127,20 +127,26 @@ function CardMessagePage() {
 
   const getRecipient = async () => {
     try {
+      setIsLoading(true);
       const response = await RecipientsAPI('get', postId);
       setRecipient(response);
     } catch (error) {
       console.warn(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getRecipientMessage = async () => {
     try {
+      setIsLoading(true);
       const limit = isEditPage ? 6 : 5;
       const response = await RecipientsMessagesAPI('get', postId, null, limit);
       setRecipientMessage(response.results);
     } catch (error) {
       console.warn(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -158,6 +164,7 @@ function CardMessagePage() {
         reactions={topReactions}
         handleClick={ShareKakao}
         setShowToast={setShowToast}
+        isLoading={isLoading}
       />
       <main
         className={classNames(backgroundColor)}
@@ -224,40 +231,48 @@ function CardMessagePage() {
                 order='primary'
                 size='40'
                 handleClick={handleDeleteButton}
+                disabled={isLoading}
               >
                 삭제
               </Button>
             </div>
           </div>
         )}
-        {recentMessages ? (
-          <div className='message'>
-            {!isEditPage ? (
-              <Card
-                type='plus'
-                handleClick={() => handleMovePage(`/post/${postId}/message`)}
-              />
-            ) : null}
-            {recipientMessage.map((message) => (
-              <Card
-                key={message.id}
-                message={message}
-                type='normal'
-                isEditPage={isEditPage}
-                handleClick={
-                  !isEditPage ? () => handleOpenModal(message) : null
-                }
-                getRecipient={getRecipient}
-                getRecipientMessage={getRecipientMessage}
-                checkedItems={checkedItems}
-                setCheckedItems={setCheckedItems}
-              />
-            ))}
-            {hasMore && <div ref={ref}></div>}
-          </div>
-        ) : (
-          <h2>메시지가 없어요</h2>
-        )}
+
+        <div className='message'>
+          {isLoading ? (
+            Array(6)
+              .fill(null)
+              .map((_, index) => <SkeletonCard key={index} />)
+          ) : (
+            <>
+              {!isEditPage ? (
+                <Card
+                  type='plus'
+                  handleClick={() => handleMovePage(`/post/${postId}/message`)}
+                />
+              ) : null}
+              {recipientMessage.map((message) => (
+                <Card
+                  key={message.id}
+                  message={message}
+                  type='normal'
+                  isEditPage={isEditPage}
+                  handleClick={
+                    !isEditPage ? () => handleOpenModal(message) : null
+                  }
+                  getRecipient={getRecipient}
+                  getRecipientMessage={getRecipientMessage}
+                  checkedItems={checkedItems}
+                  setCheckedItems={setCheckedItems}
+                />
+              ))}
+            </>
+          )}
+
+          {hasMore && <div ref={ref}></div>}
+        </div>
+
         {showToast && <Toast setShowToast={setShowToast} />}
       </main>
       {selectedMessage && (
