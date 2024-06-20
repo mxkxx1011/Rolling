@@ -120,6 +120,10 @@ $types: (
       height: 106px;
       overflow: auto;
       overscroll-behavior: contain;
+
+      @include tablet {
+        width: 100%;
+      }
     }
   }
 

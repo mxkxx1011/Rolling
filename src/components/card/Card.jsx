@@ -18,11 +18,10 @@ function Card({
   type = 'normal',
   message = {},
   handleClick,
-  getRecipient,
-  getRecipientMessage,
   checkedItems,
   setCheckedItems,
   allSelected,
+  handleSelectDelete,
 }) {
   const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
@@ -45,7 +44,6 @@ function Card({
 
   const {
     id,
-    recipientId,
     sender,
     profileImageURL,
     relationship,
@@ -63,16 +61,6 @@ function Card({
       setCheckedItems([]);
     }
   }, [allSelected]);
-
-  const handleSelectDelete = async () => {
-    try {
-      const response = await MessagesAPI('delete', id, null);
-      getRecipientMessage();
-      getRecipient();
-    } catch (error) {
-      console.warn(error);
-    }
-  };
 
   return (
     <div
@@ -97,7 +85,7 @@ function Card({
             </div>
             <div className='card-button-wrapper'>
               {isEditPage && !isEditSelectPage && (
-                <DeleteButton handleClick={handleSelectDelete} />
+                <DeleteButton handleClick={() => handleSelectDelete(id)} />
               )}
               {isEditSelectPage && (
                 <Checkbox

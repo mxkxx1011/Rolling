@@ -31,7 +31,7 @@ main {
     padding: 93px 24px;
   }
   @include mobile {
-    padding: 32px 20px;
+    padding: 32px 20px 100px;
   }
 
   .content-button-wrapper {
@@ -72,9 +72,11 @@ main {
     @include tablet {
       grid-template-columns: repeat(2, 1fr); /* 3개의 열을 동일한 너비로 설정 */
       gap: 16px;
+      height: 884px;
     }
     @include mobile {
       grid-template-columns: repeat(1, 1fr); /* 3개의 열을 동일한 너비로 설정 */
+      height: 1000px;
     }
 
     height: 588px;

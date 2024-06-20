@@ -297,11 +297,10 @@ function CardMessagePage() {
                   handleClick={
                     !isEditPage ? () => handleOpenModal(message) : null
                   }
-                  getRecipient={getRecipient}
-                  getRecipientMessage={getRecipientMessage}
                   checkedItems={checkedItems}
                   setCheckedItems={setCheckedItems}
                   allSelected={allSelected}
+                  handleSelectDelete={deleteMessage}
                 />
               ))}
             </>
@@ -309,7 +308,6 @@ function CardMessagePage() {
 
           {hasMore && <div ref={ref}></div>}
         </div>
-
         {showToast && <Toast setShowToast={setShowToast} />}
       </main>
       {selectedMessage && (
