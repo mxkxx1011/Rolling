@@ -48,6 +48,10 @@
       position: absolute;
       left: -237px;
       top: 50px;
+
+      @include mobile {
+        left: -80px;
+      }
     }
   }
 }
