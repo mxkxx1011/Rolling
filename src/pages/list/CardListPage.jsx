@@ -25,6 +25,7 @@ function CardListPage() {
   const [offset, setOffSet] = useState(0);
   const [hotOffset, setHotOffSet] = useState(0);
   const [hotRecipients, setHotRecipients] = useState([]);
+  // const [getWidth, setGetWidth] = useState(window.innerWidth);
   const handleMovePage = useNavigator();
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);

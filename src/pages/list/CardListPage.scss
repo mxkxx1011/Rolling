@@ -4,7 +4,7 @@
 
 .card-list-layer {
   margin: 50px auto;
-  width: 100%;
+  // width: 100%;
   overflow: hidden;
   @include Flex(column, center, center, null);
 
@@ -24,11 +24,11 @@
     .title-layer {
       @include Flex(column, flex-start, flex-start, null);
       width: 100%;
-      max-width: 1200px;
+      max-width: 1160px;
       padding: 0 24px;
       .card-list-title {
         margin: 0 24px 16px;
-        width: fit-content;
+        // width: fit-content;
 
         @include font-style(24, bold);
         line-height: 36px;
@@ -41,7 +41,7 @@
       position: relative;
       transition: 1s;
       @include tablet {
-        // padding-left: 24px;
+        margin: 0 24px;
       }
 
       .arrow {
@@ -77,11 +77,10 @@
         scroll-behavior: smooth;
 
         @include tablet {
-          width: 100%;
+          // width: calc(100% - 24px);
         }
 
         @include mobile {
-          width: 100%;
           gap: 12px;
         }
       }
