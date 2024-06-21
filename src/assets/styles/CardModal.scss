@@ -85,6 +85,16 @@ $types: (
 
       &.card {
         @include ProfileFlex(card);
+
+        .profile-text-wrapper {
+          @include mobile {
+            @include font-style(16, regular);
+
+            span {
+              @include font-style(16, bold);
+            }
+          }
+        }
       }
     }
 
@@ -124,12 +134,19 @@ $types: (
       @include tablet {
         width: 100%;
       }
+      @include mobile {
+        @include font-style(15, regular);
+      }
     }
   }
 
   .date {
     @include font-style(14, regular);
     color: $gray-400;
+
+    @include mobile {
+      @include font-style(12, regular);
+    }
   }
 
   &.card {
