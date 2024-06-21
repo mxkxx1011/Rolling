@@ -7,6 +7,7 @@ import ShareImageButton from './ShareImageButton';
 
 const { Kakao } = window;
 const KAKAO_LINK_KEY = process.env.REACT_APP_SHARE_KAKAO_LINK_KEY;
+const COPY_SUCCESS_TIMEOUT = 3500;
 
 function ShareButton({ setShowToast, isLoading }) {
   const [isMenuShow, setIsMenuShow] = useState(false);
@@ -20,10 +21,15 @@ function ShareButton({ setShowToast, isLoading }) {
 
   const handleURLCopy = () => {
     const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3500);
-    });
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), COPY_SUCCESS_TIMEOUT);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleLinkKakao = () => {
