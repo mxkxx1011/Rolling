@@ -7,38 +7,34 @@ import Options from 'components/option/Options';
 import './PostPage.scss';
 import { RecipientsAPI } from 'data/CallAPI';
 import useNavigator from 'hooks/useNavigator';
+import Label from 'components/Label';
+import ErrorMessage from 'components/ErrorMessage';
 
 function PostPage() {
-  // 컬러 기본값 상수로 지정
   const DEFAULT_COLOR = 'beige';
+  const DEFAULT_IMG =
+    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
 
-  /* ---- 옵션과 토글 관리 부분 ---- */
+  /* =================[ 옵션과 토글 관리 부분 ]================= */
 
-  // Option 컴포넌트의 type을 관리하는 state와 객체
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
 
-  // 선택된 옵션 컴포넌트 값 관리하는 state
-  const [selectedOption, setSelectedOption] = useState(DEFAULT_COLOR);
-
-  // 선택된 토글 값에 따라 Option type 지정하는 핸들러
-  // 컬러/이미지 토글 버튼 클릭 -> 컬러/이미지 옵션 컴포넌트 표시
+  // 토글 클릭 handler
   const handleOptionSelect = (selectedOption) => {
     setOptionType(selectedOption === '컬러' ? 'color' : 'image');
-    setSelectedOption(selectedOption === '컬러' ? DEFAULT_COLOR : null);
-    // Set state for background color or image URL
-    if (selectedOption === '컬러') {
+    // 토글 변환시, 기본값 설정
+    if (selectedOption === '이미지') {
       setBackColor(DEFAULT_COLOR);
-      setBackImageURL(null);
+      setBackImageURL(DEFAULT_IMG);
     } else {
       setBackImageURL(null);
     }
   };
 
-  // Option 컴포넌트에서 선택된 값 -> setState 지정
+  // 옵션 클릭 handler
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    // background color, image URL 상태관리
+    // BackColor, BackURL FormData 설정
     if (optionType === 'color') {
       setBackColor(option);
       setBackImageURL(null);
@@ -48,14 +44,15 @@ function PostPage() {
     }
   };
 
-  /* ---- POST API 부분 ---- */
+  /* ==================[ POST API 부분 ]================== */
+
   const [name, setName] = useState('');
   const [backColor, setBackColor] = useState(DEFAULT_COLOR);
   const [backImageURL, setBackImageURL] = useState(null);
   const handleMovePage = useNavigator();
   const [isFocus, setIsFocus] = useState(false);
 
-  // input 값 관리하는 함수
+  // input값 관리
   const handleInputChange = (e) => {
     setName(e.target.value);
   };
@@ -65,15 +62,13 @@ function PostPage() {
     setIsFocus(true);
   };
 
-  // Form Submit 함수
+  // Form Submit 제출
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     //값이 비어있으면 제출되지 않도록 함
     if (!name) {
       return;
     }
-
     const formData = {
       team: '7-4',
       name: name,
@@ -88,60 +83,33 @@ function PostPage() {
     } catch (error) {
       console.log(error);
     }
-
-    // try {
-    //   // axios를 사용하여 POST 요청 보내기
-    //   const response = await axios.post(
-    //     'https://rolling-api.vercel.app/7-4/recipients/',
-    //     formData,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     },
-    //   );
-    //   console.log('Response:', response.data);
-    //   // 성공적으로 post한 경우에 대한 처리
-    // } catch (error) {
-    //   console.error('Error posting data:', error);
-    //   console.error('Error response:', error.response);
-    //   if (error.response && error.response.data) {
-    //     console.error('Error details:', error.response.data);
-    //   }
-    // } finally {
-    // }
   };
 
   return (
     <div className='page-container'>
       <form className='form-container' onSubmit={handleSubmit}>
         <div className='input-container'>
-          <label htmlFor='inputName'>
-            <p className='font-24-bold title-to'>To.</p>
-          </label>
+          <Label htmlFor='inputName'>To.</Label>
           <TextInputField
             name='name'
             value={name}
             id='inputName'
             onChange={handleInputChange}
             onBlur={handleBlur}
+            isError={!name && isFocus}
           >
             받는 사람 이름을 선택해 주세요
           </TextInputField>
           {/* input에 값이 없을 때 표시할 에러 메세지 */}
-          {isFocus && !name && (
-            <p className='error-message'>값을 입력해 주세요</p>
-          )}
+          {isFocus && !name && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
         </div>
         <div className='text-container'>
-          <p className='font-24-bold title-choice'>배경화면을 선택해 주세요.</p>
+          <Label>배경화면을 선택해 주세요.</Label>
           <p className='font-16-regular'>
             컬러를 선택하거나, 이미지를 선택할 수 있습니다.
           </p>
         </div>
-        {/* 토글버튼 컴포넌트*/}
         <ToggleButton options={options} onOptionSelect={handleOptionSelect} />
-        {/* 옵션 컴포넌트 */}
         <div className='option-container'>
           <Options type={optionType} onClick={handleOptionClick} />
         </div>

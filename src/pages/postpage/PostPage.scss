@@ -4,17 +4,24 @@
 
 .page-container {
   @include Flex(column, null, center, null);
-  padding-top: 57px;
+  padding: 57px 24px;
+  transition: all 0.5s ease-out;
+  .form-container {
+    width: 100%;
+    max-width: 720px;
+  }
   Button {
     width: 100%;
   }
 }
+
 .text-container {
   padding: 50px 0 24px 0;
   p {
     margin-top: 4px;
   }
 }
+
 .option-container {
   padding: 45px 0;
 }
@@ -29,44 +36,32 @@
     .text-container {
       padding: 54px 0 24px 0;
     }
-    .option-container {
-      padding: 40px 0;
-    }
+  }
+  .option-container {
+    padding: 40px 0;
   }
 }
 
 @include mobile {
   .page-container {
-    padding: 50px 20px;
+    max-width: 370px;
+    margin: 50px auto;
   }
   .text-container {
     padding: 48px 0 24px 0;
   }
   .option-container {
-    padding-top: 28px;
+    padding: 28px 0 58px 0;
+    width: 50%;
   }
 }
 
-.font-24-bold {
-  @include font-style(24, bold);
-  color: $gray-900;
-  &.title-to {
-    line-height: 42px;
-    padding-bottom: 12px;
-  }
-  &.title-choice {
-    line-height: 36px;
-  }
-}
 .font-16-regular {
   @include font-style(16, regular);
   color: $gray-500;
   line-height: 26px;
 }
 
-.error-message {
-  @include font-style(14, regular);
-  color: $color--error;
-  line-height: 18px;
-  margin-top: 4px;
+ErrorMessage {
+  margin-top: 8px; //margin-top: -8px; 적용하면 input창과 겹치는 이슈
 }

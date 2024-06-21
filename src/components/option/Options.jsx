@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Check from './Check';
 import './Options.scss';
 
@@ -19,8 +19,6 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
   );
 }
 
-// 토글을 누르면 type이 변해야함
-// 이미지 누르면 type = image / 컬러 누르면 type = color
 function Options({ type = 'image', onClick }) {
   const imageBackground01 =
     'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
@@ -45,6 +43,11 @@ function Options({ type = 'image', onClick }) {
     setIsSelected(idx);
     onClick(OptionArray[idx]); // 선택된 옵션 값 전달
   };
+
+  // 토글이 변경될 때 첫 번째 옵션 선택
+  useEffect(() => {
+    setIsSelected(0);
+  }, [type]);
 
   return (
     <div className='options'>
