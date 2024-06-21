@@ -19,6 +19,7 @@ import Button from 'components/Button';
 import Checkbox from '../../components/checkbox/CheckBox';
 import useRecipient from 'hooks/useRecipient';
 import useRecipientMessage from 'hooks/useRecipientMessage';
+import getTrueKeys from 'utils/getTrueKeys';
 
 // post/{id}
 function CardMessagePage() {
@@ -40,6 +41,7 @@ function CardMessagePage() {
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
 
+  // get 커스텀훅에서 가져온 recipient와 message
   const { getRecipient, recipient } = useRecipient();
   const {
     getRecipientMessage,
@@ -63,6 +65,7 @@ function CardMessagePage() {
     backgroundImage: `url(${backgroundImageURL})`,
   };
 
+  // 모달 open, close 핸들러 함수
   const handleOpenModal = (message) => {
     setIsModalOpen(true);
     setSelectedMessage(message);
@@ -73,6 +76,7 @@ function CardMessagePage() {
     setSelectedMessage(null);
   };
 
+  // 메시지 삭제 핸들러 함수
   const deleteMessage = async (id) => {
     try {
       const response = await MessagesAPI('delete', id, null);
@@ -83,10 +87,7 @@ function CardMessagePage() {
     }
   };
 
-  const getTrueKeys = (obj) => {
-    return Object.keys(obj).filter((key) => obj[key]);
-  };
-
+  // 선택한 항목 삭제하는 핸들러 함수
   const handleSelectDelete = () => {
     if (checkedItems.length == 0) {
       alert('삭제할 항목을 선택해주세요');
@@ -100,6 +101,7 @@ function CardMessagePage() {
     });
   };
 
+  // 페이지 삭제하는 핸들러 함수
   const handlePageDelete = () => {
     const result = window.confirm(
       `해당 '${name}'님의 롤링페이지를 삭제하시겠습니까?`,
@@ -113,6 +115,7 @@ function CardMessagePage() {
     }
   };
 
+  // edit 페이지로 이동하는 핸들러 함수
   const handleDeleteEmpty = () => {
     if (messageCount == 0) {
       alert('삭제할 메시지가 없어요');
@@ -121,6 +124,7 @@ function CardMessagePage() {
     handleMovePage(`/post/${postId}/edit`);
   };
 
+  // 체크박스 전체 선택할때 핸들러 함수
   const handleAllSelect = () => {
     const newCheckedItems = {};
     recipientMessage.forEach((message) => {
@@ -130,6 +134,7 @@ function CardMessagePage() {
     setCheckedItems(newCheckedItems);
     setAllSelected((prevAllSelected) => !prevAllSelected);
   };
+  // 체크 박스 하나씩 선택할때 핸들러 함수
   const handleToggleCheck = (id) => {
     const newCheckedItems = { ...checkedItems, [id]: !checkedItems[id] };
     setCheckedItems(newCheckedItems);
@@ -138,6 +143,7 @@ function CardMessagePage() {
     );
   };
 
+  // 무한스크롤용 get 함수
   const fetchMoreItems = async () => {
     const limit = 6; // 첫 페이지는 5개, 이후 페이지는 6개
     const offset = isEditPage ? page * 6 : (page - 1) * limit + 5; //(page == 1 ? 5 : 6); // 첫 페이지는 0, 이후 페이지는 6의 배수
