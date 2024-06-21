@@ -9,7 +9,7 @@
   @include Flex(column, center, center, null);
 
   @include mobile {
-    margin-top: 40px
+    margin-top: 40px;
   }
 
   .card-list-box {
@@ -36,11 +36,14 @@
     }
 
     .card-list-data {
-      @include Flex(row, center, center, null);
+      @include Flex(row, center, center, 20px);
       width: 100%;
       position: relative;
       transition: 1s;
-      
+      @include tablet {
+        // padding-left: 24px;
+      }
+
       .arrow {
         position: relative;
         cursor: pointer;
@@ -54,15 +57,15 @@
         transform: translateY(-50%);
         z-index: 2;
         &.right {
-          right: 20px;
+          right: 40px;
         }
         &.left {
-          left: 20px;
+          left: 40px;
         }
         &.disabled {
           visibility: hidden;
         }
-        @include tablet {
+        @include size-1248 {
           visibility: hidden;
         }
       }
@@ -74,11 +77,11 @@
         scroll-behavior: smooth;
 
         @include tablet {
-          // width: 100%;
+          width: 100%;
         }
 
         @include mobile {
-          // width: 100%;
+          width: 100%;
           gap: 12px;
         }
       }

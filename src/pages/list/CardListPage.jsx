@@ -6,6 +6,7 @@ import ArrowButton from 'components/ArrowButton';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
 import UseDragScroll from 'utils/UseDragScroll';
+import SkeletonCardList from 'components/card/SkeletonCardList';
 
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
@@ -18,29 +19,16 @@ function hotSort(recipients) {
   );
 }
 
-function sliceWithFallback(recipient, offset, limit) {
-  let end = offset + limit; //마지막 출력지점
-  let slice = recipient.slice(offset, end); //데이터를 시작부터 출력까지 자른 데이터
-  if (slice.length < limit) {
-    //자른 데이터가 4개보다 작으면
-    const remaining = limit - slice.length; //부족한 숫자
-    const previousSlice = recipient
-      .slice(Math.max(0, offset - remaining), offset)
-      .slice(-remaining);
-    slice = previousSlice.concat(slice); //애초에 4개가 안되서 -일경우 에러가 나기 때문에
-  }
-  return slice;
-}
-
 function CardListPage() {
   const [recipients, setRecipients] = useState([]);
-  const [limit, setLimit] = useState(4);
+  const limit = 4;
   const [offset, setOffSet] = useState(0);
   const [hotOffset, setHotOffSet] = useState(0);
   const [hotRecipients, setHotRecipients] = useState([]);
   const handleMovePage = useNavigator();
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
+  const [isLodding, setIsLodding] = useState(false);
 
   UseDragScroll(hotListRef);
   UseDragScroll(dateListRef);
@@ -53,11 +41,12 @@ function CardListPage() {
         if (dateListRef.current) {
           const cardWidth = dateListRef.current.children[0].offsetWidth; // 카드 한 개의 너비
           const scrollAmount = (cardWidth + 20) * 2; // 두 개의 카드 너비만큼 이동
-          dateListRef.current.scrollLeft += scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
+          dateListRef.current.scrollLeft +=
+            scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
         }
-        return newOffset
+        return newOffset;
       }
-    })
+    });
   }
 
   function hotListShift(count) {
@@ -68,25 +57,30 @@ function CardListPage() {
         if (hotListRef.current) {
           const cardWidth = hotListRef.current.children[0].offsetWidth; // 카드 한 개의 너비
           const scrollAmount = (cardWidth + 20) * 2; // 두 개의 카드 너비만큼 이동
-          hotListRef.current.scrollLeft += scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
+          hotListRef.current.scrollLeft +=
+            scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
         }
-        return newOffset
+        return newOffset;
       }
-    })
+    });
   }
 
+  const getRecipient = async () => {
+    try {
+      setIsLodding(true);
+      const response = await RecipientsAPI('get', null, null, 9999, offset);
+      setRecipients(response.results || []);
+      setHotRecipients(hotSort(response.results) || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLodding(false);
+    }
+  };
+
   useEffect(() => {
-    const getRecipient = async () => {
-      try {
-        const response = await RecipientsAPI('get', null, null, 9999, offset);
-        setRecipients(response.results || []);
-        setHotRecipients(hotSort(response.results) || []);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     getRecipient();
-  }, [offset, hotOffset]);
+  }, []);
 
   return (
     <div className='card-list-layer'>
@@ -95,25 +89,33 @@ function CardListPage() {
           <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
         </div>
         <div className='card-list-data'>
-        <div
-          className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
-          onClick={() => hotListShift(-2)}
-        >
-          <ArrowButton direction={'left'} />
-        </div>
+          <div
+            className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
+            onClick={() => hotListShift(-2)}
+          >
+            <ArrowButton direction={'left'} />
+          </div>
           <div className='card-list-wrapper hot-card' ref={hotListRef}>
-            {hotRecipients.map((data) => (
-              <div key={`${data.id}`}>
-                <CardList recipient={data} />
-              </div>
-            ))}
+            {isLodding
+              ? Array(4)
+                  .fill(null)
+                  .map((limit, index) => (
+                    <div>
+                      <SkeletonCardList />
+                    </div>
+                  ))
+              : hotRecipients.map((data) => (
+                  <div key={`${data.id}`}>
+                    <CardList recipient={data} />
+                  </div>
+                ))}
           </div>
           <div
-          className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
-          onClick={() => hotListShift(2)}
-        >
-          <ArrowButton direction={'right'} />
-        </div>
+            className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
+            onClick={() => hotListShift(2)}
+          >
+            <ArrowButton direction={'right'} />
+          </div>
         </div>
       </div>
       <div className='card-list-box'>
@@ -121,23 +123,31 @@ function CardListPage() {
           <p className='card-list-title'>최근에 만든 롤링 페이퍼 ⭐</p>
         </div>
         <div className='card-list-data'>
-        <div
-              className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
-              onClick={() => listShift(-2)}
-            >
-              <ArrowButton direction={'left'} />
-            </div>
+          <div
+            className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
+            onClick={() => listShift(-2)}
+          >
+            <ArrowButton direction={'left'} />
+          </div>
           <div className='card-list-wrapper date-card' ref={dateListRef}>
-            {recipients.map((data) => (
-              <CardList key={`${data.id}`} recipient={data} />
-            ))}
+            {isLodding
+              ? Array(4)
+                  .fill(null)
+                  .map((limit, index) => (
+                    <div>
+                      <SkeletonCardList />
+                    </div>
+                  ))
+              : recipients.map((data) => (
+                  <CardList key={`${data.id}`} recipient={data} />
+                ))}
           </div>
           <div
-              className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
-              onClick={() => listShift(2)}
-            >
-              <ArrowButton direction={'right'} />
-            </div>
+            className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
+            onClick={() => listShift(2)}
+          >
+            <ArrowButton direction={'right'} />
+          </div>
         </div>
       </div>
       <div className='link-button-layer'>
