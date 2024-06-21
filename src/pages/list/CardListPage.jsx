@@ -100,12 +100,12 @@ function CardListPage() {
               ? Array(4)
                   .fill(null)
                   .map((limit, index) => (
-                    <div>
+                    <div key={index}>
                       <SkeletonCardList />
                     </div>
                   ))
               : hotRecipients.map((data) => (
-                  <div key={`${data.id}`}>
+                  <div key={data.id}>
                     <CardList recipient={data} />
                   </div>
                 ))}
@@ -134,12 +134,12 @@ function CardListPage() {
               ? Array(4)
                   .fill(null)
                   .map((limit, index) => (
-                    <div>
+                    <div key={index}>
                       <SkeletonCardList />
                     </div>
                   ))
               : recipients.map((data) => (
-                  <CardList key={`${data.id}`} recipient={data} />
+                  <CardList key={data.id} recipient={data} />
                 ))}
           </div>
           <div
