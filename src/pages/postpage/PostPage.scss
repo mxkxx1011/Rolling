@@ -9,6 +9,10 @@
   .form-container {
     width: 100%;
     max-width: 720px;
+
+    .post-input-error {
+      margin-top: 8px;
+    }
   }
   Button {
     width: 100%;
@@ -60,8 +64,4 @@
   @include font-style(16, regular);
   color: $gray-500;
   line-height: 26px;
-}
-
-ErrorMessage {
-  margin-top: 8px; //margin-top: -8px; 적용하면 input창과 겹치는 이슈
 }

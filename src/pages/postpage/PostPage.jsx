@@ -101,7 +101,11 @@ function PostPage() {
             받는 사람 이름을 선택해 주세요
           </TextInputField>
           {/* input에 값이 없을 때 표시할 에러 메세지 */}
-          {isFocus && !name && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
+          <div className='post-input-error'>
+            {isFocus && !name && (
+              <ErrorMessage>값을 입력해 주세요.</ErrorMessage>
+            )}
+          </div>
         </div>
         <div className='text-container'>
           <Label>배경화면을 선택해 주세요.</Label>
