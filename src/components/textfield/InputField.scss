@@ -7,13 +7,13 @@
     height: 50px;
     border-radius: 8px;
     padding: 12px 16px;
-    border: 1px solid $gray-300;
+    outline: 1px solid $gray-300;
     background-color: $color--white;
-    outline: none;
+    border: none;
     width: 100%;
 
     &:hover {
-      border: 1px solid $gray-500;
+      outline: 1px solid $gray-500;
     }
     &:active {
       outline: 2px solid $gray-700;
@@ -25,11 +25,11 @@
       @include font-style(16, regular);
     }
     &:disabled {
-      border: 1px solid $gray-300;
+      outline: 1px solid $gray-300;
       color: $color--surface;
     }
     &:invalid {
-      border: 1px solid $color--error;
+      outline: 1px solid $color--error;
     }
   }
 }

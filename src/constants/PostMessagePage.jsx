@@ -1,5 +1,13 @@
 export const TEAM_NUMBER = '7-4';
 
+export const LABELS_OPTIONS = {
+  sender: 'From.',
+  profileImage: '프로필 이미지',
+  relationship: '상대와의 관계',
+  message: '내용을 입력해 주세요',
+  font: '폰트 선택',
+};
+
 export const RELATIONSHIP_OPTIONS = ['지인', '친구', '동료', '가족'];
 
 export const FONT_OPTIONS = [

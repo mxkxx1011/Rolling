@@ -1,9 +1,10 @@
-@import 'assets/styles/reset.scss';
 @import 'assets/styles/palette.scss';
 @import 'assets/styles/fonts.scss';
 @import 'assets/styles/common.scss';
 
-.error-message {
+.error {
+  @include font-style(14, regular);
   color: $color--error;
-  @include font-style(14, normal);
+  line-height: 150%;
+  margin-top: -8px;
 }
