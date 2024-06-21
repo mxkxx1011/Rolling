@@ -11,22 +11,19 @@ import Label from 'components/Label';
 import ErrorMessage from 'components/ErrorMessage';
 
 function PostPage() {
-  const DEFAULT_COLOR = 'beige';
-  const DEFAULT_IMG =
-    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
-
-  /* =================[ 옵션과 토글 관리 부분 ]================= */
-
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
+
+  const [firstColor, setFirstColor] = useState('beige');
+  const [firstImage, setFirstImage] = useState(null);
 
   // 토글 클릭 handler
   const handleOptionSelect = (selectedOption) => {
     setOptionType(selectedOption === '컬러' ? 'color' : 'image');
     // 토글 변환시, 기본값 설정
     if (selectedOption === '이미지') {
-      setBackColor(DEFAULT_COLOR);
-      setBackImageURL(DEFAULT_IMG);
+      setBackColor(firstColor);
+      setBackImageURL(firstImage);
     } else {
       setBackImageURL(null);
     }
@@ -40,14 +37,14 @@ function PostPage() {
       setBackImageURL(null);
     } else if (optionType === 'image') {
       setBackImageURL(option);
-      setBackColor(DEFAULT_COLOR);
+      setBackColor(firstColor);
     }
   };
 
   /* ==================[ POST API 부분 ]================== */
 
   const [name, setName] = useState('');
-  const [backColor, setBackColor] = useState(DEFAULT_COLOR);
+  const [backColor, setBackColor] = useState('beige');
   const [backImageURL, setBackImageURL] = useState(null);
   const handleMovePage = useNavigator();
   const [isFocus, setIsFocus] = useState(false);
@@ -115,7 +112,19 @@ function PostPage() {
         </div>
         <ToggleButton options={options} onOptionSelect={handleOptionSelect} />
         <div className='option-container'>
-          <Options type={optionType} onClick={handleOptionClick} />
+          <Options
+            type={optionType}
+            onClick={handleOptionClick}
+            onFirstOptionSelect={(option) => {
+              if (optionType === 'color') {
+                setFirstColor(option);
+                setBackColor(option);
+              } else {
+                setFirstImage(option);
+                setBackImageURL(option);
+              }
+            }}
+          />
         </div>
         <Button type='submit' size='56' order='primary' disabled={!name}>
           생성하기
