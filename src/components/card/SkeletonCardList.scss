@@ -20,10 +20,18 @@
   .skeleton-header {
     width: 125px;
     height: 36px;
+    @include mobile {
+      width: 100px;
+      height: 28px;
+    }
   }
   .skeleton-number {
     width: 160px;
     height: 30px;
+    @include mobile {
+      width: 110px;
+      height: 20px;
+    }
   }
 
   .skeleton-circle {
@@ -34,11 +42,17 @@
 
   .skeleton-reactions {
     @include Flex(row, null, center, 5px);
-    div {
+    .skeleton-reaction {
       width: 63px;
       height: 36px;
       padding: 8px 12px;
       border-radius: 32px;
+
+      @include mobile {
+        width: 55px;
+        height: 32px;
+        padding: 6px 8px;
+      }
     }
   }
 }

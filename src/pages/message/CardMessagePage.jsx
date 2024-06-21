@@ -25,7 +25,6 @@ function CardMessagePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  // const [checkedItems, setCheckedItems] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [allSelected, setAllSelected] = useState(false);
 
