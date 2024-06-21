@@ -4,6 +4,7 @@ import useRecipientMessage from 'hooks/useRecipientMessage';
 import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
+import SenderGenerator from 'components/SenderGenerator';
 import ProfileImages from 'components/profileimage/ProfileImages';
 import Button from 'components/Button';
 import Label from 'components/Label';
@@ -31,7 +32,6 @@ function CardMessagePostPage() {
   const { getRecipientMessage } = useRecipientMessage();
   const { postId } = useParams();
   const handleMovePage = useNavigator();
-
   const isButtonDisabled =
     !sender || !message || isSenderError || isMessageError;
 
@@ -92,6 +92,10 @@ function CardMessagePostPage() {
             이름을 입력해 주세요.
           </TextInputField>
           {isSenderError && <ErrorMessage>값을 입력해 주세요.</ErrorMessage>}
+          <SenderGenerator
+            setSender={setSender}
+            setIsSenderError={setIsSenderError}
+          />
         </div>
         <div className={styles.wrapper}>
           <Label>{LABELS_OPTIONS.profileImage}</Label>
