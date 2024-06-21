@@ -19,26 +19,14 @@ function Card({
   message = {},
   handleClick,
   checkedItems,
-  setCheckedItems,
-  allSelected,
+
   handleSelectDelete,
+  handleCheckboxClick,
 }) {
-  const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
 
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
-
-  const handleToggleCheck = (value) => {
-    if (isChecked) {
-      setCheckedItems((prevItems) =>
-        prevItems.filter((item) => item !== value),
-      );
-    } else {
-      setCheckedItems((prevItems) => [...prevItems, value]);
-    }
-    setIsChecked((prev) => !prev);
-  };
 
   const isTypeNormal = type === 'normal';
 
@@ -51,16 +39,6 @@ function Card({
     content,
     createdAt,
   } = message;
-
-  useEffect(() => {
-    if (allSelected) {
-      if (!checkedItems.includes(id)) {
-        setCheckedItems((prevItems) => [...prevItems, id]);
-      }
-    } else {
-      setCheckedItems([]);
-    }
-  }, [allSelected]);
 
   return (
     <div
@@ -90,8 +68,8 @@ function Card({
               {isEditSelectPage && (
                 <Checkbox
                   id={id}
-                  handleClick={() => handleToggleCheck(id)}
-                  isChecked={allSelected || isChecked}
+                  isChecked={!!checkedItems[message.id]}
+                  handleChange={handleCheckboxClick}
                 />
               )}
             </div>

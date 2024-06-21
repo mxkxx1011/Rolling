@@ -25,7 +25,8 @@ function CardMessagePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  const [checkedItems, setCheckedItems] = useState([]);
+  // const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState({});
   const [allSelected, setAllSelected] = useState(false);
 
   const [page, setPage] = useState(1);
@@ -83,14 +84,19 @@ function CardMessagePage() {
     }
   };
 
+  const getTrueKeys = (obj) => {
+    return Object.keys(obj).filter((key) => obj[key]);
+  };
+
   const handleSelectDelete = () => {
     if (checkedItems.length == 0) {
       alert('삭제할 항목을 선택해주세요');
       return;
     }
 
-    checkedItems.map((item) => {
-      deleteMessage(item);
+    const checkedId = getTrueKeys(checkedItems);
+    checkedId.map((id) => {
+      deleteMessage(id);
       handleMovePage(`/post/${postId}`);
     });
   };
@@ -117,7 +123,20 @@ function CardMessagePage() {
   };
 
   const handleAllSelect = () => {
-    setAllSelected((prev) => !prev);
+    const newCheckedItems = {};
+    recipientMessage.forEach((message) => {
+      newCheckedItems[message.id] = !allSelected;
+    });
+
+    setCheckedItems(newCheckedItems);
+    setAllSelected((prevAllSelected) => !prevAllSelected);
+  };
+  const handleToggleCheck = (id) => {
+    const newCheckedItems = { ...checkedItems, [id]: !checkedItems[id] };
+    setCheckedItems(newCheckedItems);
+    setAllSelected(
+      recipientMessage.every((message) => newCheckedItems[message.id]),
+    );
   };
 
   const fetchMoreItems = async () => {
@@ -192,6 +211,7 @@ function CardMessagePage() {
                       id='selectAll'
                       handleClick={handleAllSelect}
                       isChecked={allSelected}
+                      handleChange={handleAllSelect}
                     />
                   </div>
                   <Button
@@ -274,6 +294,7 @@ function CardMessagePage() {
                   setCheckedItems={setCheckedItems}
                   allSelected={allSelected}
                   handleSelectDelete={deleteMessage}
+                  handleCheckboxClick={() => handleToggleCheck(message.id)}
                 />
               ))}
             </>
