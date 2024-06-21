@@ -16,22 +16,23 @@ import { useInView } from 'react-intersection-observer';
 import SkeletonCard from 'components/card/SkeletonCard';
 import Toast from 'components/toast/Toast';
 import Button from 'components/Button';
-import { check } from 'prettier';
+import Checkbox from '../../components/checkbox/CheckBox';
+import useRecipient from 'hooks/useRecipient';
+import useRecipientMessage from 'hooks/useRecipientMessage';
+import getTrueKeys from 'utils/getTrueKeys';
 
 // post/{id}
 function CardMessagePage() {
-  const [recipient, setRecipient] = useState({});
-  const [recipientMessage, setRecipientMessage] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [showToast, setShowToast] = useState(false);
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState({});
+  const [allSelected, setAllSelected] = useState(false);
 
-  const [page, setPage] = useState(2);
-  const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const { postId } = useParams(); // id랑 겹쳐서 수정 ㅠ
+  const { postId } = useParams();
   const handleMovePage = useNavigator();
 
   const [ref, inView] = useInView();
@@ -39,6 +40,15 @@ function CardMessagePage() {
   const location = useLocation();
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
+
+  // get 커스텀훅에서 가져온 recipient와 message
+  const { getRecipient, recipient } = useRecipient();
+  const {
+    getRecipientMessage,
+    recipientMessage,
+    setRecipientMessage,
+    isLoading,
+  } = useRecipientMessage();
 
   const {
     name = 'null',
@@ -55,6 +65,7 @@ function CardMessagePage() {
     backgroundImage: `url(${backgroundImageURL})`,
   };
 
+  // 모달 open, close 핸들러 함수
   const handleOpenModal = (message) => {
     setIsModalOpen(true);
     setSelectedMessage(message);
@@ -65,28 +76,47 @@ function CardMessagePage() {
     setSelectedMessage(null);
   };
 
+  // 메시지 삭제 핸들러 함수
   const deleteMessage = async (id) => {
     try {
       const response = await MessagesAPI('delete', id, null);
+      getRecipientMessage();
+      getRecipient();
     } catch (error) {
       console.warn(error);
     }
   };
 
+  // 선택한 항목 삭제하는 핸들러 함수
   const handleSelectDelete = () => {
     if (checkedItems.length == 0) {
       alert('삭제할 항목을 선택해주세요');
       return;
     }
 
-    checkedItems.map((item) => {
-      deleteMessage(item);
-      getRecipientMessage();
-      getRecipient();
+    const checkedId = getTrueKeys(checkedItems);
+    checkedId.map((id) => {
+      deleteMessage(id);
+      handleMovePage(`/post/${postId}`);
     });
   };
 
-  const handleDeleteButton = () => {
+  // 페이지 삭제하는 핸들러 함수
+  const handlePageDelete = () => {
+    const result = window.confirm(
+      `해당 '${name}'님의 롤링페이지를 삭제하시겠습니까?`,
+    );
+    if (result) {
+      RecipientsAPI('delete', postId);
+      handleMovePage('/list');
+    } else {
+      alert('페이지 삭제를 취소하셨습니다.');
+      return;
+    }
+  };
+
+  // edit 페이지로 이동하는 핸들러 함수
+  const handleDeleteEmpty = () => {
     if (messageCount == 0) {
       alert('삭제할 메시지가 없어요');
       return;
@@ -94,9 +124,29 @@ function CardMessagePage() {
     handleMovePage(`/post/${postId}/edit`);
   };
 
+  // 체크박스 전체 선택할때 핸들러 함수
+  const handleAllSelect = () => {
+    const newCheckedItems = {};
+    recipientMessage.forEach((message) => {
+      newCheckedItems[message.id] = !allSelected;
+    });
+
+    setCheckedItems(newCheckedItems);
+    setAllSelected((prevAllSelected) => !prevAllSelected);
+  };
+  // 체크 박스 하나씩 선택할때 핸들러 함수
+  const handleToggleCheck = (id) => {
+    const newCheckedItems = { ...checkedItems, [id]: !checkedItems[id] };
+    setCheckedItems(newCheckedItems);
+    setAllSelected(
+      recipientMessage.every((message) => newCheckedItems[message.id]),
+    );
+  };
+
+  // 무한스크롤용 get 함수
   const fetchMoreItems = async () => {
-    const limit = page === 1 ? 5 : 6; // 첫 페이지는 5개, 이후 페이지는 6개
-    const offset = (page - 1) * 6; // 첫 페이지는 0, 이후 페이지는 6의 배수
+    const limit = 6; // 첫 페이지는 5개, 이후 페이지는 6개
+    const offset = isEditPage ? page * 6 : (page - 1) * limit + 5; //(page == 1 ? 5 : 6); // 첫 페이지는 0, 이후 페이지는 6의 배수
 
     const responseMessage = await RecipientsMessagesAPI(
       'get',
@@ -124,36 +174,6 @@ function CardMessagePage() {
       fetchMoreItems();
     }
   }, [inView, hasMore]);
-
-  const getRecipient = async () => {
-    try {
-      setIsLoading(true);
-      const response = await RecipientsAPI('get', postId);
-      setRecipient(response);
-    } catch (error) {
-      console.warn(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getRecipientMessage = async () => {
-    try {
-      setIsLoading(true);
-      const limit = isEditPage ? 6 : 5;
-      const response = await RecipientsMessagesAPI('get', postId, null, limit);
-      setRecipientMessage(response.results);
-    } catch (error) {
-      console.warn(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getRecipient();
-    getRecipientMessage();
-  }, [postId, isEditPage]);
 
   return (
     <>
@@ -189,27 +209,33 @@ function CardMessagePage() {
             </div>
             <div className='button-right'>
               {isEditSelectPage ? (
-                <Button
-                  order='primary'
-                  size='40'
-                  handleClick={handleSelectDelete}
-                >
-                  선택한 항목 삭제하기
-                </Button>
+                <>
+                  <div className='all-select-wrapper'>
+                    <p className='font-18-bold'>전체 선택</p>
+                    <Checkbox
+                      id='selectAll'
+                      handleClick={handleAllSelect}
+                      isChecked={allSelected}
+                      handleChange={handleAllSelect}
+                    />
+                  </div>
+                  <Button
+                    order='primary'
+                    size='40'
+                    handleClick={handleSelectDelete}
+                    disabled={checkedItems.length == 0}
+                  >
+                    선택한 항목 삭제하기
+                  </Button>
+                </>
               ) : (
                 <>
-                  <Button order='secondary' size='40'>
-                    페이지 삭제
-                  </Button>
                   <Button
                     order='primary'
                     size='40'
                     handleClick={() => handleMovePage(`select`)}
                   >
                     선택 삭제
-                  </Button>
-                  <Button order='primary' size='40'>
-                    전체 삭제
                   </Button>
                 </>
               )}
@@ -228,9 +254,16 @@ function CardMessagePage() {
             </div>
             <div className='button-right'>
               <Button
+                order='secondary'
+                size='40'
+                handleClick={handlePageDelete}
+              >
+                페이지 삭제
+              </Button>
+              <Button
                 order='primary'
                 size='40'
-                handleClick={handleDeleteButton}
+                handleClick={handleDeleteEmpty}
                 disabled={isLoading}
               >
                 삭제
@@ -250,6 +283,7 @@ function CardMessagePage() {
                 <Card
                   type='plus'
                   handleClick={() => handleMovePage(`/post/${postId}/message`)}
+                  setCheckedItems={setCheckedItems}
                 />
               ) : null}
               {recipientMessage.map((message) => (
@@ -261,19 +295,19 @@ function CardMessagePage() {
                   handleClick={
                     !isEditPage ? () => handleOpenModal(message) : null
                   }
-                  getRecipient={getRecipient}
-                  getRecipientMessage={getRecipientMessage}
                   checkedItems={checkedItems}
                   setCheckedItems={setCheckedItems}
+                  allSelected={allSelected}
+                  handleSelectDelete={deleteMessage}
+                  handleCheckboxClick={() => handleToggleCheck(message.id)}
                 />
               ))}
             </>
           )}
 
           {hasMore && <div ref={ref}></div>}
+          {showToast && <Toast setShowToast={setShowToast} />}
         </div>
-
-        {showToast && <Toast setShowToast={setShowToast} />}
       </main>
       {selectedMessage && (
         <Modal

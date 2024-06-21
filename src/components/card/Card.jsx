@@ -5,44 +5,33 @@ import Badge from 'components/badge/Badge';
 import PlusButton from 'components/PlusButton';
 import classNames from 'classnames';
 import FormatDate from 'utils/FormatDate';
-import dompurify from 'dompurify';
+
 import { MessagesAPI } from 'data/CallAPI';
 import { useLocation, useParams } from 'react-router-dom';
 import iconCheck from 'assets/images/ic_check.svg';
 import useNavigator from 'hooks/useNavigator';
+import getFonts from 'utils/getFonts';
+import Sanitizer from 'utils/Sanitizer';
+import Checkbox from 'components/checkbox/CheckBox';
 
 function Card({
   type = 'normal',
   message = {},
   handleClick,
-  getRecipient,
-  getRecipientMessage,
   checkedItems,
-  setCheckedItems,
+
+  handleSelectDelete,
+  handleCheckboxClick,
 }) {
-  const [isDelete, setIsDelete] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
   const location = useLocation();
 
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
-  const handleMovePage = useNavigator();
-  const { postId } = useParams();
-
-  const handleToggleCheck = (value) => {
-    if (isChecked) {
-      setCheckedItems(checkedItems.filter((item) => item !== value));
-    } else {
-      setCheckedItems([...checkedItems, value]);
-    }
-    setIsChecked((prev) => !prev);
-  };
 
   const isTypeNormal = type === 'normal';
 
   const {
     id,
-    recipientId,
     sender,
     profileImageURL,
     relationship,
@@ -50,30 +39,6 @@ function Card({
     content,
     createdAt,
   } = message;
-
-  const sanitizer = dompurify.sanitize;
-  const cleanContent = sanitizer(content);
-
-  function getFonts(inputFont) {
-    const fonts = {
-      'Noto Sans': 'Noto Sans KR',
-      Pretendard: 'Pretendard',
-      나눔명조: 'NanumGothic',
-      '나눔손글씨 손편지체': 'Handletter',
-    };
-
-    return fonts[inputFont] || fonts['Noto Sans'];
-  }
-
-  const handleSelectDelete = async () => {
-    try {
-      const response = await MessagesAPI('delete', id, null);
-      getRecipientMessage();
-      getRecipient();
-    } catch (error) {
-      console.warn(error);
-    }
-  };
 
   return (
     <div
@@ -98,19 +63,21 @@ function Card({
             </div>
             <div className='card-button-wrapper'>
               {isEditPage && !isEditSelectPage && (
-                <DeleteButton handleClick={handleSelectDelete} />
+                <DeleteButton handleClick={() => handleSelectDelete(id)} />
               )}
               {isEditSelectPage && (
-                <div className='checkbox' onClick={() => handleToggleCheck(id)}>
-                  {isChecked && <img src={iconCheck} alt='check' />}
-                </div>
+                <Checkbox
+                  id={id}
+                  isChecked={!!checkedItems[message.id]}
+                  handleChange={handleCheckboxClick}
+                />
               )}
             </div>
           </div>
           <div>
             <p
               className='card-letter card'
-              dangerouslySetInnerHTML={{ __html: cleanContent }}
+              dangerouslySetInnerHTML={{ __html: Sanitizer(content) }}
               style={{ fontFamily: getFonts(font) }}
             ></p>
           </div>
@@ -128,14 +95,3 @@ function Card({
 }
 
 export default Card;
-
-// {
-//     "id": 13687,
-//     "recipientId": 7720,
-//     "sender": "현서",
-//     "profileImageURL": "https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-3-avatar-2754579_120516.png",
-//     "relationship": "지인",
-//     "content": "<p>Hero</p>",
-//     "font": "나눔손글씨 손편지체",
-//     "createdAt": "2024-05-22T06:03:08.034876Z"
-// }

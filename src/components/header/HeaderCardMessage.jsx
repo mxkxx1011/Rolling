@@ -1,20 +1,8 @@
 import Button from 'components/Button';
 import styles from 'components/Header.module.scss';
-import ReactionList from '../reaction/Reaction';
 import './HeaderCardMessage.scss';
 
-import ProfileList from 'components/profile/ProfileList';
-import ShareKakao from 'utils/ShareKakao';
-import { useEffect, useState } from 'react';
-import EmojiToggle from 'components/EmojiToggle';
-
-import { RecipientsReactionsAPI } from 'data/CallAPI';
-import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import DropMenu from 'components/textfield/DropMenu';
-import ShareButton from './components/ShareButton';
-import EmojiButton from './components/EmojiButton';
-import ReactionWrapper from './components/ReactionWrapper';
 import WriterCount from './components/WriterCount';
 import HeaderName from './components/HeaderName';
 import EmojiShareWrapper from './components/EmojiShareWrapper';

@@ -3,10 +3,12 @@ import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import { RecipientsReactionsAPI } from 'data/CallAPI';
 import { useParams } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 function EmojiButton({ getReactions, getAllReactions, isLoading }) {
   const { postId } = useParams();
   const [isEmoji, setIsEmoji] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const handleEmojiClick = async (e) => {
     const { emoji } = e;
@@ -38,7 +40,7 @@ function EmojiButton({ getReactions, getAllReactions, isLoading }) {
         emoji
         disabled={isLoading}
       >
-        추가
+        {isMobile || '추가'}
       </Button>
       {isEmoji && (
         <EmojiPicker onEmojiClick={handleEmojiClick} className='emoji-picker' />

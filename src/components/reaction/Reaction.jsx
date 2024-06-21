@@ -4,9 +4,13 @@ export function Reaction({ reaction, className }) {
   const { emoji, count } = reaction;
 
   return (
-    <div className={`reaction ${className}`}>
-      {emoji} {count}
-    </div>
+    <>
+      {count == 0 ? null : (
+        <div className={`reaction ${className}`}>
+          {emoji} {count}
+        </div>
+      )}
+    </>
   );
 }
 

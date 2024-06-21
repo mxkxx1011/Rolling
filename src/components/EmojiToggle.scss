@@ -35,6 +35,13 @@
     }
     @include mobile {
       padding: 16px;
+      left: 0;
+      right: auto;
+    }
+
+    & > p {
+      width: 150px;
+      white-space: nowrap;
     }
   }
 }

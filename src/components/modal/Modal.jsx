@@ -1,11 +1,14 @@
 import Badge from 'components/badge/Badge';
 import profileIMG from './profileImg.png';
 import 'assets/styles/CardModal.scss';
+import dompurify from 'dompurify';
 
 import Button from 'components/Button';
 import FormatDate from 'utils/FormatDate';
 import { useEffect } from 'react';
 import { preventScroll, allowScroll } from 'utils/Scroll.jsx';
+import Sanitizer from 'utils/Sanitizer';
+import getFonts from 'utils/getFonts';
 
 function Modal({ message, isModalOpen, handleCloseModal }) {
   useEffect(() => {
@@ -26,6 +29,9 @@ function Modal({ message, isModalOpen, handleCloseModal }) {
     content,
     createdAt,
   } = message;
+
+  const sanitizer = dompurify.sanitize;
+  const cleanContent = sanitizer(content);
 
   const handleOverlayClick = (e) => {
     e.stopPropagation();
@@ -61,7 +67,8 @@ function Modal({ message, isModalOpen, handleCloseModal }) {
           <div className='card-letter-container'>
             <p
               className='card-letter modal'
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: Sanitizer(content) }}
+              style={{ fontFamily: getFonts(font) }}
             ></p>
           </div>
           <Button
