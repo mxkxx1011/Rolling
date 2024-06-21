@@ -9,24 +9,26 @@
   @include Flex(column, center, center, null);
 
   @include mobile {
-    margin-top: 40px
+    margin-top: 40px;
   }
 
   .card-list-box {
     @include Flex(column, center, center, null);
     width: 100%;
     margin-bottom: 50px;
+    position: relative;
 
     @include mobile {
       margin-bottom: 74px;
     }
-
     .title-layer {
       @include Flex(column, flex-start, flex-start, null);
       width: 100%;
       max-width: 1200px;
+      padding: 0 24px;
       .card-list-title {
         margin: 0 24px 16px;
+        width: fit-content;
 
         @include font-style(24, bold);
         line-height: 36px;
@@ -34,42 +36,53 @@
     }
 
     .card-list-data {
-      @include Flex(row, center, center, null);
+      @include Flex(row, center, center, 20px);
       width: 100%;
       position: relative;
       transition: 1s;
+      @include tablet {
+        // padding-left: 24px;
+      }
+
+      .arrow {
+        position: relative;
+        cursor: pointer;
+        @include Flex(row, center, center, null);
+        border: 1px solid $gray-arrow-border;
+        border-radius: 100%;
+        background-color: $color--white;
+        width: 40px;
+        height: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        &.right {
+          right: 40px;
+        }
+        &.left {
+          left: 40px;
+        }
+        &.disabled {
+          visibility: hidden;
+        }
+        @include size-1248 {
+          visibility: hidden;
+        }
+      }
 
       .card-list-wrapper {
-        position: relative;
-        padding: 0 24px;
+        width: 1160px;
         @include Flex(row, flex-start, flex-start, 20px);
         overflow: hidden;
         scroll-behavior: smooth;
-        @include mobile {
-          gap: 12px;
+
+        @include tablet {
+          width: 100%;
         }
-        .arrow {
-          position: absolute;
-          cursor: pointer;
-          @include Flex(row, center, center, null);
-          border: 1px solid $gray-arrow-border;
-          border-radius: 100%;
-          background-color: $color--white;
-          width: 40px;
-          height: 40px;
-          top: 40%;
-          &.right {
-            right: 5px;
-          }
-          &.left {
-            left: 5px;
-          }
-          &.disabled {
-            visibility: hidden;
-          }
-          @include tablet {
-            visibility: hidden;
-          }
+
+        @include mobile {
+          width: 100%;
+          gap: 12px;
         }
       }
     }

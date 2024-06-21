@@ -56,9 +56,6 @@ export function RecipientsAPI(
     query = `${query}&offset=${offset}`;
   }
 }
-
-  console.log(query);
-
   return Axios(Method, query, body, 'recipient');
 }
 
