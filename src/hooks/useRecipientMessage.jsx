@@ -21,7 +21,7 @@ function useRecipientMessage() {
         postId,
         null,
         limit,
-        1,
+        0,
       );
       setRecipientMessage(response.results);
     } catch (error) {
