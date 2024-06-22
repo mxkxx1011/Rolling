@@ -20,9 +20,12 @@
     }
     .card-list-data {
       position: relative;
-      width: fit-content;
+      width: 1248px;
+
+      @include size-1248 {
+        width: 100%;
+      }
       .card-list-wrapper {
-        width: 1170px;
         position: relative;
         background-color: $color--white;
 
@@ -37,25 +40,36 @@
             position: absolute;
             z-index: 2;
             &.left {
-              left: 0px;
+              left: 15px;
               &.disabled {
                 visibility: hidden;
               }
             }
             &.right {
-              right: 0px;
+              right: 35px;
               &.disabled {
                 visibility: hidden;
               }
             }
+            @include size-1248 {
+              display: none;
+            }
           }
           .slick-list {
+            width: 1180px;
             .slick-track {
-              // margin: 0 10px;
-              // margin-left: 10px;
-              padding: 0 10px;
+              @include size-1248 {
+                margin-left: 24px;
+              }
+
               .slick-slide {
-                width: 290px !important;
+                margin-right: 20px;
+                width: 275px !important;
+
+                @include mobile {
+                  width: 200px !important;
+                  margin-right: 12px;
+                }
               }
             }
           }
