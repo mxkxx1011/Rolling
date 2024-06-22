@@ -2,6 +2,23 @@ import classNames from 'classnames';
 import { useState, useEffect } from 'react';
 import Check from './Check';
 import './Options.scss';
+import { images } from './ImageBackground'; // images.js 파일에서 이미지 배열 가져오기
+
+//랜덤 옵션 이미지 지정
+const shuffleArray = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    //랜덤 아이템 배열 생성
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+  return array;
+};
 
 function Option({ idx, isSelected, color = null, image, handleClick }) {
   const BackGroundImageStyle = {
@@ -19,33 +36,27 @@ function Option({ idx, isSelected, color = null, image, handleClick }) {
   );
 }
 
-function Options({ type = 'image', onClick }) {
-  const imageBackground01 =
-    'https://i.pinimg.com/originals/eb/95/10/eb9510644f2631cdf01eccb9de98948d.jpg';
-  const imageBackground02 =
-    'https://c.pxhere.com/photos/e1/2e/meadow_field_grass_yellow_hill-99221.jpg!d';
-  const imageBackground03 =
-    'https://images.pexels.com/photos/796605/pexels-photo-796605.jpeg?auto=compress&cs=tinysrgb&w=600';
-  const imageBackground04 =
-    'https://images.pexels.com/photos/261403/pexels-photo-261403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+function Options({ type = 'image', onClick, onFirstOptionSelect }) {
   const [isSelected, setIsSelected] = useState(0);
+  const [shuffledImages, setShuffledImages] = useState([]);
   const colors = ['beige', 'purple', 'blue', 'green'];
-  const imgs = [
-    imageBackground01,
-    imageBackground02,
-    imageBackground03,
-    imageBackground04,
-  ];
 
-  const OptionArray = type === 'color' ? colors : imgs;
+  const OptionArray = type === 'color' ? colors : shuffledImages;
 
   const handleClick = (idx) => {
     setIsSelected(idx);
     onClick(OptionArray[idx]); // 선택된 옵션 값 전달
   };
 
-  // 토글이 변경될 때 첫 번째 옵션 선택
+  // 토글 변환 시 작동
   useEffect(() => {
+    if (type === 'image') {
+      const shuffled = shuffleArray([...images]).slice(0, 4);
+      setShuffledImages(shuffled);
+      onFirstOptionSelect(shuffled[0]);
+    } else {
+      onFirstOptionSelect(colors[0]);
+    }
     setIsSelected(0);
   }, [type]);
 
