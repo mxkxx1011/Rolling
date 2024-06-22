@@ -11,10 +11,14 @@ import Label from 'components/Label';
 import ErrorMessage from 'components/ErrorMessage';
 
 function PostPage() {
+  const DEFAULT_COLOR = 'beige';
+
+  /* =================[ 옵션과 토글 관리 부분 ]================= */
+
   const [optionType, setOptionType] = useState('color');
   const options = ['컬러', '이미지'];
 
-  const [firstColor, setFirstColor] = useState('beige');
+  const [firstColor, setFirstColor] = useState(DEFAULT_COLOR);
   const [firstImage, setFirstImage] = useState(null);
 
   // 토글 클릭 handler
@@ -44,7 +48,7 @@ function PostPage() {
   /* ==================[ POST API 부분 ]================== */
 
   const [name, setName] = useState('');
-  const [backColor, setBackColor] = useState('beige');
+  const [backColor, setBackColor] = useState(DEFAULT_COLOR);
   const [backImageURL, setBackImageURL] = useState(null);
   const handleMovePage = useNavigator();
   const [isFocus, setIsFocus] = useState(false);
