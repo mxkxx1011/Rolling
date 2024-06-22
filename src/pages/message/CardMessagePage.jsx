@@ -26,6 +26,7 @@ import {
 } from 'data/CallAPI';
 
 import './CardMessagePage.scss';
+import Loading from './Loading';
 
 // post/{id}
 function CardMessagePage() {
@@ -34,6 +35,7 @@ function CardMessagePage() {
   const [showToast, setShowToast] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});
   const [allSelected, setAllSelected] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -94,8 +96,6 @@ function CardMessagePage() {
       );
     } catch (error) {
       console.warn(error);
-    } finally {
-      console.log(recentMessages);
     }
   };
 
@@ -119,6 +119,7 @@ function CardMessagePage() {
     const checkedId = getTrueKeys(checkedItems);
 
     try {
+      setIsDeleteLoading(true);
       await Promise.all(
         // 비동기 작업 일괄적 처리
         checkedId.map(async (id) => {
@@ -130,17 +131,18 @@ function CardMessagePage() {
         const filterMessage = prev.filter(
           (obj) => !numberCheckedId.includes(obj.id),
         );
-        console.log(filterMessage);
         return filterMessage;
       });
     } catch (error) {
       console.error(error);
       return;
+    } finally {
+      setIsDeleteLoading(false);
     }
-
-    // await getRecipientMessage();
-    await getRecipient();
     setCheckedItems({});
+
+    await getRecipientMessage();
+    await getRecipient();
     handleMovePage(`/post/${postId}`);
   };
 
@@ -278,7 +280,7 @@ function CardMessagePage() {
                     order='primary'
                     size='40'
                     handleClick={handleSelectDelete}
-                    disabled={checkedItems.length == 0}
+                    disabled={checkedItems.length == 0 || isDeleteLoading}
                   >
                     선택 항목 삭제
                   </Button>
@@ -328,6 +330,7 @@ function CardMessagePage() {
         )}
 
         <div className='message'>
+          {isDeleteLoading && <Loading />}
           {isLoading ? (
             Array(6)
               .fill(null)
