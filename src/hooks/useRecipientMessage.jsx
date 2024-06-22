@@ -24,22 +24,20 @@ function useRecipientMessage() {
         0,
       );
       setRecipientMessage((prev) => {
-        const uniqueMessage = [...prev, ...response.results].reduce(
-          (acc, cur) => {
-            const existingMessage = acc.find((item) => item.id === cur.id);
+        const allMessages = [...prev, ...response.results];
+        const messageMap = new Map();
 
-            if (!existingMessage) {
-              acc.push(cur);
-            }
+        // allMessages의 각 메시지를 Map에 추가
+        allMessages.forEach((message) => {
+          messageMap.set(message.id, message);
+        });
 
-            return acc;
-          },
-          [],
-        );
-
-        return uniqueMessage.sort(
+        // Map의 값들을 배열로 변환하고, 날짜 기준으로 정렬
+        const uniqueMessages = Array.from(messageMap.values()).sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
+
+        return uniqueMessages;
       });
     } catch (error) {
       console.warn(error);
@@ -50,7 +48,7 @@ function useRecipientMessage() {
 
   useEffect(() => {
     getRecipientMessage();
-  }, [postId, isEditPage, isEditSelectPage]);
+  }, [postId, isEditPage, isEditSelectPage, location]);
 
   return {
     recipientMessage,

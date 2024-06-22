@@ -40,6 +40,9 @@ function CardMessagePage() {
   const location = useLocation();
   const isEditPage = location.pathname.includes('/edit');
   const isEditSelectPage = location.pathname.includes('/edit/select');
+  const isNotChecked = (obj) =>
+    Object.keys(obj).length === 0 ||
+    Object.values(obj).every((value) => value === false);
 
   // get 커스텀훅에서 가져온 recipient와 message
   const { getRecipient, recipient } = useRecipient();
@@ -83,32 +86,57 @@ function CardMessagePage() {
       setRecipientMessage((prev) =>
         prev.filter((message) => message.id !== id),
       );
-      await getRecipientMessage();
-      await getRecipient();
     } catch (error) {
       console.warn(error);
+    } finally {
+      console.log(recentMessages);
+    }
+  };
+
+  const hanldeWasteDelete = async (id) => {
+    try {
+      deleteMessage(id);
+      await getRecipientMessage();
+      handleMovePage(`/post/${postId}`);
+      await getRecipient();
+    } catch (error) {
+      console.error(error);
     }
   };
 
   // 선택한 항목 삭제하는 핸들러 함수
-
   // TODO: 선택 후 삭제하고 화면 리렌더링 되게 해야함..... 휴지통 삭제는 되는데 이게 안되네
   const handleSelectDelete = async () => {
-    if (checkedItems.length == 0) {
+    if (isNotChecked(checkedItems)) {
       alert('삭제할 항목을 선택해주세요');
       return;
     }
     const checkedId = getTrueKeys(checkedItems);
 
     try {
-      checkedId.map((id) => {
-        deleteMessage(id);
+      await Promise.all(
+        // 비동기 작업 일괄적 처리
+        checkedId.map(async (id) => {
+          await deleteMessage(id);
+        }),
+      );
+      setRecipientMessage((prev) => {
+        const numberCheckedId = checkedId.map((str) => +str);
+        const filterMessage = prev.filter(
+          (obj) => !numberCheckedId.includes(obj.id),
+        );
+        console.log(filterMessage);
+        return filterMessage;
       });
-      await getRecipientMessage();
-      handleMovePage(`/post/${postId}`);
     } catch (error) {
       console.error(error);
+      return;
     }
+
+    // await getRecipientMessage();
+    await getRecipient();
+    setCheckedItems({});
+    handleMovePage(`/post/${postId}`);
   };
 
   // 페이지 삭제하는 핸들러 함수
@@ -158,7 +186,7 @@ function CardMessagePage() {
     const limit = 6; // 첫 페이지는 5개, 이후 페이지는 6개
     const offset = isEditPage ? page * 6 : (page - 1) * limit + 5; //(page == 1 ? 5 : 6); // 첫 페이지는 0, 이후 페이지는 6의 배수
 
-    const responseMessage = await RecipientsMessagesAPI(
+    const response = await RecipientsMessagesAPI(
       'get',
       postId,
       null,
@@ -167,26 +195,24 @@ function CardMessagePage() {
     );
 
     // 만약 더 이상 불러올 상품이 없다면 hasMore 상태를 false로 설정합니다.
-    if (responseMessage.results.length === 0) {
+    if (response.results.length === 0) {
       setHasMore(false);
     } else {
       setRecipientMessage((prev) => {
-        const uniqueMessage = [...prev, ...responseMessage.results].reduce(
-          (acc, cur) => {
-            const existingMessage = acc.find((item) => item.id === cur.id);
+        const allMessages = [...prev, ...response.results];
+        const messageMap = new Map();
 
-            if (!existingMessage) {
-              acc.push(cur);
-            }
+        // allMessages의 각 메시지를 Map에 추가
+        allMessages.forEach((message) => {
+          messageMap.set(message.id, message);
+        });
 
-            return acc;
-          },
-          [],
-        );
-
-        return uniqueMessage.sort(
+        // Map의 값들을 배열로 변환하고, 날짜 기준으로 정렬
+        const uniqueMessages = Array.from(messageMap.values()).sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
+
+        return uniqueMessages;
       });
 
       // 페이지 번호를 업데이트하여 다음 요청에 올바른 skip 값을 사용합니다.
@@ -194,10 +220,11 @@ function CardMessagePage() {
     }
   };
   useEffect(() => {
+    getRecipientMessage();
     if (inView && hasMore) {
       fetchMoreItems();
     }
-  }, [inView, hasMore]);
+  }, [postId, inView, hasMore]);
 
   return (
     <>
@@ -322,7 +349,7 @@ function CardMessagePage() {
                   checkedItems={checkedItems}
                   setCheckedItems={setCheckedItems}
                   allSelected={allSelected}
-                  handleSelectDelete={deleteMessage}
+                  handleSelectDelete={hanldeWasteDelete} // deleteMessage
                   handleCheckboxClick={() => handleToggleCheck(message.id)}
                 />
               ))}
