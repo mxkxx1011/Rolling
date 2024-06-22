@@ -30,46 +30,13 @@ function CardListPage() {
   const [offset, setOffSet] = useState(0);
   const [hotOffset, setHotOffSet] = useState(0);
   const [hotRecipients, setHotRecipients] = useState([]);
-  // const [getWidth, setGetWidth] = useState(window.innerWidth);
   const handleMovePage = useNavigator();
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
   const [isLodding, setIsLodding] = useState(false);
-
-  UseDragScroll(hotListRef);
-  UseDragScroll(dateListRef);
-
-  function listShift(count) {
-    setOffSet((prev) => {
-      const newOffset = prev + count;
-
-      if (newOffset >= 0 && newOffset < recipients.length) {
-        if (dateListRef.current) {
-          const cardWidth = dateListRef.current.children[0].offsetWidth; // 카드 한 개의 너비
-          const scrollAmount = (cardWidth + 20) * 2; // 두 개의 카드 너비만큼 이동
-          dateListRef.current.scrollLeft +=
-            scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
-        }
-        return newOffset;
-      }
-    });
-  }
-
-  function hotListShift(count) {
-    setHotOffSet((prev) => {
-      const newOffset = prev + count;
-
-      if (newOffset >= 0 && newOffset < hotRecipients.length) {
-        if (hotListRef.current) {
-          const cardWidth = hotListRef.current.children[0].offsetWidth; // 카드 한 개의 너비
-          const scrollAmount = (cardWidth + 20) * 2; // 두 개의 카드 너비만큼 이동
-          hotListRef.current.scrollLeft +=
-            scrollAmount * (count / Math.abs(count)); // 방향에 따라 스크롤 이동
-        }
-        return newOffset;
-      }
-    });
-  }
+  const [slidesToShow, setSlidesToShow] = useState(4);
+  // UseDragScroll(hotListRef);
+  // UseDragScroll(dateListRef);
 
   const getRecipient = async () => {
     try {
@@ -85,6 +52,23 @@ function CardListPage() {
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSlidesToShow(2);
+      } else if (window.innerWidth < 1024) {
+        setSlidesToShow(3);
+      } else {
+        setSlidesToShow(4);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     getRecipient();
   }, []);
 
@@ -95,7 +79,7 @@ function CardListPage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: slidesToShow,
     slidesToScroll: 2,
     initialSlide: 0,
     afterChange: (current) => setCurrentSlide(current),
@@ -108,7 +92,7 @@ function CardListPage() {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: slidesToShow,
     slidesToScroll: 2,
     initialSlide: 0,
     afterChange: (current) => setHotCurrentSlide(current),

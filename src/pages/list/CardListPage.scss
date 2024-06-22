@@ -5,10 +5,11 @@
 .card-list-layer {
   overflow: hidden;
   margin: 0 auto;
-  width: fit-content;
+  width: 100%;
+  max-width: fit-content;
   padding-bottom: 24px;
-  @include Flex(column, center, center, null);
   .card-list-box {
+    width: fit-content;
     .title-layer {
       margin-top: 50px;
       margin-left: 24px;
@@ -86,9 +87,10 @@
     width: 100%;
     @include Flex(row, center, center, null);
 
-    // @include tablet {
-    //   max-width: 720px;
-    // }
+    @include tablet {
+      align-items: center;
+      justify-content: center;
+    }
 
     @include mobile {
       padding: 0 20px;
@@ -110,108 +112,3 @@
     }
   }
 }
-
-// .card-list-layer {
-//   margin: 50px auto;
-//   // width: 100%;
-//   overflow: hidden;
-//   @include Flex(column, center, center, null);
-
-//   @include mobile {
-//     margin-top: 40px;
-//   }
-
-//   .card-list-box {
-//     @include Flex(column, center, center, null);
-//     width: 100%;
-//     margin-bottom: 50px;
-//     position: relative;
-
-//     @include mobile {
-//       margin-bottom: 74px;
-//     }
-//     .title-layer {
-//       @include Flex(column, flex-start, flex-start, null);
-//       width: 100%;
-//       max-width: 1160px;
-//       padding: 0 24px;
-//       .card-list-title {
-//         margin: 0 24px 16px;
-//         // width: fit-content;
-
-//         @include font-style(24, bold);
-//         line-height: 36px;
-//       }
-//     }
-
-//     .card-list-data {
-//       @include Flex(row, center, center, 20px);
-//       width: 100%;
-//       position: relative;
-//       transition: 1s;
-//       @include tablet {
-//         margin: 0 24px;
-//       }
-
-//       // .arrow {
-//       //   position: relative;
-//       //   cursor: pointer;
-//       //   @include Flex(row, center, center, null);
-//       //   border: 1px solid $gray-arrow-border;
-//       //   border-radius: 100%;
-//       //   background-color: $color--white;
-//       //   width: 40px;
-//       //   height: 40px;
-//       //   top: 50%;
-//       //   transform: translateY(-50%);
-//       //   z-index: 2;
-//       //   &.right {
-//       //     right: 40px;
-//       //   }
-//       //   &.left {
-//       //     left: 40px;
-//       //   }
-//       //   &.disabled {
-//       //     visibility: hidden;
-//       //   }
-//       //   @include size-1248 {
-//       //     visibility: hidden;
-//       //   }
-//       // }
-
-//       .card-list-wrapper {
-//         width: 1160px;
-//         @include Flex(row, flex-start, flex-start, 20px);
-//         overflow: hidden;
-//         scroll-behavior: smooth;
-
-//         @include tablet {
-//           // width: calc(100% - 24px);
-//         }
-
-//         @include mobile {
-//           gap: 12px;
-//         }
-//       }
-//     }
-//   }
-//   .link-button-layer {
-//     padding: 0 24px;
-//     width: 100%;
-//     @include Flex(row, center, center, null);
-
-//     @include mobile {
-//       padding: 0 20px;
-//     }
-//     .post-link-button {
-//       margin-top: 16px;
-//       width: 280px;
-//       color: $color--white;
-//       background-color: $purple-600;
-//       @include tablet {
-//         margin-top: 156px;
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
