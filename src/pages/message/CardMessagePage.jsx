@@ -105,7 +105,6 @@ function CardMessagePage() {
   };
 
   // 선택한 항목 삭제하는 핸들러 함수
-  // TODO: 선택 후 삭제하고 화면 리렌더링 되게 해야함..... 휴지통 삭제는 되는데 이게 안되네
   const handleSelectDelete = async () => {
     if (isNotChecked(checkedItems)) {
       alert('삭제할 항목을 선택해주세요');
@@ -255,7 +254,7 @@ function CardMessagePage() {
                   )
                 }
               >
-                뒤로 가기
+                뒤로
               </Button>
             </div>
             <div className='button-right'>
@@ -276,7 +275,7 @@ function CardMessagePage() {
                     handleClick={handleSelectDelete}
                     disabled={checkedItems.length == 0}
                   >
-                    선택한 항목 삭제하기
+                    선택 항목 삭제
                   </Button>
                 </>
               ) : (
@@ -300,7 +299,7 @@ function CardMessagePage() {
                 size='40'
                 handleClick={() => handleMovePage('/list')}
               >
-                뒤로 가기
+                뒤로
               </Button>
             </div>
             <div className='button-right'>

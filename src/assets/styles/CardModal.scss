@@ -75,12 +75,6 @@ $types: (
 
       &.modal {
         @include ProfileFlex(modal);
-
-        .profile-text-wrapper {
-          & > p {
-            width: 300px;
-          }
-        }
       }
 
       &.card {
@@ -157,9 +151,10 @@ $types: (
 
     transition: transform 0.3s ease-in-out;
 
-    @media (max-width: 1248px) {
+    @include size-1248 {
       width: 100%;
     }
+
     &:hover {
       cursor: pointer;
       transform: scale(0.93);
@@ -169,6 +164,10 @@ $types: (
       width: 336px;
       height: 228px;
       @include Flex(row, center, center, null);
+
+      @include tablet {
+        width: 100%;
+      }
     }
 
     .card-button-wrapper {
@@ -198,5 +197,14 @@ $types: (
     height: 476px;
     padding: 40px;
     @include Flex(column, null, null, 16px);
+
+    @include tablet {
+      max-width: 600px;
+      width: 90%;
+
+      .card-letter-container {
+        width: 100%;
+      }
+    }
   }
 }
