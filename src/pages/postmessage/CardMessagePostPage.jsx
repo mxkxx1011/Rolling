@@ -52,8 +52,8 @@ function CardMessagePostPage() {
     try {
       RecipientsMessagesAPI('post', postId, formData);
       console.log(formData);
-      getRecipientMessage();
       getRecipient();
+      getRecipientMessage();
       handleMovePage(`/post/${postId}`);
     } catch (error) {
       console.log(error);
