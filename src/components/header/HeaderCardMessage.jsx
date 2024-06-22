@@ -18,45 +18,44 @@ function HeaderCardMessage({
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  if (isMobile)
+    return (
+      <div className='header-mobile'>
+        <div>
+          <HeaderName name={name} messageCount={messageCount} />
+        </div>
+        <div>
+          <EmojiShareWrapper setShowToast={setShowToast} />
+        </div>
+      </div>
+    );
+
   return (
-    <>
-      {!isMobile ? (
-        <header className={styles.header}>
-          <div className={styles.container}>
-            <HeaderName
-              name={name}
-              messageCount={messageCount}
-              isLoading={isLoading}
-            />
-            <div className='header-right'>
-              {isDesktop ? (
-                <>
-                  <WriterCount
-                    messageCount={messageCount}
-                    recentMessages={recentMessages}
-                    isLoading={isLoading}
-                  />
-                  <div className='border'></div>
-                </>
-              ) : null}
-              <EmojiShareWrapper
-                setShowToast={setShowToast}
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <HeaderName
+          name={name}
+          messageCount={messageCount}
+          isLoading={isLoading}
+        />
+        <div className='header-right'>
+          {isDesktop ? (
+            <>
+              <WriterCount
+                messageCount={messageCount}
+                recentMessages={recentMessages}
                 isLoading={isLoading}
               />
-            </div>
-          </div>
-        </header>
-      ) : (
-        <div className='header-mobile'>
-          <div>
-            <HeaderName name={name} messageCount={messageCount} />
-          </div>
-          <div>
-            <EmojiShareWrapper setShowToast={setShowToast} />
-          </div>
+              <div className='border'></div>
+            </>
+          ) : null}
+          <EmojiShareWrapper
+            setShowToast={setShowToast}
+            isLoading={isLoading}
+          />
         </div>
-      )}
-    </>
+      </div>
+    </header>
   );
 }
 

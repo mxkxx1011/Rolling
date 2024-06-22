@@ -12,7 +12,8 @@ const COPY_SUCCESS_TIMEOUT = 3500;
 function ShareButton({ setShowToast, isLoading }) {
   const [isMenuShow, setIsMenuShow] = useState(false);
 
-  const route = 'https://rolling.com';
+  const route =
+    'http://rock.n.rolling.s3-website-ap-southeast-2.amazonaws.com/';
   const resultURL = window.location.href;
 
   const handleShowMenu = () => {
@@ -41,18 +42,18 @@ function ShareButton({ setShowToast, isLoading }) {
     Kakao.Share.sendDefault({
       objectType: 'feed', // 카카오 링크 공유 여러 type들 중 feed라는 타입 -> 자세한 건 카카오에서 확인
       content: {
-        title: 'rolling', // 인자값으로 받은 title
-        description: 'rolling in the deep', // 인자값으로 받은 title
+        title: 'rock n rolling🤟', // 인자값으로 받은 title
+        description: '몰래 쓰는 내 친구의 실체', // 인자값으로 받은 title
         imageUrl:
-          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+          'https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-paper-plane-cartoon-background-flying-in-the-sky-skyover-the-skyfly-image_60065.jpg',
         link: {
-          mobileWebUrl: resultURL, // 인자값으로 받은 route(uri 형태)
-          webUrl: resultURL,
+          mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
+          webUrl: route,
         },
       },
       buttons: [
         {
-          title: '웹으로 이동',
+          title: '롤링페이퍼 쓰러 가기',
           link: {
             mobileWebUrl: route,
             webUrl: route,

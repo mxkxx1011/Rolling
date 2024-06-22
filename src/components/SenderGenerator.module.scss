@@ -1,0 +1,46 @@
+@import 'assets/styles/common.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/palette.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 8px;
+  height: 34px;
+  width: 112px;
+  border: none;
+  background-color: $gray-300;
+  border-radius: 20px;
+  cursor: pointer;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: $gray-400;
+
+    .icon {
+      animation: spin 2s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.span {
+  @include font-style(16, regular);
+  color: $gray-500;
+  letter-spacing: 1px;
+}

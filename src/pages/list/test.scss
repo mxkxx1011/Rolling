@@ -1,0 +1,27 @@
+.card-list-layer {
+  margin: 0 auto;
+  background-color: gray;
+  width: auto;
+  //   padding: 0 24px;
+  //   height: 400px;
+  //   width: 100%;
+  //   width: fit-content;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+  .card-list-box {
+    // width: fit-content;
+    // width: 1200px;
+    .card-list-data {
+      //   width: 1200px;
+      .card-list-wrapper {
+        // margin: 0 24px;
+        // padding: 20px;
+        // width: 100%;
+        // width: 1160px;
+        width: auto;
+      }
+    }
+  }
+}
