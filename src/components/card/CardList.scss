@@ -70,6 +70,14 @@
     }
   }
 
+  .empty-emoji {
+    border-top: 1px solid #0000001f;
+    height: 50px;
+    padding-top: 17px;
+    color: $gray-500;
+    line-height: 32px;
+  }
+
   .reactions {
     border-top: 1px solid #0000001f;
     padding-top: 17px;

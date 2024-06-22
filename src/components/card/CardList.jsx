@@ -44,7 +44,11 @@ function CardList({ type = 'color', recipient }) {
               </p>
             </div>
           </div>
-          <ReactionList reactions={topReactions} />
+          {topReactions.length === 0 ? (
+            <div className='empty-emoji'>이모지를 남겨보세요!</div>
+          ) : (
+            <ReactionList reactions={topReactions} />
+          )}
         </div>
       </div>
     </Link>
