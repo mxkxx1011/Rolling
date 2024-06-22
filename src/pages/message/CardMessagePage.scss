@@ -76,7 +76,7 @@ main {
     }
     @include mobile {
       grid-template-columns: repeat(1, 1fr); /* 3개의 열을 동일한 너비로 설정 */
-      height: 1200px;
+      // height: 1200px;
     }
 
     height: 588px;

@@ -23,7 +23,24 @@ function useRecipientMessage() {
         limit,
         0,
       );
-      setRecipientMessage(response.results);
+      setRecipientMessage((prev) => {
+        const uniqueMessage = [...prev, ...response.results].reduce(
+          (acc, cur) => {
+            const existingMessage = acc.find((item) => item.id === cur.id);
+
+            if (!existingMessage) {
+              acc.push(cur);
+            }
+
+            return acc;
+          },
+          [],
+        );
+
+        return uniqueMessage.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+      });
     } catch (error) {
       console.warn(error);
     } finally {

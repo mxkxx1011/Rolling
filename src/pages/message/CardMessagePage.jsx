@@ -80,25 +80,35 @@ function CardMessagePage() {
   const deleteMessage = async (id) => {
     try {
       const response = await MessagesAPI('delete', id, null);
-      getRecipientMessage();
-      getRecipient();
+      setRecipientMessage((prev) =>
+        prev.filter((message) => message.id !== id),
+      );
+      await getRecipientMessage();
+      await getRecipient();
     } catch (error) {
       console.warn(error);
     }
   };
 
   // 선택한 항목 삭제하는 핸들러 함수
-  const handleSelectDelete = () => {
+
+  // TODO: 선택 후 삭제하고 화면 리렌더링 되게 해야함..... 휴지통 삭제는 되는데 이게 안되네
+  const handleSelectDelete = async () => {
     if (checkedItems.length == 0) {
       alert('삭제할 항목을 선택해주세요');
       return;
     }
-
     const checkedId = getTrueKeys(checkedItems);
-    checkedId.map((id) => {
-      deleteMessage(id);
+
+    try {
+      checkedId.map((id) => {
+        deleteMessage(id);
+      });
+      await getRecipientMessage();
       handleMovePage(`/post/${postId}`);
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // 페이지 삭제하는 핸들러 함수
@@ -160,10 +170,24 @@ function CardMessagePage() {
     if (responseMessage.results.length === 0) {
       setHasMore(false);
     } else {
-      setRecipientMessage((prevMessage) => [
-        ...prevMessage,
-        ...responseMessage.results,
-      ]);
+      setRecipientMessage((prev) => {
+        const uniqueMessage = [...prev, ...responseMessage.results].reduce(
+          (acc, cur) => {
+            const existingMessage = acc.find((item) => item.id === cur.id);
+
+            if (!existingMessage) {
+              acc.push(cur);
+            }
+
+            return acc;
+          },
+          [],
+        );
+
+        return uniqueMessage.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+      });
 
       // 페이지 번호를 업데이트하여 다음 요청에 올바른 skip 값을 사용합니다.
       setPage((prevPage) => prevPage + 1);
