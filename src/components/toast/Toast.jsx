@@ -1,11 +1,23 @@
 import './Toast.scss';
 import IMGclose from 'assets/images/ic_close.svg';
 import IMGsubtract from 'assets/images/ic_subtract.svg';
+import { useEffect } from 'react';
 
+const COPY_SUCCESS_TIMEOUT = 3500;
 function Toast({ setShowToast }) {
   const handleClick = () => {
     setShowToast(false);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowToast(false);
+    }, COPY_SUCCESS_TIMEOUT);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [setShowToast]);
+
   return (
     <div className='toast'>
       <div className='toast-container'>
