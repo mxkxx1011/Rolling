@@ -8,6 +8,11 @@ import useNavigator from 'hooks/useNavigator';
 import UseDragScroll from 'utils/UseDragScroll';
 import SkeletonCardList from 'components/card/SkeletonCardList';
 
+import Slider from 'react-slick';
+
+import 'slick-carousel/slick/slick.scss';
+import 'slick-carousel/slick/slick-theme.scss';
+
 function hotSort(recipients) {
   if (!recipients || !Array.isArray(recipients)) {
     //레시피언트 없는지와 레시피언트리절트가 배열인지 확인
@@ -25,6 +30,7 @@ function CardListPage() {
   const [offset, setOffSet] = useState(0);
   const [hotOffset, setHotOffSet] = useState(0);
   const [hotRecipients, setHotRecipients] = useState([]);
+  // const [getWidth, setGetWidth] = useState(window.innerWidth);
   const handleMovePage = useNavigator();
   const hotListRef = useRef(null);
   const dateListRef = useRef(null);
@@ -82,6 +88,46 @@ function CardListPage() {
     getRecipient();
   }, []);
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 2,
+    initialSlide: 0,
+    afterChange: (current) => setCurrentSlide(current),
+    nextArrow: (
+      <CustomNextArrow currentSlide={currentSlide} slideCount={limit} />
+    ),
+    prevArrow: <CustomPrevArrow currentSlide={currentSlide} />,
+  };
+
+  function CustomNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`arrow right ${currentSlide + limit < recipients.length ? '' : 'disabled'}`}
+        onClick={onClick}
+      >
+        <ArrowButton direction='right' />
+      </div>
+    );
+  }
+
+  function CustomPrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`arrow left ${currentSlide > 0 ? '' : 'disabled'}`}
+        onClick={onClick}
+      >
+        <ArrowButton direction='left' />
+      </div>
+    );
+  }
+
   return (
     <div className='card-list-layer'>
       <div className='card-list-box'>
@@ -89,32 +135,24 @@ function CardListPage() {
           <p className='card-list-title'>인기 롤링 페이퍼 🔥</p>
         </div>
         <div className='card-list-data'>
-          <div
-            className={`arrow left ${hotOffset > 0 ? '' : 'disabled'}`}
-            onClick={() => hotListShift(-2)}
-          >
-            <ArrowButton direction={'left'} />
-          </div>
           <div className='card-list-wrapper hot-card' ref={hotListRef}>
-            {isLodding
-              ? Array(4)
+            {isLodding ? (
+              <div className='skelet-layer'>
+                {Array(4)
                   .fill(null)
                   .map((limit, index) => (
                     <div key={index}>
                       <SkeletonCardList />
                     </div>
-                  ))
-              : hotRecipients.map((data) => (
-                  <div key={data.id}>
-                    <CardList recipient={data} />
-                  </div>
+                  ))}
+              </div>
+            ) : (
+              <Slider {...settings}>
+                {hotRecipients.map((data, index) => (
+                  <CardList key={data.id} recipient={data} />
                 ))}
-          </div>
-          <div
-            className={`arrow right ${hotOffset + limit < hotRecipients.length ? '' : 'disabled'}`}
-            onClick={() => hotListShift(2)}
-          >
-            <ArrowButton direction={'right'} />
+              </Slider>
+            )}
           </div>
         </div>
       </div>
@@ -123,30 +161,24 @@ function CardListPage() {
           <p className='card-list-title'>최근에 만든 롤링 페이퍼 ⭐</p>
         </div>
         <div className='card-list-data'>
-          <div
-            className={`arrow left ${offset > 0 ? '' : 'disabled'}`}
-            onClick={() => listShift(-2)}
-          >
-            <ArrowButton direction={'left'} />
-          </div>
           <div className='card-list-wrapper date-card' ref={dateListRef}>
-            {isLodding
-              ? Array(4)
+            {isLodding ? (
+              <div className='skelet-layer'>
+                {Array(4)
                   .fill(null)
                   .map((limit, index) => (
                     <div key={index}>
                       <SkeletonCardList />
                     </div>
-                  ))
-              : recipients.map((data) => (
+                  ))}
+              </div>
+            ) : (
+              <Slider {...settings}>
+                {recipients.map((data) => (
                   <CardList key={data.id} recipient={data} />
                 ))}
-          </div>
-          <div
-            className={`arrow right ${offset + limit < recipients.length ? '' : 'disabled'}`}
-            onClick={() => listShift(2)}
-          >
-            <ArrowButton direction={'right'} />
+              </Slider>
+            )}
           </div>
         </div>
       </div>
