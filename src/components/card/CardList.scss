@@ -41,10 +41,11 @@
     .content-name {
       line-height: 36px;
       @include font-style(24, bold);
+      //@include font-style(24, bold, 24, 18);
 
       @include mobile {
         line-height: 28px;
-        @include font-style(18, bold);
+        @include font-style(18, bold); // 지우기
       }
     }
 
@@ -53,17 +54,19 @@
       .content-write {
         line-height: 26px;
         @include font-style(16, regular);
+        //@include font-style(16, regular, 16, 14);
 
         @include mobile {
           line-height: 20px;
-          @include font-style(14, regular);
+          @include font-style(14, regular); // 지우기
         }
 
         .content-count {
           @include font-style(16, bold);
+          //@include font-style(16, bold, 16, 14);
 
           @include mobile {
-            @include font-style(14, bold);
+            @include font-style(14, bold); // 지우기
           }
         }
       }
