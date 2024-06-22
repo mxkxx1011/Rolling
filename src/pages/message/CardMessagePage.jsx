@@ -232,6 +232,11 @@ function CardMessagePage() {
     }
   }, [inView, hasMore]);
 
+  useEffect(() => {
+    setCheckedItems({});
+    setAllSelected(false);
+  }, [location]);
+
   return (
     <>
       <HeaderCardMessage
@@ -271,9 +276,9 @@ function CardMessagePage() {
                     <p className='font-18-bold'>전체 선택</p>
                     <Checkbox
                       id='selectAll'
-                      handleClick={handleAllSelect}
                       isChecked={allSelected}
                       handleChange={handleAllSelect}
+                      checkedItems={checkedItems}
                     />
                   </div>
                   <Button
