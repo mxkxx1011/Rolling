@@ -1,4 +1,3 @@
-// RandomizeButton.jsx
 import React from 'react';
 import './RandomButton.scss';
 
