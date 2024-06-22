@@ -22,9 +22,14 @@
       position: relative;
       width: fit-content;
       .card-list-wrapper {
-        width: 1248px;
+        width: 1170px;
         position: relative;
         background-color: $color--white;
+
+        @include tablet {
+        }
+        @include mobile {
+        }
 
         .slick-slider {
           @include Flex(row, center, center, null);
@@ -46,8 +51,11 @@
           }
           .slick-list {
             .slick-track {
-              margin: 0 20px;
+              // margin: 0 10px;
+              // margin-left: 10px;
+              padding: 0 10px;
               .slick-slide {
+                width: 290px !important;
               }
             }
           }
@@ -83,7 +91,7 @@
       }
       @include mobile {
         margin-top: 66px;
-        // width: 320px;
+        max-width: 320px;
       }
     }
   }
