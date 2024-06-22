@@ -1,25 +1,31 @@
-import HeaderCardMessage from 'components/header/HeaderCardMessage';
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+
+import classNames from 'classnames';
+
+import {
+  Modal,
+  Toast,
+  Button,
+  Checkbox,
+  HeaderCardMessage,
+  SkeletonCard,
+  Card,
+  useNavigator,
+  useRecipient,
+  useRecipientMessage,
+  ShareKakao,
+  getTrueKeys,
+} from './index';
+
 import {
   MessagesAPI,
   RecipientsAPI,
   RecipientsMessagesAPI,
 } from 'data/CallAPI';
-import Card from 'components/card/Card';
+
 import './CardMessagePage.scss';
-import classNames from 'classnames';
-import ShareKakao from 'utils/ShareKakao';
-import Modal from 'components/modal/Modal';
-import useNavigator from 'hooks/useNavigator';
-import { useInView } from 'react-intersection-observer';
-import SkeletonCard from 'components/card/SkeletonCard';
-import Toast from 'components/toast/Toast';
-import Button from 'components/Button';
-import Checkbox from '../../components/checkbox/CheckBox';
-import useRecipient from 'hooks/useRecipient';
-import useRecipientMessage from 'hooks/useRecipientMessage';
-import getTrueKeys from 'utils/getTrueKeys';
 
 // post/{id}
 function CardMessagePage() {
@@ -219,11 +225,10 @@ function CardMessagePage() {
     }
   };
   useEffect(() => {
-    getRecipientMessage();
     if (inView && hasMore) {
       fetchMoreItems();
     }
-  }, [postId, inView, hasMore]);
+  }, [inView, hasMore]);
 
   return (
     <>

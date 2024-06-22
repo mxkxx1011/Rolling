@@ -26,7 +26,7 @@ function useRecipient() {
 
   useEffect(() => {
     getRecipient();
-  }, [location, postId, isEditPage, isEditSelectPage]);
+  }, [postId]);
 
   return { recipient, isLoading, getRecipient };
 }

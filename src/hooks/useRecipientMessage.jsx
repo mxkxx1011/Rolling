@@ -48,7 +48,7 @@ function useRecipientMessage() {
 
   useEffect(() => {
     getRecipientMessage();
-  }, [postId, isEditPage, isEditSelectPage, location]);
+  }, [postId]);
 
   return {
     recipientMessage,
