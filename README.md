@@ -1,4 +1,4 @@
-![데스크탑 리스트](https://github.com/mxkxx1011/Rolling/assets/100355178/70d81cea-26ee-4fa9-8064-fecc57450567)# 🤘온라인 롤링페이퍼 플랫폼 Rolling
+🤘온라인 롤링페이퍼 플랫폼 Rolling
 ![최종이미지](https://github.com/mxkxx1011/Rolling/assets/100355178/3e5f699f-f66b-4c53-9cbb-f8c287b491cb)
 배포 URL : https://rocknrolling.netlify.app/
 
