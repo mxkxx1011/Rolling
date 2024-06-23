@@ -54,6 +54,7 @@
     position: relative;
 
     .emoji-picker {
+      z-index: 5;
       position: absolute;
       left: -237px;
       top: 50px;

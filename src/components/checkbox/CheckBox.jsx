@@ -1,6 +1,6 @@
 import './Checkbox.scss';
 
-function Checkbox({ id, handleClick, isChecked, handleChange }) {
+function Checkbox({ id, handleClick, isChecked, handleChange, checkedItems }) {
   return (
     <div className='cntr'>
       <input
@@ -8,7 +8,6 @@ function Checkbox({ id, handleClick, isChecked, handleChange }) {
         type='checkbox'
         id={id}
         className='hidden-xs-up'
-        // onClick={handleClick}
         onChange={handleChange}
       />
       <label htmlFor={id} className='cbx'></label>

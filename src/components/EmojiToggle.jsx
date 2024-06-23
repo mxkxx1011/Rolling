@@ -2,7 +2,7 @@ import ArrowDown from 'assets/images/ic_arrow_down.svg';
 import ArrowTop from 'assets/images/ic_arrow_top.svg';
 import 'components/EmojiToggle.scss';
 import { Reaction } from 'components/reaction/Reaction';
-import Button from './Button';
+import Button from 'components/Button';
 import iconPlus4 from 'assets/images/ic_plus_4.svg';
 import iconMinus from 'assets/images/ic_minus.svg';
 import { useState } from 'react';

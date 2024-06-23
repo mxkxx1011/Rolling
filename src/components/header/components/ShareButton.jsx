@@ -8,20 +8,18 @@ import ShareImageButton from './ShareImageButton';
 const { Kakao } = window;
 const KAKAO_LINK_KEY = process.env.REACT_APP_SHARE_KAKAO_LINK_KEY;
 const COPY_SUCCESS_TIMEOUT = 3500;
+const BASE_URL = `https://rocknrolling.netlify.app`;
 
 function ShareButton({ setShowToast, isLoading }) {
   const [isMenuShow, setIsMenuShow] = useState(false);
-
-  const route =
-    'http://rock.n.rolling.s3-website-ap-southeast-2.amazonaws.com/';
-  const resultURL = window.location.href;
+  const location = useLocation();
 
   const handleShowMenu = () => {
     setIsMenuShow((prev) => !prev);
   };
 
   const handleURLCopy = () => {
-    const url = window.location.href;
+    const url = `${BASE_URL}${location.pathname}`;
     navigator.clipboard
       .writeText(url)
       .then(() => {
@@ -47,16 +45,16 @@ function ShareButton({ setShowToast, isLoading }) {
         imageUrl:
           'https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-paper-plane-cartoon-background-flying-in-the-sky-skyover-the-skyfly-image_60065.jpg',
         link: {
-          mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
-          webUrl: route,
+          mobileWebUrl: BASE_URL, // 인자값으로 받은 route(uri 형태)
+          webUrl: BASE_URL,
         },
       },
       buttons: [
         {
           title: '롤링페이퍼 쓰러 가기',
           link: {
-            mobileWebUrl: route,
-            webUrl: route,
+            mobileWebUrl: BASE_URL,
+            webUrl: BASE_URL,
           },
         },
       ],
