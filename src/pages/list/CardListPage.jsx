@@ -97,16 +97,15 @@ function CardListPage() {
     initialSlide: 0,
     afterChange: (current) => setHotCurrentSlide(current),
     nextArrow: (
-      <CustomNextArrow currentSlide={hotCurrentSlide} slideCount={limit} />
+      <CustomNextArrow currentSlide={hotCurrentSlide}/>
     ),
     prevArrow: <CustomPrevArrow currentSlide={hotCurrentSlide} />,
   };
 
-  function CustomNextArrow(props) {
-    const { className, style, onClick } = props;
+  function CustomNextArrow({ onClick, currentSlide }) {
     return (
       <div
-        className={`arrow right ${props.currentSlide + limit < recipients.length ? '' : 'disabled'}`}
+        className={`arrow right ${currentSlide + limit < recipients.length ? '' : 'disabled'}`}
         onClick={onClick}
       >
         <ArrowButton direction='right' />
@@ -114,11 +113,10 @@ function CardListPage() {
     );
   }
 
-  function CustomPrevArrow(props) {
-    const { className, style, onClick } = props;
+  function CustomPrevArrow({ onClick, currentSlide }) {
     return (
       <div
-        className={`arrow left ${props.currentSlide > 0 ? '' : 'disabled'}`}
+        className={`arrow left ${currentSlide > 0 ? '' : 'disabled'}`}
         onClick={onClick}
       >
         <ArrowButton direction='left' />

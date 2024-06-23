@@ -87,11 +87,6 @@
     width: 100%;
     @include Flex(row, center, center, null);
 
-    @include tablet {
-      align-items: center;
-      justify-content: center;
-    }
-
     @include mobile {
       padding: 0 20px;
     }
