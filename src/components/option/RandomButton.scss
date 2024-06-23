@@ -1,0 +1,86 @@
+@import 'assets/styles/reset.scss';
+@import 'assets/styles/palette.scss';
+@import 'assets/styles/fonts.scss';
+@import 'assets/styles/common.scss';
+
+.random-button-container {
+  width: 100px;
+  margin: -10px 0 10px 0;
+  button {
+    position: relative;
+    padding: 5px 5px;
+    outline: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: $color--white;
+    border: 2px solid $purple-800;
+    border-radius: 10px;
+    color: $purple-800;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+  }
+
+  button span {
+    color: $purple-900;
+    @include font-style(14, regular);
+    letter-spacing: 0.7px;
+  }
+
+  button:hover {
+    animation: rotate624 0.7s ease-in-out both;
+    background-color: $purple-100;
+  }
+
+  button:hover span {
+    animation: storm1261 0.7s ease-in-out both;
+    animation-delay: 0.06s;
+  }
+
+  @keyframes rotate624 {
+    0% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+
+    25% {
+      transform: rotate(3deg) translate3d(0, 0, 0);
+    }
+
+    50% {
+      transform: rotate(-3deg) translate3d(0, 0, 0);
+    }
+
+    75% {
+      transform: rotate(1deg) translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: rotate(0deg) translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes storm1261 {
+    0% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+
+    25% {
+      transform: translate3d(4px, 0, 0) translateZ(0);
+    }
+
+    50% {
+      transform: translate3d(-3px, 0, 0) translateZ(0);
+    }
+
+    75% {
+      transform: translate3d(2px, 0, 0) translateZ(0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0) translateZ(0);
+    }
+  }
+}
