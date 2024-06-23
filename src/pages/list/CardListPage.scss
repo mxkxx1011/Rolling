@@ -30,11 +30,6 @@
         position: relative;
         background-color: $color--white;
 
-        @include tablet {
-        }
-        @include mobile {
-        }
-
         .slick-slider {
           @include Flex(row, center, center, null);
           .arrow {
@@ -57,7 +52,13 @@
             }
           }
           .slick-list {
-            width: 1180px;
+              width: 1180px;
+            @include tablet {
+              width: 905px;
+            }
+            @include mobile {
+              width: 630px;
+            }
             .slick-track {
               @include size-1248 {
                 margin-left: 24px;
