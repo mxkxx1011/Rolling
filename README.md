@@ -1,4 +1,4 @@
-# 🤘온라인 롤링페이퍼 플랫폼 Rolling
+![데스크탑 리스트](https://github.com/mxkxx1011/Rolling/assets/100355178/70d81cea-26ee-4fa9-8064-fecc57450567)# 🤘온라인 롤링페이퍼 플랫폼 Rolling
 ![최종이미지](https://github.com/mxkxx1011/Rolling/assets/100355178/3e5f699f-f66b-4c53-9cbb-f8c287b491cb)
 배포 URL : https://rocknrolling.netlify.app/
 
@@ -39,7 +39,7 @@
 - 버전 및 이슈관리 : `Github, Github Project`
 - 협업 툴 : `Discord, Notion, Github, Git`
 - 서비스 배포 환경 : `Netlify`
-- 디자인 : [`Figma 디자인](https://www.figma.com/file/cbZ9PNKSFg4mS7Lf1roZlp/AAA---%E1%84%85%E1%85%A9%E1%86%AF%E1%84%85%E1%85%B5%E1%86%BC?type=design&node-id=0%3A1&mode=design&t=HhPJMSdq5WMlY0wk-1)`
+- 디자인 : [Figma 디자인](https://www.figma.com/file/cbZ9PNKSFg4mS7Lf1roZlp/AAA---%E1%84%85%E1%85%A9%E1%86%AF%E1%84%85%E1%85%B5%E1%86%BC?type=design&node-id=0%3A1&mode=design&t=HhPJMSdq5WMlY0wk-1)
     
     ### 컨벤션 🔗
     
@@ -221,14 +221,71 @@
 
 ### [메인페이지]
 ![메인 페이지](https://github.com/mxkxx1011/Rolling/assets/100355178/6eb3e19e-80ab-42ba-8936-2061276e17b8)
+- 사이트 소개 배너 배치
+- 구경해보기 버튼으로 /list 페이지로의 이동
+- 반응형 구현 (모바일/태블릿/PC)
 
 
 ### [롤링페이퍼 리스트 페이지]
 
+#### 1. 데스크탑 버전 리스트 이동
+![데스크탑 리스트](https://github.com/mxkxx1011/Rolling/assets/100355178/83c0aa68-56da-45c5-ae46-4adaae2a6e17)
+
+#### 2. 모바일 버전 리스트 이동
+![모바일 리스트](https://github.com/mxkxx1011/Rolling/assets/100355178/ca48694b-3656-482d-ba70-3fe1f2f15b40)
+
+- 전체 cardlist 데이터를 정렬 조건을 통해 인기순과 최신순 정렬 배치
+- 캐러셀을 통한 데이터를 배치해 자연스러운 데이터 이동 기능 구현
+- 슬라이드 방식과 방향 버튼을 이용해 리스트 이동
+
+
+### [롤링페이퍼 작성 페이지]
+
+#### 1. 유효성 검사
+![생성 페이지-받는사람 입력](https://github.com/mxkxx1011/Rolling/assets/100355178/5dfcb059-1c40-42c1-acf8-06e65e899253)
+- 받는 사람을 입력하지 않았을 경우 버튼 비활성화 & 에러 메시지 표시
+
+#### 2. 컬러/이미지 토글 선택 & 이미지 랜덤 변경
+![생성 페이지-컬러 및 이미지 선택](https://github.com/mxkxx1011/Rolling/assets/100355178/49c0dc81-4135-471e-a515-7f42c7067cb6)
+- 컬러/이미지 토글에 따라 배경 옵션 컴포넌트 변경
+- '이미지' 옵션의 [이미지 셔플] 버튼을 누르면 랜덤 배경 표시
+
+#### 3. 생성하기 
+![생성 페이지-롤링페이퍼 생성](https://github.com/mxkxx1011/Rolling/assets/100355178/16bcd38d-347a-4670-a36f-100ebe62a54b)
+- 모두 입력하고 '생성하기'버튼을 누르면 /list 페이지로 이동 후 생성된 롤링페이퍼 표시
+
+
+
+
+### [롤링페이퍼 메시지 리스트 페이지]
+![-](https://github.com/mxkxx1011/Rolling/assets/100355178/617b8f0a-52d1-415b-bdad-94b0abf10e68)
+
+![롤링페이퍼 페이지-메시지 기본삭제](https://github.com/mxkxx1011/Rolling/assets/100355178/5daa726c-e200-4e39-b370-8412d1819b83)
+![롤링페이퍼 페이지-메시지 상세 보기](https://github.com/mxkxx1011/Rolling/assets/100355178/80eec3f8-4a1c-4277-a707-858d5378b34b)
+![롤링페이퍼 페이지-메시지 선택 항목 삭제](https://github.com/mxkxx1011/Rolling/assets/100355178/6af96d79-47fd-4f6f-a38e-3a04f2c535db)
+![롤링페이퍼 페이지-메시지 전체 선택 삭제](https://github.com/mxkxx1011/Rolling/assets/100355178/8b30497b-cbcf-4872-8c4c-3e4392f2a152)
+![롤링페이퍼 페이지-반응 확인 및 추가](https://github.com/mxkxx1011/Rolling/assets/100355178/b5a561d5-d2ba-4c2d-9060-f0c69511c50a)
+![롤링페이퍼 페이지-스크롤](https://github.com/mxkxx1011/Rolling/assets/100355178/f9e2af11-bc06-48c7-82ef-9c99574bf4dd)
+![롤링페이퍼 페이지-페이지 삭제](https://github.com/mxkxx1011/Rolling/assets/100355178/c1477f54-5294-49d7-bd0d-2e74990eacbe)
+
+
+
+
+### [롤링페이퍼 메시지 작성 페이지]
+![메시지 생성 페이지- 프로필 이미지 및 관계, 폰트 선택](https://github.com/mxkxx1011/Rolling/assets/100355178/ff5f1e40-327b-4a41-8611-aff5448505fd)
+![메시지 생성 페이지-유효성 검사](https://github.com/mxkxx1011/Rolling/assets/100355178/639934e6-ee20-4881-84b6-4ede11422936)
+
+
 
 ## 7. 프로젝트 이슈
+git 관련 이슈
+
 
 ## 8. 개선 사항 (추가 기능)
+- 스켈레톤
+- 선택 삭제
+- 익명으로 랜덤 이름
+- 사진 랜덤 선택
 
 ## 9. 프로젝트 후기 
 
