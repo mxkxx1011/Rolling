@@ -1,3 +1,5 @@
+@import 'assets/styles/common.scss';
+
 @font-face {
   font-display: swap;
   font-family: 'Pretendard';
@@ -94,7 +96,14 @@ $font-weights: (
   regular: 400,
 );
 
-@mixin font-style($size, $weight) {
+// 기존 font-sytle에서 모바일과 태블릿 사이즈를 추가해서 확장한 믹스인
+//기존꺼 그대로 사용하시고 반응형으로 폰트사이즈 변경하실 때 사용해주시면 좋아요-
+@mixin font-style(
+  $desktop-size,
+  $weight,
+  $tablet-size: null,
+  $mobile-size: null
+) {
   font-family:
     'Pretendard',
     Pretendard,
@@ -103,8 +112,73 @@ $font-weights: (
     BlinkMacSystemFont,
     'Noto Sans KR',
     sans-serif;
-  font-size: map-get($font-sizes, '#{$size}');
+
+  // 데스크탑에서 폰트 사이즈 및 폰트 웨이트 적용
+  font-size: map-get($font-sizes, '#{$desktop-size}');
   font-weight: map-get($font-weights, '#{$weight}');
+
+  // 태블릿에서 폰트 사이즈 적용
+  @include tablet {
+    @if $tablet-size != null {
+      font-size: map-get($font-sizes, '#{$tablet-size}');
+    } @else {
+      font-size: map-get($font-sizes, '#{$desktop-size}');
+    }
+  }
+
+  // 모바일에서 폰트 사이즈 적용
+  @include mobile {
+    @if $mobile-size != null {
+      font-size: map-get($font-sizes, '#{$mobile-size}');
+    } @else {
+      font-size: map-get($font-sizes, '#{$desktop-size}');
+    }
+  }
+}
+
+// 메인페이지 프리셋 1 (누구나 손쉽게)
+.font-24-24-18-bold {
+  @include font-style(24, bold, 24, 18);
+}
+
+// 메인페이지 프리셋 2 (로그인 없이 자유롭게)
+.font-18-18-15-regular {
+  @include font-style(18, regular, 18, 15);
+}
+
+// 목록페이지 프리셋 1 (인기 롤링 페이퍼)
+.font-24-24-20-bold {
+  @include font-style(24, bold, 24, 20);
+}
+
+// 목록페이지 프리셋 2 (To.~~~)
+.font-20-20-18-bold {
+  @include font-style(20, bold, 20, 18);
+}
+
+// 목록페이지 프리셋 3 (작성했어요)
+.font-16-16-14-bold {
+  @include font-style(16, bold, 16, 14);
+}
+
+// 생성된 롤링페이퍼 페이지 프리셋 1 (헤더)
+.font-28-28-18-bold {
+  @include font-style(28, bold, 28, 18);
+}
+
+// 생성된 롤링페이퍼 페이지 프리셋 2 (카드 From.)
+.font-20-20-18-regular {
+  @include font-style(20, regular, 20, 18);
+}
+
+// 생성된 롤링페이퍼 페이지 프리셋 3 (카드 Recipient)
+.font-20-20-16-bold {
+  @include font-style(20, bold, 20, 16);
+}
+
+// 생성된 롤링페이퍼 페이지 프리셋 4 (카드 내용)
+.font-18-18-15-regular {
+  @include font-style(18, regular, 18, 15);
 }
 
 .font-28-bold {
