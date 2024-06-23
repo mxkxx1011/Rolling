@@ -1,6 +1,7 @@
 # 🤘온라인 롤링페이퍼 플랫폼 Rolling
 ![최종이미지](https://github.com/mxkxx1011/Rolling/assets/100355178/3e5f699f-f66b-4c53-9cbb-f8c287b491cb)
-배포 URL : https://rocknrolling.netlify.app/
+배포 URL : https://rocknrolling.netlify.app/ <br>
+공유 팀 노션 : https://www.notion.so/Rolling-in-the-deep-296a95aa05b946869d046e5fdfd462e9?pm=c
 
 목차
 1. [프로젝트 소개](#1.-프로젝트-소개)
