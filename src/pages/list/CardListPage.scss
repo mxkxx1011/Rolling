@@ -5,10 +5,11 @@
 .card-list-layer {
   overflow: hidden;
   margin: 0 auto;
-  width: fit-content;
+  width: 100%;
+  max-width: fit-content;
   padding-bottom: 24px;
-  @include Flex(column, center, center, null);
   .card-list-box {
+    width: fit-content;
     .title-layer {
       margin-top: 50px;
       margin-left: 24px;
@@ -20,16 +21,14 @@
     }
     .card-list-data {
       position: relative;
-      width: fit-content;
+      width: 1248px;
+
+      @include size-1248 {
+        width: 100%;
+      }
       .card-list-wrapper {
-        width: 1170px;
         position: relative;
         background-color: $color--white;
-
-        @include tablet {
-        }
-        @include mobile {
-        }
 
         .slick-slider {
           @include Flex(row, center, center, null);
@@ -37,25 +36,42 @@
             position: absolute;
             z-index: 2;
             &.left {
-              left: 0px;
+              left: 15px;
               &.disabled {
                 visibility: hidden;
               }
             }
             &.right {
-              right: 0px;
+              right: 35px;
               &.disabled {
                 visibility: hidden;
               }
             }
+            @include size-1248 {
+              display: none;
+            }
           }
           .slick-list {
+              width: 1180px;
+            @include tablet {
+              width: 905px;
+            }
+            @include mobile {
+              width: 630px;
+            }
             .slick-track {
-              // margin: 0 10px;
-              // margin-left: 10px;
-              padding: 0 10px;
+              @include size-1248 {
+                margin-left: 24px;
+              }
+
               .slick-slide {
-                width: 290px !important;
+                margin-right: 20px;
+                width: 275px !important;
+
+                @include mobile {
+                  width: 200px !important;
+                  margin-right: 12px;
+                }
               }
             }
           }
@@ -71,10 +87,6 @@
     padding: 0 24px;
     width: 100%;
     @include Flex(row, center, center, null);
-
-    // @include tablet {
-    //   max-width: 720px;
-    // }
 
     @include mobile {
       padding: 0 20px;
@@ -96,108 +108,3 @@
     }
   }
 }
-
-// .card-list-layer {
-//   margin: 50px auto;
-//   // width: 100%;
-//   overflow: hidden;
-//   @include Flex(column, center, center, null);
-
-//   @include mobile {
-//     margin-top: 40px;
-//   }
-
-//   .card-list-box {
-//     @include Flex(column, center, center, null);
-//     width: 100%;
-//     margin-bottom: 50px;
-//     position: relative;
-
-//     @include mobile {
-//       margin-bottom: 74px;
-//     }
-//     .title-layer {
-//       @include Flex(column, flex-start, flex-start, null);
-//       width: 100%;
-//       max-width: 1160px;
-//       padding: 0 24px;
-//       .card-list-title {
-//         margin: 0 24px 16px;
-//         // width: fit-content;
-
-//         @include font-style(24, bold);
-//         line-height: 36px;
-//       }
-//     }
-
-//     .card-list-data {
-//       @include Flex(row, center, center, 20px);
-//       width: 100%;
-//       position: relative;
-//       transition: 1s;
-//       @include tablet {
-//         margin: 0 24px;
-//       }
-
-//       // .arrow {
-//       //   position: relative;
-//       //   cursor: pointer;
-//       //   @include Flex(row, center, center, null);
-//       //   border: 1px solid $gray-arrow-border;
-//       //   border-radius: 100%;
-//       //   background-color: $color--white;
-//       //   width: 40px;
-//       //   height: 40px;
-//       //   top: 50%;
-//       //   transform: translateY(-50%);
-//       //   z-index: 2;
-//       //   &.right {
-//       //     right: 40px;
-//       //   }
-//       //   &.left {
-//       //     left: 40px;
-//       //   }
-//       //   &.disabled {
-//       //     visibility: hidden;
-//       //   }
-//       //   @include size-1248 {
-//       //     visibility: hidden;
-//       //   }
-//       // }
-
-//       .card-list-wrapper {
-//         width: 1160px;
-//         @include Flex(row, flex-start, flex-start, 20px);
-//         overflow: hidden;
-//         scroll-behavior: smooth;
-
-//         @include tablet {
-//           // width: calc(100% - 24px);
-//         }
-
-//         @include mobile {
-//           gap: 12px;
-//         }
-//       }
-//     }
-//   }
-//   .link-button-layer {
-//     padding: 0 24px;
-//     width: 100%;
-//     @include Flex(row, center, center, null);
-
-//     @include mobile {
-//       padding: 0 20px;
-//     }
-//     .post-link-button {
-//       margin-top: 16px;
-//       width: 280px;
-//       color: $color--white;
-//       background-color: $purple-600;
-//       @include tablet {
-//         margin-top: 156px;
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
