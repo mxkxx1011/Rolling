@@ -13,6 +13,15 @@
       background-color: $color--surface;
       width: 100%;
       border-radius: 16px;
+      opacity: 0;
+      transform: translateY(-50px);
+      transition:
+        opacity 1s ease-out,
+        transform 1s ease-out;
+      &.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
       .banner-content {
         .content-point {
@@ -151,7 +160,7 @@
             height: auto;
             object-fit: contain;
             @media (max-width: 440px) {
-              min-width: 400px; // 최소 너비를 400px로 설정
+              min-width: 400px;
             }
           }
         }

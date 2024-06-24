@@ -3,14 +3,22 @@ import imageBanner01 from '../../assets/images/image_banner_01.png';
 import imageBanner02 from '../../assets/images/image_banner_02.png';
 import Button from 'components/Button';
 import useNavigator from 'hooks/useNavigator';
+import { useEffect, useState } from 'react';
 
 function HomePage() {
   const handleMovePage = useNavigator();
+  const [showBanners, setShowBanners] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowBanners(true);
+    }, 500);
+  }, []);
 
   return (
     <div className='main-body'>
       <div className='main-container'>
-        <div className='banner'>
+        <div className={`banner ${showBanners ? 'show' : ''}`}>
           <div className='banner-content'>
             <div className='content-point'>Point. 01</div>
             <div className='content-title'>
@@ -25,7 +33,7 @@ function HomePage() {
             <img src={imageBanner01} className='banner-image' alt='Banner 01' />
           </div>
         </div>
-        <div className='banner'>
+        <div className={`banner ${showBanners ? 'show' : ''}`}>
           <div className='banner-content'>
             <div className='content-point'>Point. 02</div>
             <div className='content-title'>
