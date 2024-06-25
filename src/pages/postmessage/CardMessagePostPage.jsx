@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useRecipient from 'hooks/useRecipient';
-import useRecipientMessage from 'hooks/useRecipientMessage';
 import useNavigator from 'hooks/useNavigator';
 import TextInputField from 'components/textfield/TextInputField';
 import TextDropdownField from 'components/textfield/TextDropdownField';
@@ -29,14 +27,12 @@ function CardMessagePostPage() {
   const [message, setMessage] = useState('');
   const [isMessageError, setIsMessageError] = useState(false);
   const [profileImage, setProfileImage] = useState(DEFAULT_IMAGE);
-  const { getRecipient } = useRecipient();
-  const { getRecipientMessage } = useRecipientMessage();
   const { postId } = useParams();
   const handleMovePage = useNavigator();
   const isButtonDisabled =
     !sender || !message || isSenderError || isMessageError;
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const formData = {
@@ -50,10 +46,7 @@ function CardMessagePostPage() {
     };
 
     try {
-      RecipientsMessagesAPI('post', postId, formData);
-      console.log(formData);
-      getRecipient();
-      getRecipientMessage();
+      await RecipientsMessagesAPI('post', postId, formData);
       handleMovePage(`/post/${postId}`);
     } catch (error) {
       console.log(error);
