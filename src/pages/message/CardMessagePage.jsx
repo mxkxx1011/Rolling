@@ -101,10 +101,10 @@ function CardMessagePage() {
 
   const hanldeWasteDelete = async (id) => {
     try {
-      deleteMessage(id);
-      await getRecipientMessage();
+      await deleteMessage(id);
+      // await getRecipientMessage();
       handleMovePage(`/post/${postId}`);
-      await getRecipient();
+      // await getRecipient();
     } catch (error) {
       console.error(error);
     }
@@ -147,12 +147,12 @@ function CardMessagePage() {
   };
 
   // 페이지 삭제하는 핸들러 함수
-  const handlePageDelete = () => {
+  const handlePageDelete = async () => {
     const result = window.confirm(
       `해당 '${name}'님의 롤링페이지를 삭제하시겠습니까?`,
     );
     if (result) {
-      RecipientsAPI('delete', postId);
+      await RecipientsAPI('delete', postId);
       handleMovePage('/list');
     } else {
       alert('페이지 삭제를 취소하셨습니다.');
